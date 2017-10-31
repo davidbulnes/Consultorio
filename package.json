@@ -1,14 +1,14 @@
 {
-  "name": "meanjs",
-  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "name": "consultorio",
+  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
   "version": "0.6.0",
   "meanjs-version": "0.6.0",
   "private": false,
-  "author": "https://github.com/meanjs/mean/graphs/contributors",
+  "author": "David",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meanjs/mean.git"
+    "url": "https://github.com/davidbulnes/Consultorio.git"
   },
   "engines": {
     "node": ">=6.10.0",
@@ -39,6 +39,7 @@
   "dependencies": {
     "acl": "^0.4.11",
     "amazon-s3-uri": "0.0.3",
+    "angular-bootstrap-calendar": "^0.30.0",
     "async": "~2.5.0",
     "aws-sdk": "^2.123.0",
     "body-parser": "^1.18.2",

@@ -1,0 +1,78 @@
+<!--<section>
+  <div class="page-header">
+    <h1>{{vm.paciente._id ? 'Edit Paciente' : 'New Paciente'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.pacienteForm" class="form-horizontal" ng-submit="vm.save(vm.form.pacienteForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Name</label>
+          <input name="name" type="text" ng-model="vm.paciente.name" id="name" class="form-control" placeholder="Name" required>
+          <div ng-messages="vm.form.pacienteForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Paciente name is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.paciente._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>-->
+
+<section>
+  <div class="page-header">
+    <h1>{{vm.pacientes._id ? 'Edit Paciente' : 'New Paciente'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.pacienteForm" class="form-horizontal" ng-submit="vm.save(vm.form.pacienteForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="dni">Dni</label>
+          <input name="dni" type="number" ng-model="vm.pacientes.dni" id="dni" class="form-control" placeholder="Dni" required>
+          <div ng-messages="vm.form.pacienteForm.dni.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Apellido es Requerido.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Nombre</label>
+          <input name="name" type="text" ng-model="vm.pacientes.name" id="name" class="form-control" placeholder="Nombre" required>
+          <div ng-messages="vm.form.pacienteForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Paciente name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="lastName">Apellido</label>
+          <input name="lastName" type="text" ng-model="vm.pacientes.lastName" id="lastName" class="form-control" placeholder="Apellido" required>
+          <div ng-messages="vm.form.pacienteForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Apellido es Requerido.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Email</label>
+          <input name="email" type="text" ng-model="vm.pacientes.email" id="email" class="form-control" placeholder="Email" required>
+          <div ng-messages="vm.form.pacienteForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Email es Requerido.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Teléfono</label>
+          <input name="phone" type="number" ng-model="vm.pacientes.phone" id="phone" class="form-control" placeholder="Telefono" required>
+          <div ng-messages="vm.form.pacienteForm.phone.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Teléfono es Requerido.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.pacientes._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
+

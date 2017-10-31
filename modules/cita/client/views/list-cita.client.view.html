@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Cita</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="citum in vm.cita"
+       ui-sref="cita.view({ citumId: citum._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="citum.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="citum.user" ng-bind="citum.user.displayName"></span>
+        <span ng-if="!citum.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="citum.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.cita.$resolved && !vm.cita.length">
+    No Cita yet, why don't you <a ui-sref="cita.create">create one</a>?
+  </div>
+</section>
