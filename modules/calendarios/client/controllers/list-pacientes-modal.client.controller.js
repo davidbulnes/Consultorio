@@ -2,16 +2,17 @@
   'use strict';
 
   angular
-    .module('pacientes')
-    .controller('PacientesListController', PacientesListController);
+    .module('calendarios')
+    .controller('PacientesModalListController', PacientesModalListController);
 
-  PacientesListController.$inject = ['$scope', '$filter', 'PacientesService'];
+  PacientesModalListController.$inject = ['$scope', '$filter', 'PacientesService', 'pacienteResolve', '$uibModalInstance'];
 
-  function PacientesListController($scope, $filter, PacientesService) {
+  function PacientesModalListController($scope, $filter, PacientesService, type, $uibModalInstance) {
     var vm = this;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
+    vm.type = type;
 
     PacientesService.query(function (data) {
       vm.pacientes = data;
@@ -35,6 +36,9 @@
       vm.pagedItems = vm.filteredItems.slice(begin, end);
     }
 
+    vm.closeModal = function(paciente) {
+      $uibModalInstance.close(paciente);
+    }
 
     function pageChanged() {
       vm.figureOutItemsToDisplay();

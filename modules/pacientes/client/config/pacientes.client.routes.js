@@ -19,11 +19,6 @@
         templateUrl: 'modules/pacientes/client/views/list-pacientes.client.view.html',
         controller: 'PacientesListController',
         controllerAs: 'vm',
-         resolve: {
-           pacienteResolve: () => {
-            return true;
-          }
-        },
         data: {
           roles: ['admin']
         }

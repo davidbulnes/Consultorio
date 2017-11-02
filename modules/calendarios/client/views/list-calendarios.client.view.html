@@ -109,12 +109,13 @@
 
     <thead>
       <tr>
-        <th>Title</th>
+        <th>Titulo</th>
         <th>Primary color</th>
         <th>Secondary color</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th>Remove</th>
+        <th>Fecha</th>
+        <th>Motivo</th>
+        <th>Paciente</th>
+        <th>Borrar</th>
       </tr>
     </thead>
 
@@ -184,7 +185,14 @@
             minute-step="15"
             show-meridian="true">
           </div>-->
-          <td><button class="btn btn-info" ng-click="vm.openPaciente(false)">Buscar Paciente</button></td>
+        <td>
+          <textarea
+            class="form-control"
+            rows="8"
+            ng-model="event.title"> </textarea>
+        </td>
+          <td><p><button class="btn btn-info" ng-click="vm.openPaciente(false)">Buscar Paciente</button></p>
+          <p><label>{{vm.selectPaciente.title}}</label></p></td>
         <td>
           <button
             class="btn btn-danger"

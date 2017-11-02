@@ -22,7 +22,7 @@
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
 </section> -->
 <section>
-  <div class="page-header" ng-show=vm.type>
+  <div class="page-header">
     <div class="row">
       <div class="col-md-4">
         <h1>Pacientes</h1>
@@ -34,12 +34,6 @@
         <i class="glyphicon glyphicon-plus"></i>
       </a>
     </div>
-  </div>
-  <div class="modal-header" ng-show=!vm.type>
-        <h3 class="modal-title">Pacientes</h3>
-        <div class="col-md-8" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
-      </div>
   </div>
   <!--<div class="list-group">
     <a ng-repeat="paciente in vm.pagedItems"
@@ -76,7 +70,7 @@
         <td>{{paciente.created | date:'mediumDate' }}</td>
         <!--<td>{{paciente.user.displayName}}</td>-->
       </tr>    
-    </tbody>
+    </tbody>   
   </table>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.pacientes.$resolved && !vm.pacientes.length">

@@ -119,9 +119,9 @@
     }
 
       var paciente = function (type) {
-      return $uibModal.open({
-        templateUrl: 'modules/pacientes/client/views/list-pacientes.client.view.html',
-        controller: 'PacientesListController',
+      var openPacienteModal = $uibModal.open({
+        templateUrl: 'modules/calendarios/client/views/list-pacientes-modal.client.view.html',
+        controller: 'PacientesModalListController',
         controllerAs: 'vm',
         size: 'lg',
         windowClass: 'my-modal',
@@ -129,6 +129,10 @@
           pacienteResolve: () => {
             return type;
           }}
+      });
+      openPacienteModal.result.then(function(selectedItem){
+        vm.selectPaciente = selectedItem;
+        console.log(vm.selectPaciente)
       });
     }
 
