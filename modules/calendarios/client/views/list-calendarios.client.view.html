@@ -192,7 +192,8 @@
             ng-model="event.title"> </textarea>
         </td>
           <td><p><button class="btn btn-info" ng-click="vm.openPaciente(false)">Buscar Paciente</button></p>
-          <p><label>{{vm.selectPaciente.title}}</label></p></td>
+          <p><input type="text" ng-model="vm.selectPaciente.dni" disabled/></p>
+          <p><input type="text" ng-model="vm.fullName" disabled/></p></td>
         <td>
           <button
             class="btn btn-danger"
