@@ -4,34 +4,33 @@
   angular
     .module('calendarios')
     .controller('KitchenSinkCtrl', KitchenSinkCtrl);
-    
 
-  KitchenSinkCtrl.$inject = ['$uibModal', 'CalendariosService','moment', 'calendarConfig'];
+
+  KitchenSinkCtrl.$inject = ['$uibModal', 'CalendariosService', 'moment', 'calendarConfig'];
 
   function KitchenSinkCtrl($uibModal, CalendariosService, moment, calendarConfig) {
     var vm = this;
-    console.log($uibModal);
     vm.calendarios = CalendariosService.query();
     vm.calendarView = 'month';
-    vm.viewDate = new Date();
-    vm.citas = [];
+    vm.viewDate = new Date();;
 
     var actions = [{
       label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
-      onClick: function(args) {
+      onClick: function (args) {
         show('Edited', args.calendarEvent);
       }
     }, {
       label: '<i class=\'glyphicon glyphicon-remove\'></i>',
-      onClick: function(args) {
+      onClick: function (args) {
         show('Deleted', args.calendarEvent);
       }
     }];
 
-    vm.events = [
+    /*vm.events = [
       {
         title: 'An event',
         color: calendarConfig.colorTypes.warning,
+        //color: {primary: "#e3bc08", secondary: "#fdf1ba"},
         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
         draggable: true,
@@ -55,12 +54,12 @@
         resizable: true,
         actions: actions
       }
-    ];
+    ];*/
 
     vm.cellIsOpen = true;
-    vm.citas = vm.events;
+    console.log(vm.events);
 
-    vm.addEvent = function() {
+    /*vm.addEvent = function() {
       vm.events.push({
         title: 'New event',
         startsAt: moment().startOf('day').toDate(),
@@ -69,47 +68,53 @@
         draggable: true,
         resizable: true
       });
-    };
-
-    /*vm.addEvent = function(evento = vm.events){
+      console.log(vm.events)
+    };*/
+    vm.addEvent = function () {
       return $uibModal.open({
+        templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
-        templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
+        size: 'lg',
+        windowClass: 'my-modal',
         resolve: {
-          calendarioResolve: () => {
-            return evento;
-          }
-        },
-      });
-    }*/
+          citaResolve: newCalendario
+        }
+      })
+    };
 
-    vm.eventClicked = function(event) {
+    newCalendario.$inject = ['CalendariosService'];
+
+    function newCalendario(CalendariosService) {
+      return new CalendariosService();
+    }
+
+    vm.eventClicked = function (event) {
       show('Clicked', event);
     };
 
-    vm.eventEdited = function(event) {
+    vm.eventEdited = function (event) {
       show('Edited', event);
     };
 
-    vm.eventDeleted = function(event) {
+    vm.eventDeleted = function (event) {
       show('Deleted', event);
     };
 
-    vm.eventTimesChanged = function(event) {
+    vm.eventTimesChanged = function (event) {
       show('Dropped or resized', event);
     };
 
-    vm.toggle = function($event, field, event) {
+    vm.toggle = function ($event, field, event) {
       $event.preventDefault();
       $event.stopPropagation();
       event[field] = !event[field];
     };
 
-     var show = function (action, event) {
+    var show = function (action, event) {
       return $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/modalContent.html',
-        controller: function() {
+        controller: function () {
           var vm = this;
           vm.action = action;
           vm.event = event;
@@ -118,31 +123,32 @@
       });
     }
 
-      var paciente = function (type) {
+    /*var paciente = function (type) {
       var openPacienteModal = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/list-pacientes-modal.client.view.html',
         controller: 'PacientesModalListController',
         controllerAs: 'vm',
         size: 'lg',
         windowClass: 'my-modal',
-         resolve: {
+        resolve: {
           pacienteResolve: () => {
             return type;
-          }}
+          }
+        }
       });
-      openPacienteModal.result.then(function(selectedItem){
+      openPacienteModal.result.then(function (selectedItem) {
         vm.selectPaciente = selectedItem;
         vm.fullName = selectedItem.name + ' ' + selectedItem.lastName
         console.log(vm.selectPaciente)
       });
     }
 
-     vm.openPaciente = function(event) {
+    vm.openPaciente = function (event) {
       paciente();
-    };
+    };*/
 
 
-    vm.timespanClicked = function(date, cell) {
+    vm.timespanClicked = function (date, cell) {
       if (vm.calendarView === 'month') {
         if ((vm.cellIsOpen && moment(date).startOf('day').isSame(moment(vm.viewDate).startOf('day'))) || cell.events.length === 0 || !cell.inMonth) {
           vm.cellIsOpen = false;

@@ -6,13 +6,29 @@
     .module('calendarios')
     .controller('CalendariosController', CalendariosController);
 
-  CalendariosController.$inject = ['$scope', '$state', '$window','calendarioResolve'];
+  CalendariosController.$inject = ['$scope', 'moment', 'calendarConfig', 'citaResolve'];
 
-  function CalendariosController ($scope, $state, $window, eventos) {
+  function CalendariosController ($scope, moment, calendarConfig, cita) {
     var vm = this;
-    vm.events = eventos;
-    console.log(vm.events)
-    var vm = this;
+    vm.cita = cita;
+    setCita();
+    console.log(cita)
+    console.log(vm.cita)
+
+    vm.toggle = function($event, field, event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      event[field] = !event[field];
+    };
+    
+     function setCita(){
+      vm.cita.startsAt = moment().startOf('day').toDate();
+      vm.cita.endsAt = moment().endOf('day').toDate();
+      vm.cita.color = {primary : "#e3bc08", secondary : "#fdf1ba"};
+      vm.cita.draggable = true;
+      vm.cita.resizable = true;
+    };
+
 
     /*vm.authentication = Authentication;
     vm.calendario = calendario;
