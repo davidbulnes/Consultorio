@@ -10,9 +10,15 @@
 
   function KitchenSinkCtrl($uibModal, CalendariosService, moment, calendarConfig) {
     var vm = this;
-    vm.calendarios = CalendariosService.query();
+    vm.calendarios = CalendariosService.query({}, function(data){
+      angular.forEach(data, function(value, key) {
+        data[key].startsAt = moment(value.startsAt).toDate();
+        data[key].endsAt = moment(value.endsAt).toDate();
+        data[key].actions = actions;
+      });
+    });
     vm.calendarView = 'month';
-    vm.viewDate = new Date();;
+    vm.viewDate = new Date();
 
     var actions = [{
       label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
@@ -54,11 +60,18 @@
         resizable: true,
         actions: actions
       }
-    ];*/
+    ]*/
+    console.log(vm.events);
+    console.log(vm.calendarios);
+
+    function formatDate(){
+      angular.forEach(vm.calendarios, function(value, key) {
+        console.log(moment(value.startsAt).toDate());
+        vm.calendarios.startsAt = moment(value.startsAt).toDate();
+      });
+    }
 
     vm.cellIsOpen = true;
-    console.log(vm.events);
-
     /*vm.addEvent = function() {
       vm.events.push({
         title: 'New event',
@@ -71,7 +84,7 @@
       console.log(vm.events)
     };*/
     vm.addEvent = function () {
-      return $uibModal.open({
+      var openModalCita = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
@@ -80,7 +93,11 @@
         resolve: {
           citaResolve: newCalendario
         }
-      })
+      });
+      openModalCita.result.then(function (selectedItem) {
+        vm.selectPaciente = selectedItem;
+        console.log(vm.selectPaciente)
+      });
     };
 
     newCalendario.$inject = ['CalendariosService'];

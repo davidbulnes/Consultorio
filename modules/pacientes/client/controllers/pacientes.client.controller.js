@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    console.log(vm.pacientes);
 
     // Remove existing Specialty
     function remove() {
@@ -36,6 +37,7 @@
       if (vm.pacientes._id) {
         vm.pacientes.$update(successCallback, errorCallback);
       } else {
+        console.log(vm.pacientes);
         vm.pacientes.$save(successCallback, errorCallback);
       }
 
