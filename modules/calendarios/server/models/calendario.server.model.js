@@ -16,10 +16,10 @@ var CalendarioSchema = new Schema({
     required: 'Título es requerido',
     trim: true
   },
-  color: [{
-    primary: String,
-    secondary: String
-  }],
+  color: {
+    primary : {type: String},
+    secondary: {type: String}
+  },
    startsAt: {
     type: Date,
     default: Date.now
