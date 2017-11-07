@@ -11,18 +11,23 @@
   function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance) {
     var vm = this;
     vm.cita = cita;
+    console.log(cita);
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.form = {};
     vm.save = save;
     vm.showTable = false;
-    setCita();
-
     PacientesService.query(function (data) {
       vm.pacientes = data;
       vm.buildPager();
     });
+
+    if (!vm.cita._id) {
+      setCita();
+    } else {
+      vm.fullName = vm.cita.paciente.name + ' ' + vm.cita.paciente.lastName;
+    }
 
     function buildPager() {
       vm.pagedItems = [];
@@ -44,6 +49,7 @@
       vm.cita.draggable = true;
       vm.cita.resizable = true;
     };
+
 
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.pacientes, {

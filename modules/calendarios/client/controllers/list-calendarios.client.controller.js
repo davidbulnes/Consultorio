@@ -10,8 +10,8 @@
 
   function KitchenSinkCtrl($uibModal, CalendariosService, moment, calendarConfig) {
     var vm = this;
-    vm.calendarios = CalendariosService.query({}, function(data){
-      angular.forEach(data, function(value, key) {
+    vm.calendarios = CalendariosService.query({}, function (data) {
+      angular.forEach(data, function (value, key) {
         data[key].startsAt = moment(value.startsAt).toDate();
         data[key].endsAt = moment(value.endsAt).toDate();
         data[key].actions = actions;
@@ -23,7 +23,7 @@
     var actions = [{
       label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
       onClick: function (args) {
-        show('Edited', args.calendarEvent);
+        edit('Edited', args.calendarEvent);
       }
     }, {
       label: '<i class=\'glyphicon glyphicon-remove\'></i>',
@@ -61,12 +61,9 @@
         actions: actions
       }
     ]*/
-    console.log(vm.events);
-    console.log(vm.calendarios);
 
-    function formatDate(){
-      angular.forEach(vm.calendarios, function(value, key) {
-        console.log(moment(value.startsAt).toDate());
+    function formatDate() {
+      angular.forEach(vm.calendarios, function (value, key) {
         vm.calendarios.startsAt = moment(value.startsAt).toDate();
       });
     }
@@ -94,9 +91,8 @@
           citaResolve: newCalendario
         }
       });
-      openModalCita.result.then(function (selectedItem) {
-        vm.selectPaciente = selectedItem;
-        console.log(vm.selectPaciente)
+      openModalCita.result.then(function () {
+        window.location.reload();
       });
     };
 
@@ -104,6 +100,14 @@
 
     function newCalendario(CalendariosService) {
       return new CalendariosService();
+    }
+
+    getCalendario.$inject = ['CalendariosService'];
+
+    function getCalendario(CalendariosService) {
+      return CalendariosService.get({
+        calendarioId: vm.cita_id
+      }).$promise;
     }
 
     vm.eventClicked = function (event) {
@@ -139,6 +143,20 @@
         controllerAs: 'vm'
       });
     }
+
+    var edit = function (action, event) {
+      return $uibModal.open({
+        templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
+        controller: 'CalendariosController',
+        controllerAs: 'vm',
+        size: 'lg',
+        windowClass: 'my-modal',
+        resolve: {
+          citaResolve: event
+        }
+      });
+    }
+
 
     /*var paciente = function (type) {
       var openPacienteModal = $uibModal.open({
@@ -179,7 +197,6 @@
         } else {
           vm.cellIsOpen = true;
           vm.viewDate = date;
-          //vm.citas = cell.events
         }
       }
     }

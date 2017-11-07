@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 var CalendarioSchema = new Schema({
   title: {
     type: String,
-    default: '',
+    default: 'Nueva Cita',
     required: 'Título es requerido',
     trim: true
   },
@@ -32,6 +32,11 @@ var CalendarioSchema = new Schema({
   draggable: Boolean,
   resizable: Boolean,
   actions: [{}, {}],
+  description: {
+    type: String,
+    default: '',
+    trim: true
+  },
 
   created: {
     type: Date,
