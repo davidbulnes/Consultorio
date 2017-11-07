@@ -145,7 +145,7 @@
     }
 
     var edit = function (action, event) {
-      return $uibModal.open({
+      var editModal = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
@@ -154,6 +154,9 @@
         resolve: {
           citaResolve: event
         }
+      });
+      editModal.result.then(function () {
+        window.location.reload();
       });
     }
 
