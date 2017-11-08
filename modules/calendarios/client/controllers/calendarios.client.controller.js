@@ -18,6 +18,7 @@
     vm.form = {};
     vm.save = save;
     vm.showTable = false;
+    vm.objects = [{id: "#0459ff", color: 'Blue'},{id: "#0afc31", color: 'Green'},{id: "#ff000f", color: 'Red'}];
     PacientesService.query(function (data) {
       vm.pacientes = data;
       vm.buildPager();
@@ -76,6 +77,10 @@
       vm.fullName = vm.selectRows.name + ' ' + vm.selectRows.lastName;
       vm.showTable = false;
     };
+
+    vm.close = function () {
+      $uibModalInstance.dismiss();
+    }
 
     function save(isValid) {
       /*if (!isValid) {

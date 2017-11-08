@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Calendarios
  */
 exports.list = function(req, res) {
-  Calendario.find().sort('-created').populate('user paciente', 'displayName name lastName').exec(function(err, calendarios) {
+  Calendario.find().sort('-created').populate('user paciente', 'displayName name lastName dni').exec(function(err, calendarios) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

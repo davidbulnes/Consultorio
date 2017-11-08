@@ -23,7 +23,6 @@
   </div>
   </section>-->
 
-
 <div class="modal-header">
   <h3 class="modal-title">{{vm.cita._id ? 'Editar Cita' : 'Nueva Cita'}}</h3>
 </div>
@@ -35,38 +34,49 @@
         <div class="col-md-9" ng-bind="vm.fullName"></div>
       </div>
       <hr/>
+      <div class="row">
+        <div class="col-md-2"><strong>Titulo : </strong></div>
+        <div class="col-md-10">
+          <input class="form-control" ng-model="vm.cita.title" />
+        </div>
+      </div>
+      <hr/>
     </div>
   </div>
-  <table class="table table-bordered">
+  <div class="table-responsive">
+    <table class="table table-bordered">
 
-    <thead>
-      <tr>
-        <th>Titulo</th>
-        <th>Primary color</th>
-        <th>Secondary color</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
-        <th>Motivo</th>
-        <th ng-if="!vm.cita._id">Paciente</th>
-      </tr>
-    </thead>
+      <thead>
+        <tr>
+          <th>Primary color</th>
+          <th>Secondary color</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Motivo</th>
+          <th ng-if="!vm.cita._id">Paciente</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr>
-        <td>
-          <textarea class="form-control" rows="6" ng-model="vm.cita.title"> </textarea>
-        </td>
-        <td>
-          <input class="form-control" colorpicker type="text" ng-model="vm.cita.color.primary">
-        </td>
-        <td>
-          <input class="form-control" colorpicker type="text" ng-model="vm.cita.color.secondary">
-        </td>
-        <td>
-          <p class="input-group" style="max-width: 250px">
-            <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.cita.startsAt" is-open="vm.cita.startOpen"
-              close-text="Close">
-              <span class="input-group-btn">
+      <tbody>
+        <tr>
+          <td>
+            <p><input class="form-control" colorpicker type="text" ng-model="vm.cita.color.primary"></p>
+              <select ng-model="vm.cita.color.primary" ng-options="option.id as option.color for option in vm.objects" option-class-expr="color.toLowerCase()">
+              <option value="">--Seleccione--</option></select>
+            </p>
+          </td>
+          <td>
+            <p><input class="form-control" colorpicker type="text" ng-model="vm.cita.color.secondary"></p>
+            <p>
+              <select ng-model="vm.cita.color.secondary" ng-options="option.id as option.color for option in vm.objects" option-class-expr="color.toLowerCase()">
+              <option value="">--Seleccione--</option></select>
+            </p>
+          </td>
+          <td>
+            <p class="input-group" style="max-width: 250px">
+              <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.cita.startsAt" is-open="vm.cita.startOpen"
+                close-text="Close">
+                <span class="input-group-btn">
               <button
                 type="button"
                 class="btn btn-default"
@@ -74,15 +84,15 @@
                 <i class="glyphicon glyphicon-calendar"></i>
               </button>
             </span>
-          </p>
-          <div uib-timepicker ng-model="vm.cita.startsAt" hour-step="1" minute-step="15" show-meridian="true">
-          </div>
-        </td>
-        <td>
-          <p class="input-group" style="max-width: 250px">
-            <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.cita.endsAt" is-open="vm.cita.endOpen"
-              close-text="Close">
-              <span class="input-group-btn">
+            </p>
+            <div uib-timepicker ng-model="vm.cita.startsAt" hour-step="1" minute-step="15" show-meridian="true">
+            </div>
+          </td>
+          <td>
+            <p class="input-group" style="max-width: 250px">
+              <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.cita.endsAt" is-open="vm.cita.endOpen"
+                close-text="Close">
+                <span class="input-group-btn">
               <button
                 type="button"
                 class="btn btn-default"
@@ -90,47 +100,53 @@
                 <i class="glyphicon glyphicon-calendar"></i>
               </button>
             </span>
-          </p>
-          <div uib-timepicker ng-model="vm.cita.endsAt" hour-step="1" minute-step="15" show-meridian="true">
-          </div>
-        </td>
-        <td>
-          <textarea class="form-control" rows="6" ng-model="vm.cita.description"> </textarea>
-        </td>
-        <td ng-if="!vm.cita._id">
-          <p><button class="btn btn-info" ng-click="vm.openTable()">Buscar Paciente</button></p>
-          <p><input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
-            /></p>
-      </tr>
-    </tbody>
-
-  </table>
-  <div ng-show="vm.showTable">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>DNI</th>
-          <th>Teléfono</th>
-          <th>Email</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="paciente in vm.pagedItems">
-          <td>{{paciente.name}} {{paciente.lastName}}</td>
-          <td>{{paciente.dni}}</td>
-          <td>{{paciente.phone}}</td>
-          <td>{{paciente.email}}</td>
-          <td><button class="btn btn-info" ng-click="vm.selectRow(paciente)">Seleccionar</button></td>
-          <!--<td>{{paciente.user.displayName}}</td>-->
+            </p>
+            <div uib-timepicker ng-model="vm.cita.endsAt" hour-step="1" minute-step="15" show-meridian="true">
+            </div>
+          </td>
+          <td>
+            <textarea class="form-control" rows="6" ng-model="vm.cita.description"> </textarea>
+          </td>
+          <td ng-if="!vm.cita._id">
+            <p><button class="btn btn-info" ng-click="vm.openTable()">Buscar Paciente</button></p>
+            <p><input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
+              /></p>
         </tr>
       </tbody>
+
     </table>
-    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
-      ng-change="vm.pageChanged()"></uib-pagination>
-  </div>
-</div>
-<div class="modal-footer">
-  <button class="btn btn-primary" ng-click="vm.save()">OK</button>
-</div>
+    <div class="table-responsive">
+
+      <div ng-show="vm.showTable">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="paciente in vm.pagedItems">
+                <td>{{paciente.name}} {{paciente.lastName}}</td>
+                <td>{{paciente.dni}}</td>
+                <td>{{paciente.phone}}</td>
+                <td>{{paciente.email}}</td>
+                <td><button class="btn btn-info" ng-click="vm.selectRow(paciente)">Seleccionar</button></td>
+                <!--<td>{{paciente.user.displayName}}</td>-->
+              </tr>
+            </tbody>
+          </table>
+          <div class="table-responsive">
+            <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
+              ng-change="vm.pageChanged()"></uib-pagination>
+          </div>
+        </div>
+      </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="vm.save()">OK</button>
+          <button class="btn btn-primary" ng-click="vm.close()">Cancel</button>
+        </div>

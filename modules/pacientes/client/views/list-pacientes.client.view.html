@@ -28,9 +28,10 @@
         <h1>Pacientes</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
+        />
       </div>
-       <a class="btn btn-primary pull-right" data-ui-sref="paciente.create">
+      <a class="btn btn-primary pull-right" data-ui-sref="paciente.create">
         <i class="glyphicon glyphicon-plus"></i>
       </a>
     </div>
@@ -50,32 +51,34 @@
     </a>
   </div>-->
   <div class="modal-body">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>DNI</th>
-        <th>Teléfono</th>
-        <th>Email</th>
-        <th>Create on</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="paciente in vm.pagedItems" ui-sref="paciente.view({ pacienteId: paciente._id })">
-        <td>{{paciente.name}} {{paciente.lastName}}</td>
-        <td>{{paciente.dni}}</td>
-        <td>{{paciente.phone}}</td>
-        <td>{{paciente.email}}</td>
-        <td>{{paciente.created | date:'mediumDate' }}</td>
-        <!--<td>{{paciente.user.displayName}}</td>-->
-      </tr>    
-    </tbody>   
-  </table>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Create on</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="paciente in vm.pagedItems" ui-sref="paciente.view({ pacienteId: paciente._id })">
+            <td>{{paciente.name}} {{paciente.lastName}}</td>
+            <td>{{paciente.dni}}</td>
+            <td>{{paciente.phone}}</td>
+            <td>{{paciente.email}}</td>
+            <td>{{paciente.created | date:'mediumDate' }}</td>
+            <!--<td>{{paciente.user.displayName}}</td>-->
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="alert alert-warning text-center" ng-if="vm.pacientes.$resolved && !vm.pacientes.length">
     No Pacientes yet, why don't you <a ui-sref="paciente.create">create one</a>?
   </div>
-   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
+    ng-change="vm.pageChanged()"></uib-pagination>
 </section>
-
