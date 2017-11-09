@@ -6,31 +6,36 @@
     .controller('KitchenSinkCtrl', KitchenSinkCtrl);
 
 
-  KitchenSinkCtrl.$inject = ['$uibModal', 'CalendariosService', 'moment', 'calendarConfig'];
+  KitchenSinkCtrl.$inject = ['$uibModal', '$window', 'CalendariosService', 'moment', 'calendarConfig', 'Notification'];
 
-  function KitchenSinkCtrl($uibModal, CalendariosService, moment, calendarConfig) {
+  function KitchenSinkCtrl($uibModal, $window, CalendariosService, moment, calendarConfig, Notification) {
     var vm = this;
-    vm.calendarios = CalendariosService.query({}, function (data) {
-      angular.forEach(data, function (value, key) {
-        data[key].startsAt = moment(value.startsAt).toDate();
-        data[key].endsAt = moment(value.endsAt).toDate();
-        data[key].actions = actions;
-      });
-    });
+    listCalendar();
     vm.calendarView = 'month';
+    vm.remove = remove;
     vm.viewDate = new Date();
 
     var actions = [{
       label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
       onClick: function (args) {
-        edit('Edited', args.calendarEvent);
+        edit(args.calendarEvent);
       }
     }, {
       label: '<i class=\'glyphicon glyphicon-remove\'></i>',
       onClick: function (args) {
-        show('Deleted', args.calendarEvent);
+        remove(args.calendarEvent);
       }
     }];
+
+    function listCalendar() {
+      vm.calendarios = CalendariosService.query({}, function (data) {
+        angular.forEach(data, function (value, key) {
+          data[key].startsAt = moment(value.startsAt).toDate();
+          data[key].endsAt = moment(value.endsAt).toDate();
+          data[key].actions = actions;
+        });
+      });
+    }
 
     /*vm.events = [
       {
@@ -92,7 +97,7 @@
         }
       });
       openModalCita.result.then(function () {
-        window.location.reload();
+        listCalendar();
       });
     };
 
@@ -144,7 +149,7 @@
       });
     }
 
-    var edit = function (action, event) {
+    var edit = function (event) {
       var editModal = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
@@ -156,8 +161,17 @@
         }
       });
       editModal.result.then(function () {
-        window.location.reload();
+        listCalendar();
       });
+    }
+
+    function remove(item) {
+      if ($window.confirm('Estas seguro de borrar esta cita?')) {
+        item.$remove(function () {
+          listCalendar();
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Cita Borrada' });
+        });
+      }
     }
 
 

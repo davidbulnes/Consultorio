@@ -6,9 +6,9 @@
     .module('calendarios')
     .controller('CalendariosController', CalendariosController);
 
-  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance'];
+  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance', 'Notification'];
 
-  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance) {
+  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification) {
     var vm = this;
     vm.cita = cita;
     console.log(cita);
@@ -100,10 +100,12 @@
       }
 
       function successCallback(res) {
+        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Operación realizada correctamente' });
         $uibModalInstance.close(res);
       }
 
       function errorCallback(res) {
+        Notification.error({ message: response.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Error!', delay: 6000 });
         vm.error = res.data.message;
       }
     }
