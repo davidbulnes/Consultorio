@@ -16,7 +16,7 @@
       })
       .state('calendarios.list', {
         url: '',
-        templateUrl: 'modules/calendarios/client/views/list-calendarios.client.view.html',
+        templateUrl: '/modules/calendarios/client/views/list-calendarios.client.view.html',
         controller: 'KitchenSinkCtrl',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('calendarios.create', {
         url: '/create',
-        templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
+        templateUrl: '/modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('calendarios.edit', {
         url: '/:calendarioId/edit',
-        templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
+        templateUrl: '/modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('calendarios.view', {
         url: '/:calendarioId',
-        templateUrl: 'modules/calendarios/client/views/view-calendario.client.view.html',
+        templateUrl: '/modules/calendarios/client/views/view-calendario.client.view.html',
         controller: 'CalendariosController',
         controllerAs: 'vm',
         resolve: {

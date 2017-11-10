@@ -13,20 +13,15 @@
       title: 'Calendarios',
       state: 'calendarios',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'calendarios', {
-      title: 'List Calendarios',
-      state: 'calendarios.list'
+      title: 'Calendario',
+      state: 'calendarios.list',
+      roles: ['admin']
     });
 
-    // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'calendarios', {
-      title: 'Create Calendario',
-      state: 'calendarios.create',
-      roles: ['user']
-    });
   }
 }());

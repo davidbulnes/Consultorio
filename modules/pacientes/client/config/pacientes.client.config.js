@@ -18,7 +18,13 @@
 
      menuService.addSubMenuItem('topbar', 'paciente', {
       title: 'Listar Pacientes',
-      state: 'paciente.list'
+      state: 'paciente.list',
+      roles: ['admin']
+    });
+    menuService.addSubMenuItem('topbar', 'paciente', {
+      title: 'Registrar Paciente',
+      state: 'paciente.create',
+      roles: ['admin']
     });
   }
 }());

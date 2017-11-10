@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('pacientes.routes')
+    .module('pacientes')
     .config(routeConfig);
 
   routeConfig.$inject = ['$stateProvider'];
@@ -16,7 +16,7 @@
       })
       .state('paciente.list', {
         url: '',
-        templateUrl: 'modules/pacientes/client/views/list-pacientes.client.view.html',
+        templateUrl: '/modules/pacientes/client/views/list-pacientes.client.view.html',
         controller: 'PacientesListController',
         controllerAs: 'vm',
         data: {
@@ -25,7 +25,7 @@
       })
       .state('paciente.create', {
         url: '/create',
-        templateUrl: 'modules/pacientes/client/views/form-paciente.client.view.html',
+        templateUrl: '/modules/pacientes/client/views/form-paciente.client.view.html',
         controller: 'PacientesController',
         controllerAs: 'vm',
         resolve: {
@@ -38,7 +38,7 @@
       })
       .state('paciente.edit', {
         url: '/:pacienteId/edit',
-        templateUrl: 'modules/pacientes/client/views/form-paciente.client.view.html',
+        templateUrl: '/modules/pacientes/client/views/form-paciente.client.view.html',
         controller: 'PacientesController',
         controllerAs: 'vm',
         resolve: {
@@ -51,7 +51,7 @@
       })
       .state('paciente.view', {
         url: '/:pacienteId',
-        templateUrl: 'modules/pacientes/client/views/view-paciente.client.view.html',
+        templateUrl: '/modules/pacientes/client/views/view-paciente.client.view.html',
         controller: 'PacientesController',
         controllerAs: 'vm',
         resolve: {

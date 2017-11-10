@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('pacientes.services')
+    .module('pacientes')
     .factory('PacientesService', PacientesService);
 
   PacientesService.$inject = ['$resource'];
