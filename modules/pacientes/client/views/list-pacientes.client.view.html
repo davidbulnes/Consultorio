@@ -18,16 +18,46 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>DNI</th>
-            <th>Teléfono</th>
-            <th>Email</th>
-            <th>Create on</th>
+            <th>
+              <a href="#" ng-click="vm.sortType = 'name'; vm.sortReverse = !vm.sortReverse">
+            Nombre 
+            <span ng-show="vm.sortType == 'name' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="vm.sortType == 'name' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </a>
+            </th>
+            <th>
+               <a href="#" ng-click="vm.sortType = 'dni'; vm.sortReverse = !vm.sortReverse">
+            DNI 
+            <span ng-show="vm.sortType == 'dni' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="vm.sortType == 'dni' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </a>
+            </th>
+            <th>
+               <a href="#" ng-click="vm.sortType = 'phone'; vm.sortReverse = !vm.sortReverse">
+            Telefóno
+            <span ng-show="vm.sortType == 'phone' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="vm.sortType == 'phone' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </a>
+            </th>
+            <th>
+               <a href="#" ng-click="vm.sortType = 'email'; vm.sortReverse = !vm.sortReverse">
+            Email 
+            <span ng-show="vm.sortType == 'email' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="vm.sortType == 'email' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </a>
+            </th>
+            <th>
+               <a href="#" ng-click="vm.sortType = 'created'; vm.sortReverse = !vm.sortReverse">
+            F. Creación 
+            <span ng-show="vm.sortType == 'created' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+            <span ng-show="vm.sortType == 'created' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+          </a>
+            </th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="paciente in vm.pagedItems" ui-sref="paciente.view({ pacienteId: paciente._id })">
+          <tr ng-repeat="paciente in vm.pagedItems | orderBy:vm.sortType:vm.sortReverse" ui-sref="paciente.view({ pacienteId: paciente._id })">
             <td>{{paciente.name}} {{paciente.lastName}}</td>
             <td>{{paciente.dni}}</td>
             <td>{{paciente.phone}}</td>
