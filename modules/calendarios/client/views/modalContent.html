@@ -6,11 +6,30 @@
         <p>Action:
         <pre>{{ vm.action }}</pre>
         </p>
-        <p>Event:
-        <pre>{{ vm.event | json }}</pre>
+        <p>Paciente:
+          <hr/>
+          <div class="form-group">
+          <label class="control-label">Nombre : </label>&nbsp;{{vm.event.paciente.name}}&nbsp;{{vm.event.paciente.lastName}}        
+        </div>
+         <div class="form-group">
+          <label class="control-label">Dni : </label>&nbsp;{{vm.event.paciente.dni}}        
+        </div>
+         <div class="form-group">
+          <label class="control-label">Teléfono : </label>&nbsp;{{vm.event.paciente.phone}}        
+        </div>
+         <div class="form-group">
+          <label class="control-label">Email : </label>&nbsp;{{vm.event.paciente.email}}        
+        </div>
+         <div class="form-group">
+          <label class="control-label">Fecha : </label><input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy" ng-model="vm.event.startsAt">        
+        </div>
+         <div class="form-group">
+          <label class="control-label">Hora : </label>
+          <div uib-timepicker ng-model="vm.event.startsAt" show-meridian="true" ng-disabled="true" show-spinners="false"></div>       
+        </div>
+
         </p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" ng-click="$close()">OK</button>
       </div>
-    
