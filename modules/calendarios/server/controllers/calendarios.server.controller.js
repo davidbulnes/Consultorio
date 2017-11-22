@@ -7,16 +7,17 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Calendario = mongoose.model('Calendario'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  schedule = require('node-schedule');
 
 /**
  * Create a Calendario
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var calendario = new Calendario(req.body);
   calendario.user = req.user;
 
-  calendario.save(function(err) {
+  calendario.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +31,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Calendario
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var calendario = req.calendario ? req.calendario.toJSON() : {};
 
@@ -44,12 +45,12 @@ exports.read = function(req, res) {
 /**
  * Update a Calendario
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var calendario = req.calendario;
 
   calendario = _.extend(calendario, req.body);
 
-  calendario.save(function(err) {
+  calendario.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +64,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Calendario
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var calendario = req.calendario;
 
-  calendario.remove(function(err) {
+  calendario.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +81,8 @@ exports.delete = function(req, res) {
 /**
  * List of Calendarios
  */
-exports.list = function(req, res) {
-  Calendario.find().sort('-created').populate('user paciente', 'displayName name lastName dni phone email').exec(function(err, calendarios) {
+exports.list = function (req, res) {
+  Calendario.find().sort('-created').populate('user paciente', 'displayName name lastName dni phone email').exec(function (err, calendarios) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +96,7 @@ exports.list = function(req, res) {
 /**
  * Calendario middleware
  */
-exports.calendarioByID = function(req, res, next, id) {
+exports.calendarioByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -115,3 +116,14 @@ exports.calendarioByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.scheduleJobTest = function () {
+  var rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+  rule.hour = 21;
+  rule.minute = 15;
+
+  var j = schedule.scheduleJob(rule, function () {
+    console.log('Today is recognized by Rebecca Black!');
+  });
+}

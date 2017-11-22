@@ -2,7 +2,12 @@
 
 var validator = require('validator'),
   path = require('path'),
-  config = require(path.resolve('./config/config'));
+  config = require(path.resolve('./config/config')),
+  schedule = require('node-schedule'),
+  mongoose = require('mongoose'),
+  User = mongoose.model('User'),
+  nodemailer = require('nodemailer')
+
 
 /**
  * Render the main application page
@@ -27,6 +32,17 @@ exports.renderIndex = function (req, res) {
   res.render('modules/core/server/views/index', {
     user: JSON.stringify(safeUserObject),
     sharedConfig: JSON.stringify(config.shared)
+  });
+
+  var smtpTransport = nodemailer.createTransport(config.mailer.options);
+
+  var rule = new schedule.RecurrenceRule();
+  rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+  rule.hour = 22;
+  rule.minute = 34;
+
+  schedule.scheduleJob(rule, function () {
+    console.log('Faquito tiene un chupito');
   });
 };
 
@@ -61,3 +77,4 @@ exports.renderNotFound = function (req, res) {
     }
   });
 };
+

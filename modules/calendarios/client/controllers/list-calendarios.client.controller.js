@@ -138,6 +138,7 @@
     };
 
     var show = function (action, event) {
+      event.paciente.fullname = event.paciente.name + ' ' + event.paciente.lastName
       return $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/modalContent.html',
         controller: function () {
