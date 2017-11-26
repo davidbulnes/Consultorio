@@ -57,12 +57,12 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'davidbulnes19@hotmail.com',
+    from: process.env.MAILER_FROM || 'mail',
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'hotmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'davidbulnes19@hotmail.com',
-        pass: process.env.MAILER_PASSWORD || 'nevermore458'
+        user: process.env.MAILER_EMAIL_ID || 'mail',
+        pass: process.env.MAILER_PASSWORD || 'pass'
       }
     }
   },
