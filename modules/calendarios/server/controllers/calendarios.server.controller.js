@@ -4,19 +4,25 @@
  * Module dependencies.
  */
 var path = require('path'),
+  config = require(path.resolve('./config/config')),
   mongoose = require('mongoose'),
   Calendario = mongoose.model('Calendario'),
+  Paciente = mongoose.model('Paciente'),
+  nodemailer = require('nodemailer'),
+  moment = require('moment'),
+  async = require('async'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash'),
-  schedule = require('node-schedule');
+  _ = require('lodash');
 
+var smtpTransport = nodemailer.createTransport(config.mailer.options);
 /**
  * Create a Calendario
  */
 exports.create = function (req, res) {
   var calendario = new Calendario(req.body);
   calendario.user = req.user;
-
+  var paciente = new Paciente(req.body.paciente);
+  console.log(req.body);
   calendario.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -24,6 +30,7 @@ exports.create = function (req, res) {
       });
     } else {
       res.jsonp(calendario);
+      //sendMail(calendario, paciente, res);
     }
   });
 };
@@ -117,13 +124,41 @@ exports.calendarioByID = function (req, res, next, id) {
   });
 };
 
-exports.scheduleJobTest = function () {
-  var rule = new schedule.RecurrenceRule();
-  rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-  rule.hour = 21;
-  rule.minute = 15;
+var sendMail = function (calendario, paciente, res) {
+  async.waterfall([
+    function (done) {
+      res.render(path.resolve('modules/users/server/templates/send-mail-date-confirm'), {
+        name: paciente.name,
+        appName: config.app.title,
+        date: moment(calendario.startsAt).lang('es').format('dddd LL'),
+        dateHour : moment(calendario.startsAt).lang('es').format('h:mm a'),
+      }, function (err, emailHTML) {
+        done(err, emailHTML);
+      });
+      console.log('paso')
+    },
+    // If valid email, send reset email using service
+    function (emailHTML, done) {
+      var mailOptions = {
+        to: paciente.email,
+        from: config.mailer.from,
+        subject: 'Cita Programada',
+        html: emailHTML
+      };
+      console.log(mailOptions);
+      smtpTransport.sendMail(mailOptions, function (err) {
+        if (!err) {
+          res.send({
+            message: 'An email has been sent to the provided email with further instructions.'
+          });
+        } else {
+          return res.status(400).send({
+            message: 'Failure sending email'
+          });
+        }
 
-  var j = schedule.scheduleJob(rule, function () {
-    console.log('Today is recognized by Rebecca Black!');
-  });
-}
+        done(err);
+      });
+    }
+  ]);
+};

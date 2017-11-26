@@ -11,14 +11,14 @@
   function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification) {
     var vm = this;
     vm.cita = cita;
-    console.log(cita);
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
     vm.form = {};
     vm.save = save;
     vm.showTable = false;
-    vm.objects = [{id: "#0459ff", color: 'Blue'},{id: "#0afc31", color: 'Green'},{id: "#ff000f", color: 'Red'}];
+    vm.selectPaciente = true;
+    vm.objects = [{ id: "#0459ff", color: 'Blue' }, { id: "#0afc31", color: 'Green' }, { id: "#ff000f", color: 'Red' }];
     PacientesService.query(function (data) {
       vm.pacientes = data;
       vm.buildPager();
@@ -44,8 +44,8 @@
     };
 
     function setCita() {
-      vm.cita.startsAt = moment().startOf('day').toDate();
-      vm.cita.endsAt = moment().endOf('day').toDate();
+      vm.cita.startsAt = moment().startOf('day').add(9, 'hour').toDate();
+      vm.cita.endsAt = moment().endOf('day').subtract(14, 'hour').toDate();
       vm.cita.color = { primary: "#e3bc08", secondary: "#fdf1ba" };
       vm.cita.draggable = true;
       vm.cita.resizable = true;
@@ -76,6 +76,7 @@
       console.log(vm.cita);
       vm.fullName = vm.selectRows.name + ' ' + vm.selectRows.lastName;
       vm.showTable = false;
+      vm.selectPaciente = false;
     };
 
     vm.close = function () {
@@ -109,6 +110,13 @@
         vm.error = res.data.message;
       }
     }
+
+    vm.changeDate = function () {
+      if (vm.cita.endsAt <= vm.cita.startsAt) {
+
+        vm.cita.endsAt = moment(vm.cita.startsAt).add(1, 'hour').toDate();
+      }
+    };
 
     /*vm.authentication = Authentication;
     vm.calendario = calendario;
@@ -149,4 +157,5 @@
       }
     }*/
   }
+
 }());

@@ -35,6 +35,7 @@
           data[key].actions = actions;
         });
       });
+      console.log(vm.calendarios)
     }
 
     /*vm.events = [
