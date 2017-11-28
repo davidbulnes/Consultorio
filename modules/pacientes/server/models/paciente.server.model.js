@@ -45,6 +45,14 @@ var PacienteSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  estado: {
+    type: String,
+    default: 'No Asignado'
+  },
+  description: {
+    type: String,
+    default: '',
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

@@ -49,6 +49,7 @@
       vm.cita.color = { primary: "#e3bc08", secondary: "#fdf1ba" };
       vm.cita.draggable = true;
       vm.cita.resizable = true;
+      vm.cita.sendMail = true;
     };
 
 

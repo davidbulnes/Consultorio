@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   app: {
-    title: defaultEnvConfig.app.title + ' - Development Environment'
+    title: defaultEnvConfig.app.title + ' - Ozono Medico Perú'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'APP_ID',
@@ -57,11 +57,11 @@ module.exports = {
     sandbox: true
   },
   mailer: {
-    from: process.env.MAILER_FROM || 'mail',
+    from: process.env.MAILER_FROM || 'email',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'hotmail',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'gmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'mail',
+        user: process.env.MAILER_EMAIL_ID || 'email',
         pass: process.env.MAILER_PASSWORD || 'pass'
       }
     }

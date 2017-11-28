@@ -17,6 +17,7 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.fullName = pacientes.name + ' ' + pacientes.lastName;
     console.log(vm.pacientes);
 
     // Remove existing Specialty

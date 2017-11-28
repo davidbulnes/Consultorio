@@ -5,12 +5,14 @@
         <h1>Pacientes</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar..." ng-change="vm.figureOutItemsToDisplay()"
         />
       </div>
-      <a class="btn btn-primary pull-right" data-ui-sref="paciente.create">
+      <div class="col-md-4" style="margin-top: 2em">
+      <a class="btn btn-primary pull-right" data-ui-sref="paciente.create" data-toggle="tooltip" title="Agregar Paciente">
         <i class="glyphicon glyphicon-plus"></i>
       </a>
+      </div>
     </div>
   </div>
   <div class="modal-body">
@@ -63,6 +65,7 @@
             <td>{{paciente.phone}}</td>
             <td>{{paciente.email}}</td>
             <td>{{paciente.created | date:'mediumDate' }}</td>
+            <td>{{paciente.estado}}</td>
             <!--<td>{{paciente.user.displayName}}</td>-->
           </tr>
         </tbody>

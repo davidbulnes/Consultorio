@@ -37,7 +37,7 @@ exports.read = function(req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   paciente.isCurrentUserOwner = req.user && paciente.user && paciente.user._id.toString() === req.user._id.toString();
-
+  paciente.fullName = req.paciente.name + ' ' + req.paciente.lastName;
   res.jsonp(paciente);
 };
 
@@ -81,7 +81,19 @@ exports.delete = function(req, res) {
  * List of Pacientes
  */
 exports.list = function(req, res) {
-  Paciente.find().sort('-created').populate('user', 'displayName').exec(function(err, pacientes) {
+  if(req.user.roles.includes('eli')){
+    var pacienteList = Paciente.find({estado : { $in : ['Ozono', 'Vitamina C', 'No Asignado']}})
+          .sort('-created').populate('user', 'displayName')
+  }
+  else if(req.user.roles.includes('gio')){
+     var pacienteList = Paciente.find({estado : { $in : ['Podologia', 'No Asignado']}})
+          .sort('-created').populate('user', 'displayName')
+  }
+  else{
+    var pacienteList = Paciente.find().sort('-created').populate('user', 'displayName')
+  }
+
+  pacienteList.exec(function(err, pacientes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

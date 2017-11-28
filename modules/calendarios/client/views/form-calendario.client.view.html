@@ -86,6 +86,8 @@
             <p><button class="btn btn-info" ng-click="vm.openTable()">Buscar Paciente</button></p>
             <p><input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
               /></p>
+              <br /><br />
+              <p><input type="checkbox" ng-model="vm.cita.sendMail"> Enviar correo?</p>
         </tr>
       </tbody>
 

@@ -31,6 +31,7 @@ var CalendarioSchema = new Schema({
   
   draggable: Boolean,
   resizable: Boolean,
+  sendMail: Boolean,
   actions: [{}, {}],
   description: {
     type: String,

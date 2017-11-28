@@ -13,14 +13,14 @@
       title: 'Calendarios',
       state: 'calendarios',
       type: 'dropdown',
-      roles: ['admin']
+      roles: ['admin', 'eli', 'gio']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'calendarios', {
       title: 'Calendario',
       state: 'calendarios.list',
-      roles: ['admin']
+      roles: ['admin', 'eli', 'gio']
     });
 
   }

@@ -13,7 +13,7 @@ acl = new acl(new acl.memoryBackend());
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
-    roles: ['admin'],
+    roles: ['admin', 'eli', 'gio'],
     allows: [{
       resources: '/api/calendarios',
       permissions: '*'

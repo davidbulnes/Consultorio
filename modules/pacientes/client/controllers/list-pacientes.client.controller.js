@@ -18,6 +18,7 @@
     PacientesService.query(function (data) {
       vm.pacientes = data;
       vm.buildPager();
+      console.log(vm.pacientes)
     });
 
     function buildPager() {

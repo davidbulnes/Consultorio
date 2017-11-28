@@ -30,7 +30,9 @@ exports.create = function (req, res) {
       });
     } else {
       res.jsonp(calendario);
-      //sendMail(calendario, paciente, res);
+      if(calendario.sendMail){
+       sendMail(calendario, paciente, res);
+      }
     }
   });
 };

@@ -20,7 +20,7 @@
         controller: 'PacientesListController',
         controllerAs: 'vm',
         data: {
-          roles: ['admin']
+          roles: ['admin', 'eli', 'gio']
         }
       })
       .state('paciente.create', {
@@ -32,7 +32,7 @@
           pacienteResolve: newPaciente
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'eli', 'gio'],
           pageTitle: 'Paciente Create'
         }
       })
@@ -45,7 +45,7 @@
           pacienteResolve: getPaciente
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'eli', 'gio'],
           pageTitle: 'Edit Paciente {{ pacienteResolve.name }}'
         }
       })
@@ -58,7 +58,7 @@
           pacienteResolve: getPaciente
         },
         data: {
-          roles: ['admin'],
+          roles: ['admin', 'eli', 'gio'],
           pageTitle: 'Paciente {{ pacienteResolve.name }}'
         }
       });
