@@ -12,14 +12,20 @@
       title: 'Articles',
       state: 'articles',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin', 'eli']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'articles', {
       title: 'List Articles',
       state: 'articles.list',
-      roles: ['*']
+      roles: ['admin', 'eli']
+    });
+
+    menuService.addSubMenuItem('topbar', 'articles',{
+      title: 'Manage Articles',
+      state: 'admin.articles.list',
+      roles: ['admin', 'eli']
     });
   }
 }());

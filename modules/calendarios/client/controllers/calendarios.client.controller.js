@@ -6,11 +6,12 @@
     .module('calendarios')
     .controller('CalendariosController', CalendariosController);
 
-  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance', 'Notification'];
+  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance', 'Notification', 'typeResolve'];
 
-  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification) {
+  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification, type) {
     var vm = this;
     vm.cita = cita;
+    vm.type = type;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;

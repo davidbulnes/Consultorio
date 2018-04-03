@@ -86,7 +86,7 @@
       });
       console.log(vm.events)
     };*/
-    vm.addEvent = function () {
+    vm.addEvent = function (type) {
       var openModalCita = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
@@ -94,7 +94,8 @@
         size: 'lg',
         windowClass: 'my-modal',
         resolve: {
-          citaResolve: newCalendario
+          citaResolve: newCalendario,
+          typeResolve: type
         }
       });
       openModalCita.result.then(function () {
