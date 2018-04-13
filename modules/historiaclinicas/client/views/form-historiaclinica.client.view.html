@@ -1,0 +1,546 @@
+<section>
+  <div class="page-header">
+    <!--<h1>{{vm.historiaclinica._id ? 'Edit Historiaclinica' : 'New Historiaclinica'}}</h1>-->
+    <center>
+      <div class="row">
+        <div class="col-md-4">
+            <label class="control-label">
+              <strong>
+                <h4>FICHA CLÍNICA PODOLÓGICA N° : </h4>
+              </strong>
+            </label>
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" ng-model="vm.historiaclinica.numeroHC"/>
+        </div>
+        <div class="pull-right">
+            <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">
+                  <strong>
+                    <h4>FECHA : </h4>
+                  </strong>
+                </label>
+            </div>
+            <div class="col-md-8">
+                <p class="input-group" style="max-width: 250px">
+                    <input type="text" class="form-control" readonly uib-datepicker-popup="dd/MM/yy" ng-model="vm.historiaclinica.fechaCreated" is-open="vm.historiaclinica.startOpen"
+                      close-text="Close">
+                      <span class="input-group-btn">
+                    <button
+                      type="button"
+                      class="btn btn-default"
+                      ng-click="vm.toggle($event, 'startOpen', vm.historiaclinica)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                  </p>
+        <!--  <input type="date" class="form-control" ng-model="vm.historiaclinica.fechaCreated"/> -->
+        </div>
+          </div>
+        </div>
+      </div>
+    </center>
+  </div>
+
+  <div class="container" ng-init="selectedTab = 1;">
+    <div class="row">
+      <div class="process">
+        <div class="process-row nav nav-tabs">
+          <div class="process-step" ng-class="{active: selectedTab == 1}">
+            <button type="button" class="btn btn-info btn-circle" data-toggle="tab" ng-click="selectedTab = 1;" ng-class="{'btn-info': selectedTab == 1, 'btn-default': selectedTab != 1}">
+              <i class="glyphicon glyphicon-user glyphicon-3x"></i>
+            </button>
+            <p>
+              <h5>FILIACIÓN</h5>
+            </p>
+          </div>
+          <div class="process-step" ng-class="{active: selectedTab == 2}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 2;" ng-class="{'btn-info': selectedTab == 2, 'btn-default': selectedTab != 2}">
+              <i class="glyphicon glyphicon-list-alt"></i>
+            </button>
+            <p>
+              <h5>ANAMNESIS</h5>
+            </p>
+          </div>
+          <div class="process-step" ng-class="{active: selectedTab == 3}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 3;" ng-class="{'btn-info': selectedTab == 3, 'btn-default': selectedTab != 3}">
+              <i class="fa fa-image fa-3x"></i>
+            </button>
+            <p>
+                <h5>EXAMEN FÍSICO/
+                  <br />CLÍNICO EEII</h5>
+            </p>
+          </div>
+          <div class="process-step" ng-class="{active: selectedTab == 4}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 4;" ng-class="{'btn-info': selectedTab == 4, 'btn-default': selectedTab != 4}">
+              <i class="fa fa-cogs fa-3x"></i>
+            </button>
+            <p>
+              <h5>DIAGNÓSTICO</h5>
+            </p>
+          </div>
+          <div class="process-step" ng-class="{active: selectedTab == 5}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 5;" ng-class="{'btn-info': selectedTab == 5, 'btn-default': selectedTab != 5}">
+              <i class="glyphicon glyphicon-heart-empty"></i>
+            </button>
+            <p>
+              <h5>TERAPEUTICA 
+                <br />PODOLÓGICA</h5>
+            </p>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="container">
+        <div class="tab-content">
+          <div id="menu1" class="tab-content" ng-show="selectedTab == 1">
+            <div class="pull-left">
+              <h4><strong>I.- FILIACIÓN</strong></h4> 
+            </div>
+            <div class="pull-right">
+              <a class="btn btn-primary" ng-click="vm.openModalPaciente()" data-toggle="tooltip" title="Buscar Paciente">
+                <i class="glyphicon glyphicon-search"></i>
+              </a>
+              <a class="btn btn-primary" ng-click="vm.openModalPaciente()" data-toggle="tooltip" title="Nuevo Paciente">
+                <i class="glyphicon glyphicon-plus"></i>
+              </a>
+            </div>
+            <br /><br /><br /><br />
+            <ul>
+                <div class="form-group">
+                  <div class="row">
+                      <li>
+                    <div class="col-sm-2">
+                      <label class="control-label">Apellidos y Nombres: </label>
+                    </div>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" ng-model="vm.fullName" ng-disabled="true"/>
+                    </div>
+                    <div class="col-sm-1">
+                      <label class="control-label">Edad: </label>
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="number" class="form-control" ng-model="vm.historiaclinica.paciente.edad" ng-disabled="true"/>
+                    </div>
+                  </li>
+                  </div>
+                </div>
+              <br/>
+                <div class="form-group">
+                  <div class="row">
+                      <li>
+                    <div class="col-sm-2">
+                      <label class="control-label">Dirección: </label>
+                    </div>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.direccion" ng-disabled="true"/>
+                    </div>
+                  </li>
+                  </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">DNI: </label>
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.dni" ng-disabled="true"/>
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Fono: </label>
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.phone" ng-disabled="true"/>
+                      </div>
+                    </li>
+                    </div>
+                  </div>
+                <br />
+                <div class="form-group">
+                    <div class="row">
+                        <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">Ocupación: </label>
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.ocupacion" ng-disabled="true"/>
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Procedencia: </label>
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.procedencia" ng-disabled="true"/>
+                      </div>
+                    </li>
+                    </div>
+                  </div>
+            </ul>
+            <br />
+            <ul class="list-unstyled list-inline pull-right">
+            <li><button type="button" class="btn btn-info next-step" ng-click="selectedTab = 2;">Next <i class="fa fa-chevron-right"></i></button></li>
+           </ul>
+          </div>
+       
+        <div id="menu2" class="tab-content" ng-show="selectedTab == 2">
+            <div class="pull-left">
+                <h4><strong>II.- ANAMNESIS</strong></h4> 
+              </div>
+              <br /><br /><br /><br />
+              <ul>
+                  <div class="form-group">
+                    <div class="row">
+                        <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">Motivo de la Consulta: </label>
+                      </div>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.motivo"/>
+                      </div>
+                    </li>
+                    </div>
+                  </div>
+                <br/>
+                  <div class="form-group">
+                    <div class="row">
+                        <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">Antecedentes: </label>
+                      </div>
+                      <div class="col-sm-10">
+                        <textarea type="text" class="form-control" rows="5" ng-model="vm.historiaclinica.antecedentes"></textarea>
+                      </div>
+                    </li>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="form-group">
+                      <div class="row">
+                          <li>
+                        <div class="col-sm-2">
+                          <label class="control-label">Tiempo de la Enfermedad: </label>
+                        </div>
+                        <div class="col-sm-10">
+                          <textarea type="text" class="form-control" rows="3" ng-model="vm.historiaclinica.tiempoEnf"></textarea>  
+                        </div>               
+                      </li>
+                      </div>
+                    </div>
+                  <br />
+              </ul>
+          <ul class="list-unstyled list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 1;">
+                <i class="fa fa-chevron-left"></i> Back</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 3;">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div id="menu3" class="tab-content" ng-show="selectedTab == 3">
+            <div class="pull-left">
+                <h4><strong>III.- EXAMEN FÍSICO/CLÍNICO EEII</strong></h4> 
+              </div>
+              <br /><br /><br /><br />
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <label class="control-label">Estatura </label>
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" ng-model="vm.historiaclinica.estatura"/>
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Peso: </label>
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" ng-model="vm.historiaclinica.peso"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <label class="control-label"><u><i>Exploración Vascular</i></u></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-1">
+                          <label class="control-label">Pulso Pedio:</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="control-label">P/D:</label>
+                          </div>
+                        <div class="col-sm-2">
+                          <input type="number" class="form-control" ng-model="vm.historiaclinica.PulsoPePD"/>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="control-label">P/I:</label>
+                          </div>
+                          <div class="col-sm-2">
+                              <input type="number" class="form-control" ng-model="vm.historiaclinica.PulsoPePI"/>
+                            </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                            <div class="col-sm-1">
+                                <label class="control-label">Pulso Pedio TP:</label>
+                              </div>
+                              <div class="col-sm-1">
+                                  <label class="control-label">P/D:</label>
+                                </div>
+                              <div class="col-sm-2">
+                                <input type="number" class="form-control" ng-model="vm.historiaclinica.PtpPD"/>
+                              </div>
+                              <div class="col-sm-1">
+                                  <label class="control-label">P/I:</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" ng-model="vm.historiaclinica.PtpPI"/>
+                                  </div>
+                                </div>
+                    </div>
+                  <br />
+                  <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <label class="control-label">Color Piel: </label>
+                        </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" ng-model="vm.historiaclinica.ColorPiel"/>
+                        </div>
+                        <div class="col-sm-1">
+                          <label class="control-label">T°: </label>
+                        </div>
+                        <div class="col-sm-3">
+                          <input type="text" class="form-control" ng-model="vm.historiaclinica.temperatura"/>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                  <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <label class="control-label">AVP: </label>
+                        </div>
+                        <div class="col-sm-3">
+                          <input type="text" class="form-control" ng-model="vm.historiaclinica.AVP"/>
+                        </div>
+                        <div class="col-sm-1">
+                          <label class="control-label">TA T/B:</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="control-label">P/D: </label>
+                          </div>
+                        <div class="col-sm-2">
+                          <input type="number" class="form-control" ng-model="vm.historiaclinica.TatbPD"/>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="control-label">P/I: </label>
+                          </div>
+                        <div class="col-sm-2">
+                          <input type="number" class="form-control" ng-model="vm.historiaclinica.TatbPI"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <label class="control-label"><u><i>Exploración neurovascular EII</i></u></label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-2">
+                              <label class="control-label">Sencib. Dolorosa: </label>
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="number" class="form-control" ng-model="vm.historiaclinica.SencibDol"/>
+                            </div>
+                            <div class="col-sm-2">
+                              <label class="control-label">Sencib. Táctil: </label>
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="number" class="form-control" ng-model="vm.historiaclinica.SencibTactil"/>
+                            </div>
+                          </div>
+                        </div>
+                      <br />
+                      <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-2">
+                              <label class="control-label">Reflejo cutaneo plantar: </label>
+                            </div>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" ng-model="vm.historiaclinica.ReflejCutPla"/>
+                            </div>                        
+                          </div>
+                        </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label class="control-label"><u><i>Exploración osteoarticular EII</i></u></label>
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                      <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <textarea class="form-control col-sm-12" rows="4" ng-model="vm.historiaclinica.ExplOsteo"></textarea>
+                            </div>                                             
+                          </div>
+                        </div>
+                    <div class="form-group">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <label class="control-label"><u><i>Lesiones dermatológicas/podológicas</i></u></label>
+                          </div>
+                        </div>
+                      </div>
+                  <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-2">
+                              <label class="control-label">P/D: </label>
+                            </div>
+                            <div class="col-sm-10">
+                              <textarea type="text" class="form-control" rows="2" ng-model="vm.historiaclinica.LesionesDermaPD"></textarea>
+                            </div>
+                            <br /><br /><br /><br />
+                            <div class="col-sm-2">
+                                <label class="control-label">P/I: </label>
+                              </div>
+                              <div class="col-sm-10">
+                                <textarea type="text" class="form-control" rows="2" ng-model="vm.historiaclinica.LedionesDermaPI"></textarea>
+                              </div>                         
+                          </div>
+                  </div>
+              <br />
+          <ul class="list-unstyled list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 2;">
+                <i class="fa fa-chevron-left"></i> Back</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 4;">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div id="menu4" class="tab-content" ng-show="selectedTab == 4">   
+            <br /><br />      
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="control-label"><h4><strong>DIAGNOSTIVO PRESUNTIVO: </strong></h4></label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="vm.historiaclinica.diagPresuantivo"/>
+              </div> 
+              <div class="col-sm-1">
+                  <label class="control-label"><h4>CIE-10: </h4></label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" ng-disabled="true"/>
+                  </div> 
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-11">
+                    <textarea class="form-control" rows="2" ng-model="vm.historiaclinica.diagPresuantivoad"></textarea>
+                  </div>                 
+                </div>
+          </div>
+          <div class="form-group">
+              <div class="row">
+                <div class="col-sm-11">
+                  <label class="control-label"><h4><strong>EX AUXILIARES: </strong></h4></label>
+                </div>
+                <div class="col-sm-11">
+                  <textarea type="text" class="form-control" rows="3" ng-model="vm.historiaclinica.ExamAux"></textarea>
+                </div> 
+              </div>
+              </div>
+              <br />
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="control-label"><h4><strong>DIAGNOSTIVO DEFINITIVO: </strong></h4></label>
+              </div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="vm.historiaclinica.diagDefinitivo"/>
+              </div> 
+              <div class="col-sm-1">
+                  <label class="control-label"><h4>CIE-10: </h4></label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" ng-disabled="true"/>
+                  </div> 
+            </div>
+            </div>
+          <br /><br />
+          <ul class="list-unstyled list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 3;">
+                <i class="fa fa-chevron-left"></i> Back</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 5;">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div id="menu5" class="tab-content" ng-show="selectedTab == 5">
+            <div class="pull-left">
+                <h4><strong>VI.- TERAPEUTICA PODOLÓGICA</strong></h4> 
+              </div>
+              <br /><br /><br /><br />
+              <div class="form-group">
+                  <div class="row">
+              <div class="col-sm-12">
+                  <textarea type="text" class="form-control" rows="9" ng-model="vm.terapeuticaPodologica"></textarea>
+                </div>
+                </div>
+                </div>
+                <br /><br />
+                <div class="pull-left">
+                    <h4><strong>VII.- INDICACIONES, DERIVACIONES Y PRÓXIMA CITA</strong></h4> 
+                  </div>
+                  <br /><br /><br /><br />
+                <div class="form-group">
+                    <div class="row">
+                <div class="col-sm-12">
+                    <textarea type="text" class="form-control" rows="9" ng-model="vm.IndicacionesProxCita"></textarea>
+                  </div>
+                  </div>
+                  </div>
+                <br /><br />
+          <ul class="list-unstyled list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 4;">
+                <i class="fa fa-chevron-left"></i> Back</button>
+            </li>
+            <li>
+              <button type="submit" class="btn btn-success" ng-click="vm.save()">
+                <i class="fa fa-check"></i> Done!</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>  
+
+</section>

@@ -1,7 +1,7 @@
 <section>
-  <div class="modal-header">
-        <h3 class="modal-title">Pacientes</h3>
-        <div class="col-md-8" style="margin-top: 2em">
+  <div class="modal-header bg-primary">
+        <h3 class="modal-title">Pacientes <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()">&times;</button></h3>
+        <div class="col-md-8" style="margin-top: 2em; padding-left: 0px ;">
         <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
       </div>
   </div>
@@ -24,14 +24,17 @@
         <td>{{paciente.phone}}</td>
         <td>{{paciente.email}}</td>
         <td>{{paciente.created | date:'mediumDate' }}</td>
-        <td><button class="button btn-info" ng-click="vm.closeModal(paciente)">Cerrar</button></td>
+        <td><button class="btn btn-info" ng-click="vm.selectRow(paciente)">Sel</button></td>
       </tr>    
     </tbody>
   </table>
-  </div>
   <div class="alert alert-warning text-center" ng-if="vm.pacientes.$resolved && !vm.pacientes.length">
     No Pacientes yet, why don't you <a ui-sref="paciente.create">create one</a>?
   </div>
    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
+    </div>
 </section>
 

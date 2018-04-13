@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Historiaclinicas</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="historiaclinica in vm.historiaclinicas"
+       ui-sref="historiaclinicas.view({ historiaclinicaId: historiaclinica._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="historiaclinica.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="historiaclinica.user" ng-bind="historiaclinica.user.displayName"></span>
+        <span ng-if="!historiaclinica.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="historiaclinica.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.historiaclinicas.$resolved && !vm.historiaclinicas.length">
+    No Historiaclinicas yet, why don't you <a ui-sref="historiaclinicas.create">create one</a>?
+  </div>
+</section>

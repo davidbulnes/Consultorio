@@ -29,6 +29,11 @@ var PacienteSchema = new Schema({
       sparse: true
     }
   },
+  direccion: {
+    type: String,
+    default: '',
+    trim: true
+  },
   phone: {
     type: String,
     default: '000000000',
@@ -40,6 +45,22 @@ var PacienteSchema = new Schema({
     trim: true,
     default: '00000000',
     required: 'Please fill dni'
+  },
+  edad: {
+    type: Number,
+    trim: true,
+    require: 'Ingresar Edad',
+    default: 0
+  },
+  ocupacion: {
+    type: String,
+    trim: true,
+    default: ''
+  },
+  procedencia: {
+    type: String,
+    trim: true,
+    default: ''
   },
   created: {
     type: Date,

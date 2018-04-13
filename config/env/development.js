@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   app: {
-    title: defaultEnvConfig.app.title + ' - Ozono Medico Perú'
+    title: defaultEnvConfig.app.title + ' - Podología'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'APP_ID',

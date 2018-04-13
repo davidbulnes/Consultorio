@@ -9,7 +9,7 @@
   CalendariosService.$inject = ['$resource'];
 
   function CalendariosService($resource) {
-    return $resource('api/calendarios/:calendarioId', {
+    return $resource('/api/calendarios/:calendarioId', {
       calendarioId: '@_id'
     }, {
       update: {

@@ -17,6 +17,7 @@ module.exports = {
       js: [
         // bower:js
         'public/lib/angular/angular.js',
+        'public/lib/jquery/dit/jquery.min.js',
         'public/lib/moment/moment.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',  
         'public/lib/angular-animate/angular-animate.js',
@@ -30,7 +31,8 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/interactjs/dist/interactjs.min.js',
-        'public/lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js'
+        'public/lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
+
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
