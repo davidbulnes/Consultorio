@@ -4,6 +4,9 @@ module.exports = function (app) {
   // Root routing
   var core = require('../controllers/core.server.controller');
 
+  app.route('/api/reports/barras').get(core.reportBarras);
+
+  app.route('/api/reports/barras/:cie10id').get(core.listbarrasbyId)
   // Define error pages
   app.route('/server-error').get(core.renderServerError);
 
@@ -12,4 +15,8 @@ module.exports = function (app) {
 
   // Define application route
   app.route('/*').get(core.renderIndex);
+
+  //app.param('cie10id', core.getcie10byid);
+
+
 };

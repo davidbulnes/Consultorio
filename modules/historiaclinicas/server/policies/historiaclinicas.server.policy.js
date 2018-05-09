@@ -20,6 +20,15 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/historiaclinicas/:historiaclinicaId',
       permissions: '*'
+    },{
+      resources: '/api/historiaclinicas/picture',
+      permissions: '*'
+    },{
+      resources: '/api/terapia',
+      permissions: '*'
+    },{
+      resources: '/api/cie10presuntivo',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],

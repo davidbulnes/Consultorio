@@ -66,6 +66,10 @@ var PacienteSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  sexo: {
+    type: Boolean,
+    default: null
+  },
   estado: {
     type: String,
     default: 'No Asignado'

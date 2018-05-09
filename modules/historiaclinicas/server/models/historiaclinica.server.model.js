@@ -123,9 +123,17 @@ var HistoriaclinicaSchema = new Schema({
     type: String,
     default: ''
   },
+  cie10definitivo: {
+    type: Schema.ObjectId,
+    ref: 'Cie10presuntivo'
+  },
   diagPresuantivo: {
     type: String,
-    default: '',
+    default: ''
+  },
+  cie10presuntivo: {
+    type: Schema.ObjectId,
+    ref: 'Cie10presuntivo'
   },
   diagPresuantivoad: {
     type: String,
@@ -135,6 +143,9 @@ var HistoriaclinicaSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'Paciente'
   },
+  fotos: {},
+  terapeuticapodologica: {},
+  indicaciones: {},
   created: {
     type: Date,
     default: Date.now

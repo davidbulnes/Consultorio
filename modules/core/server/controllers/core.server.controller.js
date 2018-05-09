@@ -6,6 +6,8 @@ var validator = require('validator'),
   schedule = require('node-schedule'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Historiaclinica = mongoose.model('Historiaclinica'),
+  Cie10presuntivo = mongoose.model('Cie10presuntivo'),
   nodemailer = require('nodemailer')
 
 
@@ -78,3 +80,151 @@ exports.renderNotFound = function (req, res) {
   });
 };
 
+exports.reportBarras = function(req, res) {
+  var totalcie = [];
+  var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
+    {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
+    {_id: 9 , suma: 0},{_id: 10 , suma: 0},{_id: 11 , suma: 0},{_id: 12 , suma: 0}];
+  var objciefemenino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
+      {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
+      {_id: 9 , suma: 0},{_id: 10 , suma: 0},{_id: 11 , suma: 0},{_id: 12 , suma: 0}];
+  Historiaclinica.aggregate({
+    "$lookup" : {
+      "from" : "pacientes",
+      "localField" : "paciente",
+      "foreignField" : "_id",
+      "as" : "paciente"
+    }},{
+    "$unwind" : "$paciente"},{
+    "$match" : {
+      "paciente.sexo" : false
+    }},{
+      "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
+      {"$sort" : {"_id" : 1}}
+  ).exec(function(err, ciemasculino) {
+    Historiaclinica.aggregate({
+      "$lookup" : {
+        "from" : "pacientes",
+        "localField" : "paciente",
+        "foreignField" : "_id",
+        "as" : "paciente"
+      }},{
+      "$unwind" : "$paciente"},{
+      "$match" : {
+        "paciente.sexo" : true
+      }},{
+        "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
+        {"$sort" : {"_id" : 1}}
+    ).exec(function(err, ciefemenino) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      for (let i = 0; i < objciemasculino.length; i++) { 
+        var foundm = ciemasculino.filter(function(obj){return obj._id == i});
+        if(foundm[0]){
+        if(objciemasculino[i]._id - 1 === foundm[0]._id){ 
+          objciemasculino[i-1].suma = foundm[0].suma
+      }}
+    };
+      for (let i = 0; i < objciefemenino.length; i++) { 
+        var foundf = ciefemenino.filter(function(obj){return obj._id == i});
+        if(foundf[0]){
+        if(objciefemenino[i]._id - 1 === foundf[0]._id){ 
+          objciefemenino[i-1].suma = foundf[0].suma
+    }}
+  }
+      totalcie[0] = objciemasculino;
+      totalcie[1] = objciefemenino;
+      //console.log(totalcie);
+      res.jsonp(totalcie);
+    }
+  })});
+};
+/*exports.getcie10byid = function(req, res, next, id){
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'cie10 is invalid'
+    });
+  }
+  Cie10presuntivo.findById(id).exec(function(err, cie10) {
+    if (err) {
+      return next(err);
+    } else if (!cie10) {
+      return res.status(404).send({
+        message: 'No Historiaclinica with that identifier has been found'
+      });
+    }
+    req.cie10;
+    console.log(req);
+    next();
+  });
+}*/
+
+exports.listbarrasbyId = function(req, res){
+  var id = mongoose.Types.ObjectId(req.params.cie10id);
+  //var cie10 = req.params.cie10id;
+  console.log(req.params.cie10id);
+  var totalcie = [];
+  var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
+    {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
+    {_id: 9 , suma: 0},{_id: 10 , suma: 0},{_id: 11 , suma: 0},{_id: 12 , suma: 0}];
+  var objciefemenino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
+      {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
+      {_id: 9 , suma: 0},{_id: 10 , suma: 0},{_id: 11 , suma: 0},{_id: 12 , suma: 0}];
+  Historiaclinica.aggregate({
+    "$lookup" : {
+      "from" : "pacientes",
+      "localField" : "paciente",
+      "foreignField" : "_id",
+      "as" : "paciente"
+    }},{
+    "$unwind" : "$paciente"},{
+    "$match" : {"$and" : [{
+      "paciente.sexo" : false},{ "$or" : [{
+        "cie10presuntivo" : id} , {"cie10definitivo" : id}
+    ]}]}},{
+      "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
+      {"$sort" : {"_id" : 1}}
+  ).exec(function(err, ciemasculino) {
+    Historiaclinica.aggregate({
+      "$lookup" : {
+        "from" : "pacientes",
+        "localField" : "paciente",
+        "foreignField" : "_id",
+        "as" : "paciente"
+      }},{
+      "$unwind" : "$paciente"},{
+        "$match" : {"$and" : [{
+          "paciente.sexo" : true},{ "$or" : [{
+          "cie10presuntivo" : id} , {"cie10definitivo" : id} 
+        ]}]}},{
+        "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
+        {"$sort" : {"_id" : 1}}
+    ).exec(function(err, ciefemenino) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      for (let i = 0; i < objciemasculino.length; i++) { 
+        var foundm = ciemasculino.filter(function(obj){return obj._id == i});
+        if(foundm[0]){
+        if(objciemasculino[i]._id - 1 === foundm[0]._id){ 
+          objciemasculino[i-1].suma = foundm[0].suma
+      }}
+    };
+      for (let i = 0; i < objciefemenino.length; i++) { 
+        var foundf = ciefemenino.filter(function(obj){return obj._id == i});
+        if(foundf[0]){
+        if(objciefemenino[i]._id - 1 === foundf[0]._id){ 
+          objciefemenino[i-1].suma = foundf[0].suma
+    }}
+  }
+      totalcie[0] = objciemasculino;
+      totalcie[1] = objciefemenino;
+      res.jsonp(totalcie);
+    }
+  })});
+}

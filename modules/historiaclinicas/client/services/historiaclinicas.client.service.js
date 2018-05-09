@@ -17,4 +17,15 @@
       }
     });
   }
+
+  angular
+    .module('historiaclinicas')
+    .factory('Cie10presuntivoService', Cie10presuntivoService);
+
+    Cie10presuntivoService.$inject = ['$resource'];
+
+  function Cie10presuntivoService($resource) {
+    return $resource('/api/cie10presuntivo', {});
+  }
+
 }());

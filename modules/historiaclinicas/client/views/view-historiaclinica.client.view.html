@@ -2,8 +2,11 @@
   <div class="page-header">
     <h1 ng-bind="vm.historiaclinica.name"></h1>
   </div>
-  <div class="pull-right"
-       ng-show="vm.historiaclinica.isCurrentUserOwner">
+  <div class="pull-right">
+      <a class="btn btn-primary"
+      ui-sref="historiaclinicas.edit({ historiaclinicaId: vm.historiaclinica._id })">
+     <i class="glyphicon glyphicon-random"></i>
+   </a>
     <a class="btn btn-primary"
        ui-sref="historiaclinicas.edit({ historiaclinicaId: vm.historiaclinica._id })">
       <i class="glyphicon glyphicon-edit"></i>

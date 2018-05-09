@@ -64,6 +64,17 @@ module.exports = {
       }
     }
   },
+  uploadsHC: {
+    storage: process.env.UPLOADS_STORAGE || 'local',
+    profile: {
+      image: {
+        dest: './modules/historiaclinicas/client/img/uploads/',
+        limits: {
+          fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
+        }
+      }
+    }
+  },
   shared: {
     owasp: {
       allowPassphrases: true,

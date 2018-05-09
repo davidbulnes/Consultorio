@@ -1,0 +1,27 @@
+<section class="row" style="margin-top: -50px">
+    <div class="page-header">
+            <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="name" class="h4">CIE-10</label>
+                      <select class="form-control" ng-model="vm.ci10diagdefinitivo._id" ng-change="vm.getcie10()">
+                        <option ng-repeat="x in vm.cie10" value="{{x._id}}">{{x.descripcion}}</option>
+                      </select>
+                    </div>           
+                    <div class="form-group col-sm-6">
+                      <label for="email" class="h4">Año</label>
+                      <input name="lastName" type="text" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+    </div>
+<div class="col-md-12 text-center">
+  <canvas 
+    class="chart chart-bar" 
+    chart-data="vm.barrasdata" 
+    chart-labels="vm.etiquetas" 
+    chart-series="vm.series"
+    chart-options="vm.options"
+    chart-colors="vm.colors"></canvas>
+    </div>
+</section>
+      

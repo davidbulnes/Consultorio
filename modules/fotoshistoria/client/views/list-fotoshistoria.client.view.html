@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Fotoshistoria</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="fotoshistorium in vm.fotoshistoria"
+       ui-sref="fotoshistoria.view({ fotoshistoriumId: fotoshistorium._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="fotoshistorium.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="fotoshistorium.user" ng-bind="fotoshistorium.user.displayName"></span>
+        <span ng-if="!fotoshistorium.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="fotoshistorium.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.fotoshistoria.$resolved && !vm.fotoshistoria.length">
+    No Fotoshistoria yet, why don't you <a ui-sref="fotoshistoria.create">create one</a>?
+  </div>
+</section>

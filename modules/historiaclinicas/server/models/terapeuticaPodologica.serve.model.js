@@ -19,17 +19,12 @@ var terapeuticaPodologicaSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  historiaClinica: {
-      type: Schema.ObjectId,
-      ref: 'Historiaclinica',
+  idhistoriaclinica: {
+      type: String,
   },
   created: {
     type: Date,
     default: Date.now
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
   }
 });
 

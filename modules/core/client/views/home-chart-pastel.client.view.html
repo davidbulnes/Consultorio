@@ -1,0 +1,24 @@
+<section class="row" style="margin-top: -50px">
+    <div class="page-header">
+            <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="name" class="h4">CIE-10</label>
+                      <input name="name" type="text" class="form-control" ng-model="vm.pacientes.name" id="name" placeholder="Nombre">
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="email" class="h4">Mes</label>
+                      <input name="lastName" type="text" class="form-control" ng-model="vm.pacientes.lastName" id="email" placeholder="Apellidos">
+                      </div>
+                    </div>
+                  </div>
+    </div>
+<div class="col-md-12 text-center">
+  <canvas 
+    class="chart chart-pie" 
+    chart-data="vm.datos" 
+    chart-labels="vm.series" 
+    chart-options="vm.options"
+    chart-colors="vm.colors"></canvas>
+    </div>
+</section>
+      

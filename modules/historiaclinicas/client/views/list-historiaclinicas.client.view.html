@@ -1,22 +1,80 @@
 <section>
-  <div class="page-header">
-    <h1>Historiaclinicas</h1>
-  </div>
-  <div class="list-group">
-    <a ng-repeat="historiaclinica in vm.historiaclinicas"
-       ui-sref="historiaclinicas.view({ historiaclinicaId: historiaclinica._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="historiaclinica.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="historiaclinica.user" ng-bind="historiaclinica.user.displayName"></span>
-        <span ng-if="!historiaclinica.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="historiaclinica.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.historiaclinicas.$resolved && !vm.historiaclinicas.length">
-    No Historiaclinicas yet, why don't you <a ui-sref="historiaclinicas.create">create one</a>?
-  </div>
-</section>
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-4">
+          <h1>Historias Clínicas</h1>
+        </div>
+        <div class="col-md-4" style="margin-top: 2em">
+          <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar..." ng-change="vm.figureOutItemsToDisplay()"
+          />
+        </div>
+        <div class="col-md-4" style="margin-top: 2em">
+        <a class="btn btn-primary pull-right" data-ui-sref="historiaclinicas.create" data-toggle="tooltip" title="Nueva Historia Clínica">
+          <i class="glyphicon glyphicon-plus"></i>
+        </a>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>
+                <a href="#" ng-click="vm.sortType = 'ficha'; vm.sortReverse = !vm.sortReverse">
+              Ficha 
+              <span ng-show="vm.sortType == 'ficha' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+              <span ng-show="vm.sortType == 'ficha' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            </a>
+              </th>
+              <th>
+                 <a href="#" ng-click="vm.sortType = 'fechacre'; vm.sortReverse = !vm.sortReverse">
+              Fecha Creación 
+              <span ng-show="vm.sortType == 'fechacre' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+              <span ng-show="vm.sortType == 'fechacre' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            </a>
+              </th>
+              <th>
+                 <a href="#" ng-click="vm.sortType = 'paciente'; vm.sortReverse = !vm.sortReverse">
+              Paciente
+              <span ng-show="vm.sortType == 'paciente' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+              <span ng-show="vm.sortType == 'paciente' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            </a>
+              </th>
+              <th>
+                 <a href="#" ng-click="vm.sortType = 'dni'; vm.sortReverse = !vm.sortReverse">
+              DNI 
+              <span ng-show="vm.sortType == 'dni' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+              <span ng-show="vm.sortType == 'dni' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            </a>
+              </th>
+              <th>
+                 <a href="#" ng-click="vm.sortType = 'created'; vm.sortReverse = !vm.sortReverse">
+              Fecha 
+              <span ng-show="vm.sortType == 'created' && !vm.sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+              <span ng-show="vm.sortType == 'created' && vm.sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+            </a>
+              </th>
+              <th>Historia Clínica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="historiaclinica in vm.pagedItems | orderBy:vm.sortType:vm.sortReverse" ui-sref="historiaclinicas.view({ historiaclinicaId: historiaclinica._id })">
+              <td>{{historiaclinica.numeroHC}}</td>
+              <td>{{historiaclinica.fechaCreated | date:'mediumDate' }}</td>
+              <td>{{historiaclinica.paciente.name}} {{historiaclinica.paciente.lastName}}</td>
+              <td>{{historiaclinica.paciente.dni}}</td>
+              <td>{{paciente.email}}</td>
+              <td>{{paciente.estado}}</td>
+              <!--<td>{{paciente.user.displayName}}</td>-->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="vm.historiaclinicas.$resolved && !vm.historiaclinicas.length">
+      No Pacientes yet, why don't you <a ui-sref="historiaclinicas.create">create one</a>?
+    </div>
+    <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
+      ng-change="vm.pageChanged()"></uib-pagination>
+  </section>

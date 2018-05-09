@@ -36,6 +36,24 @@
           roles: ['admin', 'eli', 'gio']
         }
       })
+      .state('home.barras', {
+        url: 'reports1',
+        templateUrl: '/modules/core/client/views/home-partial.client.view.html',
+        controller: 'HomeController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Reporte de Barras'
+        }
+      })
+      .state('home.pastel', {
+        url: 'reports2',
+        templateUrl: '/modules/core/client/views/home-chart-pastel.client.view.html',
+        controller: 'HomeController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Reporte de Pastel'
+        }
+      })
       .state('not-found', {
         url: '/not-found',
         templateUrl: '/modules/core/client/views/404.client.view.html',

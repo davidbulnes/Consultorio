@@ -117,6 +117,29 @@ module.exports = {
           content: 'This is a seeded Article for the development environment'
         }
       }]
+    },{
+      model: 'Cie10presuntivo',
+      docs: [{
+        data: {
+          descripcion: 'CI10-uno'
+        }
+      },{
+        data: {
+          descripcion: 'CI10-dos'
+        }
+      },{
+        data: {
+          descripcion: 'CI10-tres'
+        }
+      },{
+        data: {
+          descripcion: 'CI10-cuatro'
+        }
+      },{
+        data: {
+          descripcion: 'CI10-cinco'
+        }
+      }]
     }]
   }
 };

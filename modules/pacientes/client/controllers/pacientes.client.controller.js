@@ -10,7 +10,7 @@
 
   function PacientesController ($scope, $state, $window, Authentication, pacientes) {
     var vm = this;
-
+    console.log(pacientes)
     vm.authentication = Authentication;
     vm.pacientes = pacientes;
     vm.error = null;
@@ -18,7 +18,6 @@
     vm.remove = remove;
     vm.save = save;
     vm.fullName = pacientes.name + ' ' + pacientes.lastName;
-    console.log(vm.pacientes);
 
     // Remove existing Specialty
     function remove() {

@@ -8,6 +8,8 @@ var historiaclinicasPolicy = require('../policies/historiaclinicas.server.policy
 
 module.exports = function(app) {
   // Historiaclinicas Routes
+  app.route('/api/historiaclinicas/picture').all(historiaclinicasPolicy.isAllowed)
+    .post(historiaclinicas.savePicture);
   app.route('/api/historiaclinicas').all(historiaclinicasPolicy.isAllowed)
     .get(historiaclinicas.list)
     .post(historiaclinicas.create);
@@ -16,7 +18,14 @@ module.exports = function(app) {
     .get(historiaclinicas.read)
     .put(historiaclinicas.update)
     .delete(historiaclinicas.delete);
+  
+  app.route('/api/cie10presuntivo').all(historiaclinicasPolicy.isAllowed)
+    .get(historiaclinicas.listCie10Presuntivo);
 
   // Finish by binding the Historiaclinica middleware
+
+
   app.param('historiaclinicaId', historiaclinicas.historiaclinicaByID);
+  //app.param('historiaclinicaId', historiaclinicas.terapeuticaPodoByID);
+  
 };

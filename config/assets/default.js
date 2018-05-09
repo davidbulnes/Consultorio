@@ -16,12 +16,14 @@ module.exports = {
       ],
       js: [
         // bower:js
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/angular/angular.js',
-        'public/lib/jquery/dit/jquery.min.js',
-        'public/lib/moment/moment.js',
+        'public/lib/moment/min/moment-with-locales.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',  
         'public/lib/angular-animate/angular-animate.js',
+        'public/lib/angular-touch/angular-touch.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/lib/bootstrap/dist/js/bootstrap.min.js',
         'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
         'public/lib/ng-file-upload/ng-file-upload.js',      
         'public/lib/angular-messages/angular-messages.js',
@@ -31,7 +33,12 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/interactjs/dist/interactjs.min.js',
+        'public/lib/chart.js/dist/Chart.min.js',
+        'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
+        'public/lib/slick-carousel/slick/slick.min.js',
+        'public/lib/angular-slick-carousel/dist/angular-slick.min.js'
+
 
         // endbower
       ],

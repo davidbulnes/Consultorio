@@ -10,13 +10,13 @@ var mongoose = require('mongoose'),
  * Historiaclinica Schema
  */
 var fotosHistoriaClinicaSchema = new Schema({
-    profileImageURL: {
+    fileImageURL: {
         type: String,
         default: 'modules/historiaclinicas/client/img/default.png'
     },
-    historiaClinica: {
-        type: Schema.ObjectId,
-        ref: 'Historiaclinica',
+    nrohistoriaClinica: {
+        type: String,
+        default: '',
     },
     created: {
         type: Date,

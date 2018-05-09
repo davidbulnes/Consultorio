@@ -1,14 +1,10 @@
-'use strict';
+/*'use strict';
 
-/**
- * Module dependencies.
- */
+
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-/**
- * Historiaclinica Schema
- */
+
 var diagnosticoDefinitivoSchema = new Schema({
   descripcion: {
     type: String,
@@ -21,4 +17,4 @@ var diagnosticoDefinitivoSchema = new Schema({
   }
 });
 
-mongoose.model('DiagnosticoDefinivo', diagnosticoDefinitivoSchema);
+mongoose.model('DiagnosticoDefinivo', diagnosticoDefinitivoSchema);*/

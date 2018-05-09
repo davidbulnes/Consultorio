@@ -76,4 +76,6 @@
   function newHistoriaclinica(HistoriaclinicasService) {
     return new HistoriaclinicasService();
   }
+
+
 }());
