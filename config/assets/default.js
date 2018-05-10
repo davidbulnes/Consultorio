@@ -36,6 +36,8 @@ module.exports = {
         'public/lib/chart.js/dist/Chart.min.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
+        'public/lib/konva/konva.js',
+        'public/lib/angular-pintura/angular-pintura.js',
         'public/lib/slick-carousel/slick/slick.min.js',
         'public/lib/angular-slick-carousel/dist/angular-slick.min.js'
 

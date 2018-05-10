@@ -69,6 +69,14 @@
                 <br />CLÍNICO EEII</h5>
             </p>
           </div>
+          <div class="process-step" ng-class="{active: selectedTab == 6}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 6;" ng-class="{'btn-info': selectedTab == 6, 'btn-default': selectedTab != 6}">
+              <i class="glyphicon glyphicon-camera"></i>
+            </button>
+            <p>
+              <h5>FOTOS</h5>
+            </p>
+          </div>
           <div class="process-step" ng-class="{active: selectedTab == 4}">
             <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 4;" ng-class="{'btn-info': selectedTab == 4, 'btn-default': selectedTab != 4}">
               <i class="glyphicon glyphicon-plus-sign"></i>
@@ -472,12 +480,162 @@
                   <i class="fa fa-chevron-left"></i> Back</button>
               </li>
               <li>
+                <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 6;">Next
+                  <i class="fa fa-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- *****FOTOS***** -->
+          <div id="menu6" class="tab-content" ng-show="selectedTab == 6">
+
+            <div class="container">
+
+                <h2>Image Gallery
+                    <div class="pull-right">
+                        <a class="btn btn-primary" ng-click="vm.showDeleteImg()" data-toggle="tooltip" title="Editar">
+                          <i class="glyphicon glyphicon-edit"></i> Editar
+                        </a>
+                        <a class="btn btn-primary" ui-sref="paciente.create" data-toggle="tooltip" title="Nuevo Paciente">
+                          <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                      </div>
+                </h2>
+                <br /><br />
+                <div class="row">
+                    <div ng-repeat="file in vm.picFile">
+                        <div class="col-md-3">
+                            <div class="thumbnail" ng-click="vm.getFile(file)">
+                        <img ngf-src="vm.fileSelected ? file : file.fileImageURL"  alt="Lights" style="width:100%"
+                          ngf-drop>
+                          </div>
+                          <div ng-show="vm.showDeleteImage" class="text-center form-group">
+                              <a class="btn btn-danger" ng-click="vm.deleteImage(file)">
+                                  <i class="glyphicon glyphicon-remove"></i> Borrar Imagen</a>
+                            </div>
+                        </div>
+                      </div></div>
+                      <br /><br />
+                      <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
+                          <form class="signin form-horizontal">
+                            <fieldset>
+                      <div ng-show="vm.loading" class="form-group text-center">
+                          <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
+                        </div>
+                        <div ng-show="!vm.fileSelected" class="text-center form-group">
+                          <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
+                            accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400"
+                            multiple>Select Picture</button>
+                        </div>
+                        <div ng-show="vm.fileSelected" class="text-center form-group">
+                          <button class="btn btn-primary" ng-click="vm.upload(vm.picFile)">Use This Picture</button>
+                          <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
+                        </div>
+                        <div ng-show="vm.fileSelected" class="progress text-center">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%"
+                            ng-bind="vm.progress + '%'">
+                            <span class="sr-only">{{vm.progress}}% Complete</span>
+                          </div>
+                        </div> 
+                        </fieldset></form></div>      
+              <!--    <div class="col-md-2">
+                    <div class="thumbnail">
+                      <a href="/w3images/lights.jpg" target="_blank">
+                        <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Lights" style="width:100%">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <a href="/w3images/nature.jpg" target="_blank">
+                        <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Nature" style="width:100%">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="thumbnail">
+                      <a href="/w3images/fjords.jpg" target="_blank">
+                        <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Fjords" style="width:100%">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="thumbnail">
+                        <a href="/w3images/fjords.jpg" target="_blank">
+                          <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Fjords" style="width:100%">
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="thumbnail">
+                          <a href="/w3images/lights.jpg" target="_blank">
+                            <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Lights" style="width:100%">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="thumbnail">
+                          <a href="/w3images/nature.jpg" target="_blank">
+                            <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Nature" style="width:100%">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="thumbnail">
+                          <a href="/w3images/fjords.jpg" target="_blank">
+                            <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Fjords" style="width:100%">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                          <div class="thumbnail">
+                            <a href="/w3images/fjords.jpg" target="_blank">
+                              <img src="http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg" alt="Fjords" style="width:100%">
+                            </a>
+                          </div>
+                        </div>-->
+                </div>
+            
+            <br /><br /><br />
+            <div ng-show="vm.showVisor">
+            <ng-pintura ngp-src="vm.picFileSelect.fileImageURL"
+            ngp-scaling="vm.picFileSelect.scaling"
+            ngp-position="vm.picFileSelect.position"
+            ngp-max-scaling="vm.picFileSelect.maxScaling"
+            ngp-scale-step="vm.picFileSelect.scaleStep"
+            ngp-move-step="vm.picFileSelect.moveStep"
+            ngp-fit-onload="vm.picFileSelect.fitOnload" 
+            ngp-mw-scale-step="vm.picFileSelect.mwScaleStep"
+            ngp-progress="vm.picFileSelect.progress">
+            <div id="zoomslider">
+              <input ng-model="slider.value" ng-change="sliderChange()" orient="vertical" type="range" min="0" max="100" step="1" ng-disabled="scalingDisabled">
+          </div>  
+          <button id="zoomin" ng-click="zoomIn()" ng-disabled="scalingDisabled" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-plus"></span></button>
+          <button id="zoomout" ng-click="zoomOut()" ng-disabled="scalingDisabled" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-minus"></span></button>
+          <button id="moveup" ng-click="moveUp()" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-chevron-up"></span></button>
+          <button id="movedown" ng-click="moveDown()" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-chevron-down"></span></button>
+          <button id="moveleft" ng-click="moveLeft()" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-chevron-left"></span></button>
+          <button id="moveright" ng-click="moveRight()" class="btn btn-default hidden-xs"><span class="glyphicon glyphicon-chevron-right"></span></button>
+          <button id="movecenter" ng-click="fitInView()" class="btn btn-default"><span class="glyphicon glyphicon-screenshot"></span></button>       
+          </ng-pintura></div>
+            <br />
+
+            <ul class="list-unstyled list-inline pull-right">
+                <li>
+                    <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 3;">
+                      <i class="fa fa-chevron-left"></i> Back</button>
+                  </li>
+              <li>
                 <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 4;">Next
                   <i class="fa fa-chevron-right"></i>
                 </button>
               </li>
             </ul>
           </div>
+
+          <!-- ///////////////////// -->
+
           <div id="menu4" class="tab-content" ng-show="selectedTab == 4">
             <br />
             <br />
@@ -557,7 +715,7 @@
             <br />
             <ul class="list-unstyled list-inline pull-right">
               <li>
-                <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 3;">
+                <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 6;">
                   <i class="fa fa-chevron-left"></i> Back</button>
               </li>
               <li>
@@ -669,41 +827,8 @@
                 <div id="parent2">          
               </div>
             <br />
-            <br /> {{picFile}}
-            <div class="form-group">
-              <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
-                <form class="signin form-horizontal">
-                  <fieldset>
-                    <div class="form-group text-center">
-                      <div class="col-sm-12">
-                        <div ng-repeat="file in vm.picFile">
-                          <img ngf-src="vm.fileSelected ? file : vm.fotoHistoria.fileImageURL" alt="{{vm.fotoHistoria.displayName}}" class="img-thumbnail"
-                            ngf-drop>
-                        </div>
-                      </div>
-                    </div>
-                    <div ng-show="vm.loading" class="form-group text-center">
-                      <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
-                    </div>
-                    <div ng-show="!vm.fileSelected" class="text-center form-group">
-                      <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
-                        accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400"
-                        multiple>Select Picture</button>
-                    </div>
-                    <div ng-show="vm.fileSelected" class="text-center form-group">
-                      <button class="btn btn-primary" ng-click="vm.upload(vm.picFile)">Use This Picture</button>
-                      <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
-                    </div>
-                    <div ng-show="vm.fileSelected" class="progress text-center">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%"
-                        ng-bind="vm.progress + '%'">
-                        <span class="sr-only">{{vm.progress}}% Complete</span>
-                      </div>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
+            <br />
+ 
             <ul class="list-unstyled list-inline pull-right">
               <li>
                 <button type="button" class="btn btn-default prev-step" ng-click="selectedTab = 4;">
@@ -720,28 +845,56 @@
     </div>
   </div>
   <br /><br /><br /><br />
- <!-- <slick class="slide" settings="vm.slickConfig" dots="true">
-    <div ng-repeat="file in vm.picFile">
-      <ul class="hide-bullets">
-      <li class="col-sm-12"><img ngf-src="vm.fileSelected ? file : file.fileImageURL" class="img-thumbnail user-profile-picture" ngf-drop></li>
-    </ul>
-    </div>
-    </slick>
-  -->
 
-<div class="container sliderCar">
-  <!-- enumerate all photos -->
+
+
+  <!--<div class="form-group">
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
+      <form class="signin form-horizontal">
+        <fieldset>
+          <div class="form-group text-center">
+            <div class="col-sm-12">
+              <div ng-repeat="file in vm.picFile">
+                <img ngf-src="vm.fileSelected ? file : vm.fotoHistoria.fileImageURL" alt="{{vm.fotoHistoria.displayName}}" class="img-thumbnail"
+                  ngf-drop>
+              </div>
+            </div>
+          </div>
+          <div ng-show="vm.loading" class="form-group text-center">
+            <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
+          </div>
+          <div ng-show="!vm.fileSelected" class="text-center form-group">
+            <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
+              accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400"
+              multiple>Select Picture</button>
+          </div>
+          <div ng-show="vm.fileSelected" class="text-center form-group">
+            <button class="btn btn-primary" ng-click="vm.upload(vm.picFile)">Use This Picture</button>
+            <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
+          </div>
+          <div ng-show="vm.fileSelected" class="progress text-center">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%"
+              ng-bind="vm.progress + '%'">
+              <span class="sr-only">{{vm.progress}}% Complete</span>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>-->
+<!--<div class="container sliderCar">
+
   <img ng-repeat="file in vm.picFile" class="slideCar" ng-swipe-right="vm.showPrev()" ng-swipe-left="vm.showNext()" ng-show="vm.isActive($index)" ng-src="{{vm.fileSelected ? file : file.fileImageURL}}" />
-  <!-- prev / next controls -->
+ 
   <a class="arrow prev" href="#" ng-click="vm.showPrev()"></a>
   <a class="arrow next" href="#" ng-click="vm.showNext()"></a>
-  <!-- extra navigation controls -->
+  
   <ul class="navCar">
       <li ng-repeat="file in vm.picFile" ng-class="{'active': vm.isActive($index)}">
           <img ng-src="{{vm.fileSelected ? file : file.fileImageURL}}" alt="" title="" ng-click="vm.showPhoto($index);" />
       </li>
   </ul>
-</div>
+</div>-->
 
-<br /><br /><br /><br /><br />
+<br /><br />
 </section>

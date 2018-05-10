@@ -232,3 +232,58 @@ general settings */
 }
 
 
+ng-pintura {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 600px;
+    background: black; }
+    ng-pintura #zoomslider, ng-pintura #zoomin, ng-pintura #zoomout, ng-pintura #moveup, ng-pintura #movedown, ng-pintura #moveleft, ng-pintura #moveright, ng-pintura #movecenter, ng-pintura #rotateleft, ng-pintura #rotateright {
+      position: absolute;
+      opacity: 0.75;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased; }
+      ng-pintura #zoomslider:hover, ng-pintura #zoomin:hover, ng-pintura #zoomout:hover, ng-pintura #moveup:hover, ng-pintura #movedown:hover, ng-pintura #moveleft:hover, ng-pintura #moveright:hover, ng-pintura #movecenter:hover, ng-pintura #rotateleft:hover, ng-pintura #rotateright:hover {
+        opacity: 1; }
+    ng-pintura #zoomslider {
+      top: 20px;
+      right: 20px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 10px 0; }
+      ng-pintura #zoomslider input {
+        writing-mode: bt-lr;
+        -webkit-appearance: slider-vertical;
+        width: 40px;
+        height: 160px; }
+    ng-pintura #zoomin, ng-pintura #zoomout, ng-pintura #rotateleft, ng-pintura #rotateright {
+      width: 40px;
+      bottom: 20px; }
+    ng-pintura #zoomin {
+      right: 20px;
+      bottom: 55px; }
+    ng-pintura #zoomout {
+      right: 20px; }
+    ng-pintura #rotateleft, ng-pintura #rotateright {
+      height: 30px; }
+    ng-pintura #rotateright {
+      right: 100px; }
+    ng-pintura #rotateleft {
+      right: 140px; }
+    ng-pintura #moveleft, ng-pintura #movedown, ng-pintura #moveright, ng-pintura #moveup {
+      bottom: 20px;
+      width: 40px; }
+    ng-pintura #moveleft {
+      left: 20px; }
+    ng-pintura #movedown {
+      left: 60px; }
+    ng-pintura #moveright {
+      left: 100px; }
+    ng-pintura #moveup {
+      left: 60px;
+      bottom: 55px; }
+    ng-pintura #movecenter {
+      top: 20px;
+      left: 20px; }

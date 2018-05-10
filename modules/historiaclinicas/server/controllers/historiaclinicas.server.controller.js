@@ -22,6 +22,17 @@ var _ = require('lodash'),
  * Create a Historiaclinica
  */
 var nroHistoria = null;
+var useS3Storage = config.uploads.storage === 's3' && config.aws.s3;
+var s3;
+
+if (useS3Storage) {
+  aws.config.update({
+    accessKeyId: config.aws.s3.accessKeyId,
+    secretAccessKey: config.aws.s3.secretAccessKey
+  });
+
+  s3 = new aws.S3();
+}
 
 exports.create = function(req, res) {
   var historiaclinica = new Historiaclinica(req.body);
@@ -319,7 +330,17 @@ exports.savePicture = function (req, res) {
   var fotosHistoriaClinica = new FotosHistoriaClinica();
   var existingImageUrl;
   var multerConfig;
-  multerConfig = config.uploadsHC.profile.image;
+  if(useS3Storage){
+    multerConfig = {
+      storage: multerS3({
+        s3: s3,
+        bucket: config.aws.s3.bucket,
+        acl: 'public-read'
+      })
+    };
+  } else {
+    multerConfig = config.uploadsHC.profile.image;
+  }
   fotosHistoriaClinica.nrohistoriaClinica = nroHistoria;
   console.log(fotosHistoriaClinica.nrohistoriaClinica);
    // Filtering to upload only images
@@ -351,7 +372,8 @@ exports.savePicture = function (req, res) {
   }
   function updatePhoto() {
     return new Promise(function (resolve, reject) {
-      fotosHistoriaClinica.fileImageURL = '/' + req.file.path;
+      fotosHistoriaClinica.fileImageURL = config.uploads.storage === 's3' && config.aws.s3 ?
+      req.file.location : '/' + req.file.path;
       fotosHistoriaClinica.save(function (err, theuser) {
         if (err) {
           reject(err);

@@ -70,7 +70,7 @@ module.exports = {
       image: {
         dest: './modules/historiaclinicas/client/img/uploads/',
         limits: {
-          fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
+          fileSize: 10 * 1024 * 1024 // Max file size in bytes (1 MB)
         }
       }
     }
