@@ -746,13 +746,13 @@
                     </small>
                   </div>
                 <div class="col-sm-11">
-                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.TerapeuticaPodo" ng-disabled="vm.disablediv"></textarea>
+                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.TerapeuticaPodo" ng-disabled="vm.disabledivTerapeutica"></textarea>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" data-toggle="tooltip" title="Nueva Historia Clínica" ng-click="vm.activeDiv()" ng-show="vm.disableButton">
+                    <a class="btn btn-primary" data-toggle="tooltip" title="Editar" ng-click="vm.activeDivTerapeutica()" ng-show="vm.disableButtonTera">
                         <i class="glyphicon glyphicon-edit"></i>
                       </a>
-                    <a class="btn btn-primary" ng-click="vm.addDiv()" data-toggle="tooltip" title="Nueva Terapia Podológica" ng-show="vm.disableButton">
+                    <a class="btn btn-primary" ng-click="vm.addDiv()" data-toggle="tooltip" title="Nueva Terapia Podológica" ng-show="vm.disableButtonTera2">
                         <i class="glyphicon glyphicon-plus"></i>
                       </a>
                 </div>
@@ -768,7 +768,7 @@
                       </em>
                     </small>
                 <div class="col-sm-11">
-                  <textarea type="text" class="form-control" rows="4" ng-model="terapeutica.descripcion" ng-disabled="vm.disablediv"></textarea>
+                  <textarea type="text" class="form-control" rows="4" ng-model="terapeutica.descripcion" ng-disabled="vm.disabledivTerapeutica"></textarea>
                 </div>
               </div>
             </div>
@@ -796,14 +796,14 @@
                           </em>
                         </small>
                       </div>
-                <div class="col-sm-10">
-                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.IndicacionesDeriv"></textarea>
+                <div class="col-sm-11">
+                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.IndicacionesDeriv" ng-disabled="vm.activeDivIndicaciones"></textarea>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" data-toggle="tooltip" title="Nueva Historia Clínica" ng-click="vm.activeDiv()">
+                    <a class="btn btn-primary" data-toggle="tooltip" title="Editar" ng-click="vm.activeDivIndicaciones()" ng-show="vm.disableButtonIndi">
                         <i class="glyphicon glyphicon-edit"></i>
                       </a>
-                    <a class="btn btn-primary" ng-click="vm.addDivIndicaciones()" data-toggle="tooltip" title="Nueva Terapia Podológica">
+                    <a class="btn btn-primary" ng-click="vm.addDivIndicaciones()" data-toggle="tooltip" title="Nueva Terapia Podológica" ng-show="vm.disableButtonIndi2">
                         <i class="glyphicon glyphicon-plus"></i>
                       </a>
                 </div>
@@ -819,7 +819,7 @@
                           </em>
                         </small>
                     <div class="col-sm-11">
-                      <textarea type="text" class="form-control" rows="4" ng-model="indicaciones.descripcion"></textarea>
+                      <textarea type="text" class="form-control" rows="4" ng-model="indicaciones.descripcion" ng-disabled="vm.activeDivIndicaciones"></textarea>
                     </div>
                   </div>
                 </div>

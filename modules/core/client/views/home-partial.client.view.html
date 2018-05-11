@@ -15,6 +15,9 @@
                   </div>
     </div>
 <div class="col-md-12 text-center">
+    <div ng-show="vm.loading" class="form-group text-center">
+        <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading...">
+      </div>
   <canvas 
     class="chart chart-bar" 
     chart-data="vm.barrasdata" 

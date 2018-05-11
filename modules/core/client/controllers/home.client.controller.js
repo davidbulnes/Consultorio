@@ -15,6 +15,7 @@
       //vm.cie10.splice(0,0,{_id : "0" , descripcion: "--Todos--"});
     });
     CoreService.query(function(data){
+      vm.loading = true;
       vm.barrasm = data[0];
       vm.barrasf = data[1];
       angular.forEach(vm.barrasm, function(value, key){
@@ -23,10 +24,12 @@
       angular.forEach(vm.barrasf, function(value, key){
         vm.barrasdata[1].push(value.suma);
       });
+      vm.loading = false;
     });
 
 
     vm.getcie10 = function(){
+      vm.loading = true;
       vm.barrasdata = [[],[]];
       vm.barrasm = [];
       vm.barrasf = [];
@@ -41,6 +44,7 @@
         angular.forEach(vm.barrasf, function(value, key){
           vm.barrasdata[1].push(value.suma);
         });
+        vm.loading = false;
       });
     }
 

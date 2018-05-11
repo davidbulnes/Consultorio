@@ -25,8 +25,12 @@
     vm.sexo = null;
     vm.terapodo = '';
     vm.indicaciones = '';
-    vm.disableButton = true;
-    vm.disablediv = true;
+    vm.disableButtonTera = true;
+    vm.disableButtonTera2 = true;
+    vm.disableButtonIndi = true;
+    vm.disableButtonIndi2 = true;
+    vm.disabledivTerapeutica = true;
+    vm.disabledivIndicaciones = true;
     vm.showVisor = false;
     vm.showDeleteImage = false;
     Cie10presuntivoService.query(function(data){
@@ -35,8 +39,12 @@
 
     if (!vm.historiaclinica._id){
       vm.historiaclinica.fechaCreated = new Date();
-      vm.disableButton = false;
-      vm.disablediv = false;
+      vm.disableButtonTera = false;
+      vm.disableButtonTera2 = false;
+      vm.disableButtonIndi = false;
+      vm.disableButtonIndi2 = false;
+      vm.disabledivTerapeutica = false;
+      vm.disabledivIndicaciones = false;
       vm.showbuttonPaciente = true;
     } else {
       vm.showbuttonPaciente = false;
@@ -224,7 +232,7 @@
       .prepend($compile("<div class='form-group'><div class='row'><div class='col-sm-11'> <textarea id='terapeutica' type='text' class='form-control' rows='4' ng-model='vm.terapodo'></textarea></div></div></div>")($scope)); 
       
       $("#terapeutica").focus();
-      vm.disableButton = false;
+      vm.disableButtonTera2 = false;
     }
 
     vm.addDivIndicaciones = function(){
@@ -232,11 +240,17 @@
       .prepend($compile("<div class='form-group'><div class='row'><div class='col-sm-11'> <textarea id='indicaciones' type='text' class='form-control' rows='4' ng-model='vm.indicaciones'></textarea></div></div></div>")($scope)); 
       
       $("#indicaciones").focus();
+      vm.disableButtonIndi2 = false;
     }
 
-    vm.activeDiv = function(){
-      vm.disablediv = false;
+    vm.activeDivTerapeutica = function(){
+      vm.disabledivTerapeutica = false;
     }
+
+    vm.activeDivIndicaciones = function(){
+      vm.activeDivIndicaciones = false;
+    }
+
 
     vm.getFile = function(file){
       vm.picFileSelect = file;
@@ -248,7 +262,9 @@
     }
     
     vm.deleteImage = function(file){
-      console.log(file);
+      if ($window.confirm('Estás seguro de borrar esta imagen?')) {
+       /* file.$remove(/*$state.go('historiaclinicas.list'));*/
+      };
     }
 
   }
