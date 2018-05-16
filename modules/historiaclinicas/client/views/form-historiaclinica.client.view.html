@@ -525,7 +525,7 @@
                         </div>
                         <div ng-show="!vm.fileSelected" class="text-center form-group">
                           <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
-                            accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 400}" ngf-resize-if="$width > 400 || $height > 400"
+                            accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 1024}" ngf-resize-if="$width > 1024 || $height > 1024"
                             multiple>Select Picture</button>
                         </div>
                         <div ng-show="vm.fileSelected" class="text-center form-group">
@@ -797,7 +797,7 @@
                         </small>
                       </div>
                 <div class="col-sm-11">
-                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.IndicacionesDeriv" ng-disabled="vm.activeDivIndicaciones"></textarea>
+                  <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.IndicacionesDeriv" ng-disabled="vm.disabledivIndicaciones"></textarea>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-primary" data-toggle="tooltip" title="Editar" ng-click="vm.activeDivIndicaciones()" ng-show="vm.disableButtonIndi">
@@ -838,6 +838,13 @@
                 <button type="submit" class="btn btn-success" ng-click="vm.save()">
                   <i class="fa fa-check"></i> Done!</button>
               </li>
+              <br /><br />
+              <div ng-show="vm.fileSelected" class="progress text-center">
+                <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%"
+                  ng-bind="vm.progress + '%'">
+                  <span class="sr-only">{{vm.progress}}% Complete</span>
+                </div>
+              </div> 
             </ul>
           </div>
         </div>

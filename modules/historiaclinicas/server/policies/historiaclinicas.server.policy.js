@@ -21,13 +21,19 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/historiaclinicas/:historiaclinicaId',
       permissions: '*'
     },{
-      resources: '/api/historiaclinicas/picture',
+      resources: '/api/picture',
       permissions: '*'
     },{
       resources: '/api/terapia',
       permissions: '*'
     },{
       resources: '/api/cie10presuntivo',
+      permissions: '*'
+    },{
+      resources: '/api/fotohistoria/:fotohistoriaId',
+      permissions: '*'
+    },{
+      resources: '/api/fotobynumerohc/:numeroHC',
       permissions: '*'
     }]
   }, {

@@ -258,67 +258,28 @@ exports.historiaclinicaByID = function(req, res, next, id) {
   })})})});
 };
 
-/*exports.historiaclinicaByID = function(req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Historiaclinica is invalid'
-    });
-  }
-
-  Historiaclinica.aggregate([{
-    $lookup : {
-      from : 'paciente',
-      localField: '._id',
-      foreignField: 'paciente',
-      as: 'pacientes'
-    }},
-    {$unwind : '$pacientes'},
-    {
-      $lookup : {
-        from : 'user',
-        localField: '._id',
-        foreignField: 'user',
-        as: 'users'
-    }},
-    {$unwind : '$user'}
-  ]).exec(function (err, historiaclinica2) {
+exports.deletePicture = function(req, res){
+  var id = req.params.fotohistoriaId;
+  console.log('pasó')
+  FotosHistoriaClinica.findById(id).exec(function(err, fotos){
     if (err) {
-      return next(err);
-    } else if (!historiaclinica2) {
-      return res.status(404).send({
-        message: 'No Historiaclinica with that identifier has been found'
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      fotos.remove(function(err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          console.log('borro')
+        }
       });
     }
-    console.log(terapeuticapodologica)
-    req.historiaclinica = historiaclinica
-    req.historiaclinica.fotos = fotosHistoria;
-    req.historiaclinica.terapeuticapodologica = terapeuticapodologica;
-    next();
   });
-};*/
 
-/*exports.terapeuticaPodoByID = function(req, res, next, id) {
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Historiaclinica is invalid'
-    });
-  }
-
-  TerapeuticaPodologica.find({historiaClinica : id}).exec(function (err, terapeuticapodologica) {
-    if (err) {
-      return next(err);
-    } else if (!terapeuticapodologica) {
-      return res.status(404).send({
-        message: 'No Terapia with that identifier has been found'
-      });
-    }
-    console.log(terapeuticapodologica)
-    req.terapeuticaPodologica = terapeuticapodologica
-    next();
-  });
-};*/
+}
 
 
 /**
@@ -327,9 +288,9 @@ exports.historiaclinicaByID = function(req, res, next, id) {
 
 
 exports.savePicture = function (req, res) {
-  var fotosHistoriaClinica = new FotosHistoriaClinica();
   var existingImageUrl;
   var multerConfig;
+  loopSavePicture();
   if(useS3Storage){
     multerConfig = {
       storage: multerS3({
@@ -341,16 +302,12 @@ exports.savePicture = function (req, res) {
   } else {
     multerConfig = config.uploadsHC.profile.image;
   }
-  fotosHistoriaClinica.nrohistoriaClinica = nroHistoria;
-  console.log(fotosHistoriaClinica.nrohistoriaClinica);
    // Filtering to upload only images
    multerConfig.fileFilter = require(path.resolve('./config/lib/multer')).imageFileFilter;
-
-   var upload = multer(multerConfig).single('newHCPicture');
-
+   
+   var upload = multer(multerConfig).any();
    // existingImageUrl = fotosHistoriaClinica.fileImageURL;
     uploadImage()
-     .then(updatePhoto)
       .then(function () {
         //res.json(user);
         console.log('Guardó')
@@ -365,16 +322,30 @@ exports.savePicture = function (req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          resolve();
+          console.log(req.files)
+          req.files.forEach(element => {
+            var fotosHistoriaClinica = new FotosHistoriaClinica();
+            fotosHistoriaClinica.nrohistoriaClinica = nroHistoria;
+            console.log(fotosHistoriaClinica.nrohistoriaClinica);
+            fotosHistoriaClinica.fileImageURL = config.uploads.storage === 's3' && config.aws.s3 ?
+            element.location : '/' + element.path;
+            fotosHistoriaClinica.save(function (err) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve();
+              }
+          });
+          });
         }
       });
     });
   }
-  function updatePhoto() {
+ /* function updatePhoto() {
     return new Promise(function (resolve, reject) {
       fotosHistoriaClinica.fileImageURL = config.uploads.storage === 's3' && config.aws.s3 ?
       req.file.location : '/' + req.file.path;
-      fotosHistoriaClinica.save(function (err, theuser) {
+      fotosHistoriaClinica.save(function (err) {
         if (err) {
           reject(err);
         } else {
@@ -382,5 +353,23 @@ exports.savePicture = function (req, res) {
         }
       });
     });
-  }
+  }*/
 };
+
+exports.getPictures = function(req, res){
+  var numeroHC = req.params.numeroHC;
+    FotosHistoriaClinica.find({ nrohistoriaClinica : numeroHC}).exec(function(err, fotosHistoria){
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(fotosHistoria);
+        console.log(fotosHistoria);
+      } 
+  });
+}
+
+var loopSavePicture = function(){
+  console.log('funciona')
+}

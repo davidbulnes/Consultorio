@@ -6,9 +6,9 @@
     .module('historiaclinicas')
     .controller('HistoriaclinicasController', HistoriaclinicasController);
 
-  HistoriaclinicasController.$inject = ['$timeout', '$scope', '$state', '$uibModal', '$window', 'Authentication', 'historiaclinicaResolve', 'Cie10presuntivoService', 'moment', 'Upload', 'Notification', '$compile'];
+  HistoriaclinicasController.$inject = ['$timeout', '$scope', '$state', '$uibModal', '$window', 'Authentication', 'historiaclinicaResolve', 'Cie10presuntivoService', 'FotoshistoriaclinicaService', 'FotobynumerohcService', 'moment', 'Upload', 'Notification', '$compile'];
 
-  function HistoriaclinicasController ($timeout, $scope, $state, $uibModal, $window, Authentication, historiaclinica, Cie10presuntivoService, moment, Upload, Notification, $compile) {
+  function HistoriaclinicasController ($timeout, $scope, $state, $uibModal, $window, Authentication, historiaclinica, Cie10presuntivoService, FotoshistoriaclinicaService, FotobynumerohcService, moment, Upload, Notification, $compile) {
     var vm = this;
     console.log(historiaclinica);
     vm.authentication = Authentication;
@@ -19,7 +19,6 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-    vm.saveTerapia = saveTerapia;
     vm.progress = 0;
     vm.picFile = [];
     vm.sexo = null;
@@ -98,16 +97,14 @@
       if (vm.historiaclinica._id) {
         vm.historiaclinica.$update(successCallback, errorCallback);
       } else {
-        vm.historiaclinica.$save(successCallback, errorCallback).then(upload(vm.picFile));
+        vm.historiaclinica.$save(successCallback, errorCallback).then(function(response){
+          if(response){
+          upload(vm.picFile)
+        }});
       }
 
       function successCallback(res) {
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Se guardó la Historia Clínica' });
-        $timeout(function () {
-          $state.go('historiaclinicas.list', {
-            historiaclinicaId: res._id
-          });
-        }, 100);
       }
 
       function errorCallback(res) {
@@ -116,26 +113,6 @@
       }
     }
 
-    function saveTerapia(){
-      vm.terapeuticaPodologica.push({
-        descripcion : vm.terapodo,
-        historiaclinica: vm.historiaclinica._id,
-        fecha : new Date()
-      });
-      console.log(vm.terapeuticaPodologica);
-
-      /*console.log(vm.terapeuticaPodologica)
-      vm.terapeuticaPodologica.historiaClinica = vm.historiaclinica._id;
-      vm.terapeuticaPodologica.$save(successCallback, errorCallback);
-
-      function successCallback(res) {
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Se guardó nueva Terapia Podológica' });
-      }
-      function errorCallback(res) {
-        console.log(res);
-        vm.error = res.data.message;
-      }*/
-    }
 
     vm.toggle = function ($event, field, event) {
       $event.preventDefault();
@@ -161,33 +138,22 @@
 
 
     function upload(dataUrl) {
-      for (var i = 0; i < dataUrl.length; i++) {
         Upload.upload({
-          url: '/api/historiaclinicas/picture',
+          url: '/api/picture',
           data: {
-            newHCPicture: dataUrl[i]
+            newHCPicture: dataUrl
           }
-        }).then(function (response) {
-          $timeout(function () {
-            onSuccessItem(response.data);
-          });
-        }, function (response) {
-          if (response.status > 0) onErrorItem(response.data);
-        }, function (evt) {
-          vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
-        });
-      };
+        })
+        $timeout(function(){
+        $state.go('historiaclinicas.list', {})}, 1000)
         
-      }  
 
-    function onSuccessItem(response) {
-      // Show success message
+  /*  function onSuccessItem(response) {
+
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Successfully upload picture' });
 
       // Populate user object
-      vm.historiaclinica = response;
-
-      // Reset form
+      //vm.historiaclinica = response;
       vm.fileSelected = false;
       vm.progress = 0;
     }
@@ -196,9 +162,9 @@
       vm.fileSelected = false;
       vm.progress = 0;
 
-      // Show error message
       Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Failed upload picture' });
-    }
+    }*/
+  }
 
     /*vm.picFile = [
 
@@ -248,7 +214,7 @@
     }
 
     vm.activeDivIndicaciones = function(){
-      vm.activeDivIndicaciones = false;
+      vm.disabledivIndicaciones = false;
     }
 
 
@@ -263,9 +229,19 @@
     
     vm.deleteImage = function(file){
       if ($window.confirm('Estás seguro de borrar esta imagen?')) {
-       /* file.$remove(/*$state.go('historiaclinicas.list'));*/
+        FotoshistoriaclinicaService.delete_photo({fotohistoriaId: file._id}, {}, 
+          Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Imagen borrada' }), function(res){res.data.message});
+          vm.picFile = [];
+          getPhotos();
+
+      function getPhotos(){
+        FotobynumerohcService.get({numeroHC : vm.historiaclinica.numeroHC}, function(response){
+          vm.picFile = response;
+        })
+      }
       };
     }
 
   }
+
 }());

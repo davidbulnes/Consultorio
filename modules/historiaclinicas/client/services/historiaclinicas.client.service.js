@@ -28,4 +28,37 @@
     return $resource('/api/cie10presuntivo', {});
   }
 
+  angular
+    .module('historiaclinicas')
+    .factory('FotoshistoriaclinicaService', FotoshistoriaclinicaService);
+
+    FotoshistoriaclinicaService.$inject = ['$resource'];
+
+    function FotoshistoriaclinicaService($resource){
+      return $resource('/api/fotohistoria/:fotohistoriaId',{
+        fotoshistoriaId: '@_id'
+      },{
+        delete_photo: {
+          method: 'DELETE'
+        }
+      });
+    }
+
+    angular
+    .module('historiaclinicas')
+    .factory('FotobynumerohcService', FotobynumerohcService);
+
+    FotobynumerohcService.$inject = ['$resource'];
+
+    function FotobynumerohcService($resource){
+      return $resource('/api/fotobynumerohc/:numeroHC',{
+        numeroHC: '@nrohistoriaClinica'
+      },{
+        get: {
+          method: 'GET',
+          isArray: true
+        }
+      });
+    }
+
 }());
