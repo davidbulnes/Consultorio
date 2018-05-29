@@ -16,8 +16,8 @@ var HistoriaclinicaSchema = new Schema({
     trim: true
   },
   numeroHC: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: '',
     required: 'Ingrese el número de Historia Clínica'
   },
   motivo: {
@@ -119,6 +119,10 @@ var HistoriaclinicaSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  yearCreated: {
+    type: String,
+    default: ''
+  },
   diagDefinitivo: {
     type: String,
     default: ''
@@ -146,6 +150,14 @@ var HistoriaclinicaSchema = new Schema({
   fotos: {},
   terapeuticapodologica: {},
   indicaciones: {},
+  pacienteFullName: {
+    type: String,
+    default: ''
+  },
+  estadoPaciente: {
+   type: String,
+   default: 'En espera'
+  },
   created: {
     type: Date,
     default: Date.now

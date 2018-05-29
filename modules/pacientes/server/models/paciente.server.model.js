@@ -37,19 +37,16 @@ var PacienteSchema = new Schema({
   phone: {
     type: String,
     default: '000000000',
-    required: 'Plean fill phone',
     trim: true
   },
   dni: {
     type: String,
     trim: true,
     default: '00000000',
-    required: 'Please fill dni'
   },
   edad: {
     type: Number,
     trim: true,
-    require: 'Ingresar Edad',
     default: 0
   },
   ocupacion: {

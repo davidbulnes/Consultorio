@@ -8,7 +8,9 @@ var validator = require('validator'),
   User = mongoose.model('User'),
   Historiaclinica = mongoose.model('Historiaclinica'),
   Cie10presuntivo = mongoose.model('Cie10presuntivo'),
-  nodemailer = require('nodemailer')
+  Calendario = mongoose.model('Calendario'),
+  nodemailer = require('nodemailer'),
+  moment = require('moment')
 
 
 /**
@@ -81,6 +83,9 @@ exports.renderNotFound = function (req, res) {
 };
 
 exports.reportBarras = function(req, res) {
+  var currentTime = new Date();
+  var yearnow = currentTime.getFullYear().toString();
+  console.log(yearnow);
   var totalcie = [];
   var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
     {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
@@ -96,8 +101,8 @@ exports.reportBarras = function(req, res) {
       "as" : "paciente"
     }},{
     "$unwind" : "$paciente"},{
-    "$match" : {
-      "paciente.sexo" : false
+      "$match" : { "$and" : [{
+        "paciente.sexo" : false}, {"yearCreated" : yearnow}]
     }},{
       "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
       {"$sort" : {"_id" : 1}}
@@ -110,8 +115,8 @@ exports.reportBarras = function(req, res) {
         "as" : "paciente"
       }},{
       "$unwind" : "$paciente"},{
-      "$match" : {
-        "paciente.sexo" : true
+      "$match" : { "$and" : [{
+        "paciente.sexo" : true}, {"yearCreated" : yearnow}]
       }},{
         "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
         {"$sort" : {"_id" : 1}}
@@ -164,8 +169,8 @@ exports.reportBarras = function(req, res) {
 
 exports.listbarrasbyId = function(req, res){
   var id = mongoose.Types.ObjectId(req.params.cie10id);
+  var year = req.params.yearcie10;
   //var cie10 = req.params.cie10id;
-  console.log(req.params.cie10id);
   var totalcie = [];
   var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
     {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
@@ -182,8 +187,8 @@ exports.listbarrasbyId = function(req, res){
     }},{
     "$unwind" : "$paciente"},{
     "$match" : {"$and" : [{
-      "paciente.sexo" : false},{ "$or" : [{
-        "cie10presuntivo" : id} , {"cie10definitivo" : id}
+      "paciente.sexo" : false}, { "yearCreated" : year}, { "$or" : [{
+        "cie10presuntivo" : id}, {"cie10definitivo" : id}
     ]}]}},{
       "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
       {"$sort" : {"_id" : 1}}
@@ -197,8 +202,8 @@ exports.listbarrasbyId = function(req, res){
       }},{
       "$unwind" : "$paciente"},{
         "$match" : {"$and" : [{
-          "paciente.sexo" : true},{ "$or" : [{
-          "cie10presuntivo" : id} , {"cie10definitivo" : id} 
+          "paciente.sexo" : true}, {"yearCreated" : year}, { "$or" : [{
+          "cie10presuntivo" : id}, {"cie10definitivo" : id} 
         ]}]}},{
         "$group" : {"_id" : {"$month" : "$fechaCreated"},"suma" : {"$sum" : 1}}},
         {"$sort" : {"_id" : 1}}
@@ -227,4 +232,40 @@ exports.listbarrasbyId = function(req, res){
       res.jsonp(totalcie);
     }
   })});
+}
+
+exports.listPastel = function(req, res){
+  var currentTime = new Date();
+  var yearnow = currentTime.getFullYear().toString();
+  var total = [];
+  //var objEstados = [{_id: 0 , suma: 0}, {_id: 1, suma: 0}, {_id: 2, suma: 0}]
+  Historiaclinica.aggregate({
+    "$match" : { "yearCreated" : yearnow}},{
+    "$group" : {"_id" : "$estadoPaciente" , "suma" : {"$sum" : 1}}
+  }).exec(function(err, datareport) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(datareport);
+    }
+  });
+}
+
+exports.getMeedDay = function(req, res){
+  var currentTime = moment(new Date()).startOf('day');
+  var startDate = currentTime.toDate();
+  var endDate = currentTime.add(23, 'hours').toDate();
+  Calendario.find({startsAt : {'$gt' : startDate, '$lt': endDate}}).populate('paciente').exec(function(err, meets) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      console.log(startDate);
+      console.log(endDate);
+      res.jsonp(meets);
+    }
+  });
 }

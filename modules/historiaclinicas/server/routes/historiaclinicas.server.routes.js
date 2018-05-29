@@ -14,14 +14,14 @@ module.exports = function(app) {
   app.route('/api/historiaclinicas').all(historiaclinicasPolicy.isAllowed)
     .get(historiaclinicas.list)
     .post(historiaclinicas.create);
+  app.route('/api/picture').all(historiaclinicasPolicy.isAllowed)
+    .post(historiaclinicas.savePicture); 
 
   app.route('/api/historiaclinicas/:historiaclinicaId').all(historiaclinicasPolicy.isAllowed)
     .get(historiaclinicas.read)
     .put(historiaclinicas.update)
     .delete(historiaclinicas.delete);
-
-  app.route('/api/picture').all(historiaclinicasPolicy.isAllowed)
-    .post(historiaclinicas.savePicture);  
+ 
 
   app.route('/api/cie10presuntivo').all(historiaclinicasPolicy.isAllowed)
     .get(historiaclinicas.listCie10Presuntivo);

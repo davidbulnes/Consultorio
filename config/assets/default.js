@@ -7,6 +7,7 @@ module.exports = {
     lib: {
       css: [
         // bower:css
+        'public/lib/angular-material/angular-material.css',
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
@@ -16,11 +17,13 @@ module.exports = {
       ],
       js: [
         // bower:js
-        'public/lib/jquery/dist/jquery.min.js',
+        
         'public/lib/angular/angular.js',
+        'public/lib/jquery/dist/jquery.min.js',
         'public/lib/moment/min/moment-with-locales.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',  
         'public/lib/angular-animate/angular-animate.js',
+        'public/lib/angular-aria/angular-aria.js',
         'public/lib/angular-touch/angular-touch.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
@@ -35,11 +38,11 @@ module.exports = {
         'public/lib/interactjs/dist/interactjs.min.js',
         'public/lib/chart.js/dist/Chart.min.js',
         'public/lib/angular-chart.js/dist/angular-chart.js',
-        'public/lib/jquery.easy-pie-chart/dist/angular.easypiechart.min.js',
         'public/lib/konva/konva.js',
         'public/lib/angular-pintura/angular-pintura.js',
-        'public/lib/slick-carousel/slick/slick.min.js',
-        'public/lib/angular-slick-carousel/dist/angular-slick.min.js'
+        'public/lib/angular-material/angular-material.js',
+        'public/lib/angular-data-grid/dist/pagination.js',
+        'public/lib/angular-data-grid/dist/dataGrid.js'
 
 
         // endbower

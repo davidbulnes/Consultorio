@@ -5,14 +5,14 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article'),
+  CIE10 = mongoose.model('Cie10presuntivo'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
  * Create an article
  */
 exports.create = function (req, res) {
-  var article = new Article(req.body);
+  var article = new CIE10(req.body);
   article.user = req.user;
 
   article.save(function (err) {
@@ -46,8 +46,7 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var article = req.article;
 
-  article.title = req.body.title;
-  article.content = req.body.content;
+  article.descripcion = req.body.descripcion;
 
   article.save(function (err) {
     if (err) {
@@ -81,7 +80,7 @@ exports.delete = function (req, res) {
  * List of Articles
  */
 exports.list = function (req, res) {
-  Article.find().sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+  CIE10.find().sort('-created').populate('user').exec(function (err, articles) {
     if (err) {
       return res.status(422).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +102,7 @@ exports.articleByID = function (req, res, next, id) {
     });
   }
 
-  Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
+  CIE10.findById(id).populate('user').exec(function (err, article) {
     if (err) {
       return next(err);
     } else if (!article) {

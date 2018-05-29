@@ -38,6 +38,8 @@ exports.create = function(req, res) {
   var historiaclinica = new Historiaclinica(req.body);
   historiaclinica.user = req.user;
   historiaclinica.paciente = req.body.paciente;
+  historiaclinica.yearCreated = historiaclinica.fechaCreated.getFullYear();
+  //historiaclinica.pacientefullname = historiaclinica.paciente.name + ' ' + historiaclinica.paciente.lastName;
   nroHistoria = historiaclinica.numeroHC;
   historiaclinica.save(function(err) {
     if (err) {
@@ -58,7 +60,7 @@ exports.read = function(req, res) {
   // convert mongoose document to JSON
   var historiaclinica = req.historiaclinica ? req.historiaclinica.toJSON() : {};
  // var terapeuticapodologica = req.terapeuticapodologica ? req.terapeuticapodologica.toJSON() : {};
-
+  nroHistoria = historiaclinica.numeroHC;
   //historiaclinica.terapeuticapodologica = terapeuticapodologica;
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
@@ -250,6 +252,7 @@ exports.historiaclinicaByID = function(req, res, next, id) {
       });
     }
     //console.log(terapeuticapodologica)
+    nroHistoria = historiaclinica.numeroHC;
     req.historiaclinica = historiaclinica
     req.historiaclinica.fotos = fotosHistoria;
     req.historiaclinica.terapeuticapodologica = terapeuticapodologica;
@@ -273,7 +276,10 @@ exports.deletePicture = function(req, res){
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          console.log('borro')
+          FotosHistoriaClinica.find({nrohistoriaClinica : nroHistoria}).exec(function(err, jsonfotos){
+            res.jsonp(jsonfotos);
+            console.log(jsonfotos);
+          });
         }
       });
     }
@@ -308,9 +314,12 @@ exports.savePicture = function (req, res) {
    var upload = multer(multerConfig).any();
    // existingImageUrl = fotosHistoriaClinica.fileImageURL;
     uploadImage()
-      .then(function () {
+      .then(function (response) {
+        FotosHistoriaClinica.find({nrohistoriaClinica : nroHistoria}).exec(function(err, jsonfotos){
+          res.jsonp(jsonfotos);
+          console.log(jsonfotos);
+        });
         //res.json(user);
-        console.log('Guardó')
       })
       .catch(function (err) {
         res.status(422).send(err);
@@ -322,11 +331,10 @@ exports.savePicture = function (req, res) {
         if (uploadError) {
           reject(errorHandler.getErrorMessage(uploadError));
         } else {
-          console.log(req.files)
+          //console.log(req.files)
           req.files.forEach(element => {
             var fotosHistoriaClinica = new FotosHistoriaClinica();
             fotosHistoriaClinica.nrohistoriaClinica = nroHistoria;
-            console.log(fotosHistoriaClinica.nrohistoriaClinica);
             fotosHistoriaClinica.fileImageURL = config.uploads.storage === 's3' && config.aws.s3 ?
             element.location : '/' + element.path;
             fotosHistoriaClinica.save(function (err) {
@@ -365,7 +373,7 @@ exports.getPictures = function(req, res){
         });
       } else {
         res.jsonp(fotosHistoria);
-        console.log(fotosHistoria);
+        //console.log(fotosHistoria);
       } 
   });
 }

@@ -10,7 +10,8 @@
 
   function PacientesController ($scope, $state, $window, Authentication, pacientes) {
     var vm = this;
-    console.log(pacientes)
+    console.log(pacientes);
+    $window.scrollTo(0,0);
     vm.authentication = Authentication;
     vm.pacientes = pacientes;
     vm.error = null;

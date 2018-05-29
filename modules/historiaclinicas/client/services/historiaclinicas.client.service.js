@@ -39,7 +39,8 @@
         fotoshistoriaId: '@_id'
       },{
         delete_photo: {
-          method: 'DELETE'
+          method: 'DELETE',
+          isArray: true
         }
       });
     }

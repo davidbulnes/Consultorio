@@ -1,11 +1,39 @@
+<style>
+</style>
 <section>
   <div class="page-header">
     <h1 ng-bind="vm.historiaclinica.name"></h1>
   </div>
   <div class="pull-right">
-      <a class="btn btn-primary"
-      ui-sref="historiaclinicas.edit({ historiaclinicaId: vm.historiaclinica._id })">
-     <i class="glyphicon glyphicon-random"></i>
+      <div class="lock-size" layout="row" layout-align="center center">
+          <md-fab-speed-dial md-open="vm.isOpen" md-direction="{{vm.selectedDirection}}"
+                             ng-class="vm.selectedMode" ng-mouseenter="vm.isOpen=true" ng-mouseleave="vm.isOpen=false">
+            <md-fab-trigger>
+              <md-button aria-label="menu" class="md-fab md-primary">
+                  <md-tooltip md-direction="top" >Menu</md-tooltip>
+                  <i class="glyphicon glyphicon-menu-hamburger"></i>
+              </md-button>
+            </md-fab-trigger>
+    
+            <md-fab-actions>
+              <md-button aria-label="Google Hangout" class="md-fab md-raised md-mini" ng-click="vm.remove()">
+                  <md-tooltip md-direction="top" >Eliminar</md-tooltip>
+                  <i class="glyphicon glyphicon-trash"></i>
+              </md-button>
+              <md-button aria-label="Facebook" class="md-fab md-raised md-mini" ui-sref="historiaclinicas.edit({ historiaclinicaId: vm.historiaclinica._id })">
+                  <md-tooltip md-direction="top" >Editar</md-tooltip>
+                  <i class="glyphicon glyphicon-edit"></i>
+              </md-button>
+              <md-button aria-label="Twitter" class="md-fab md-raised md-mini" ng-click="vm.printHistoria()">
+                  <md-tooltip md-direction="top" >Imprimir</md-tooltip>
+                  <i class="glyphicon glyphicon-print"></i>
+              </md-button>
+            </md-fab-actions>
+          </md-fab-speed-dial>
+        </div>
+    <!--  <a class="btn btn-primary"
+       data-toogle="toolpit" title="Imprimir" ng-click="vm.printHistoria()">
+     <i class="glyphicon glyphicon-print"></i>
    </a>
     <a class="btn btn-primary"
        ui-sref="historiaclinicas.edit({ historiaclinicaId: vm.historiaclinica._id })">
@@ -13,11 +41,11 @@
     </a>
     <a class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
-    </a>
+    </a>-->
   </div>
   <small>
     <em class="text-muted">
-      Posted on
+      Created
       <span ng-bind="vm.historiaclinica.created | date:'mediumDate'"></span>
       by
       <span ng-if="vm.historiaclinica.user"
@@ -25,5 +53,375 @@
       <span ng-if="!vm.historiaclinica.user">Deleted User</span>
     </em>
   </small>
-  <p class="lead" ng-bind="vm.historiaclinica.content"></p>
+  <form class="form-horizontal" id="printSectionId">
+  <div class="page-header">  
+          <div class="form-group" >
+            <br />
+            <label class="control-label col-sm-7"><h4>FICHA CLÍNICA PODOLÓGICA N°:</h4></label>
+            <div class="col-sm-4">
+                <h4><p class="form-control-static">{{vm.historiaclinica.numeroHC}}</p></h4>
+            </div>
+          </div>
+    </div>
+
+    <div class="container">
+        <div class="pull-left">
+            <h4>
+              <strong>I.- FILIACIÓN</strong>
+            </h4>
+          </div>
+          <div class="pull-right" style="padding-right: 70px">
+              <div class="col-sm-5">
+              <h4>
+              <strong>Fecha:</strong>
+            </h4>
+            </div>
+            <div class="col-sm-7" style="padding-left: 30px">
+            <p class="form-control-static" style="border-bottom: 1px solid black"><strong>{{vm.historiaclinica.fechaCreated | date:'dd/MM/yyyy'}}</strong></p>
+          </div>
+        </div>
+
+          <br />
+          <br />
+          
+
+          <div class="modal-body">
+    <ul>
+        <div class="form-group">
+          <div class="row">
+            <li>
+              <div class="col-sm-2">
+                <label class="control-label">Apellidos y Nombres: </label>
+              </div>
+              <div class="col-sm-7">
+                <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.fullName}}</p>
+              </div>
+              <div class="col-sm-1">
+                <label class="control-label">Edad: </label>
+              </div>
+              <div class="col-sm-2">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.edad}}</p>
+              </div>
+            </li>
+          </div>
+        </div>
+        <br/>
+        <div class="form-group">
+          <div class="row">
+            <li>
+              <div class="col-sm-2">
+                <label class="control-label">Dirección: </label>
+              </div>
+              <div class="col-sm-7">
+                <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.direccion}}</p>
+              </div>
+              <div class="col-sm-1">
+                <label class="control-label">Sexo: </label>
+              </div>
+              <div class="col-sm-2">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.sexo}}</p>
+              </div>
+            </li>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <li>
+              <div class="col-sm-2">
+                <label class="control-label">DNI: </label>
+              </div>
+              <div class="col-sm-5">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.dni}}</p>
+              </div>
+              <div class="col-sm-1">
+                <label class="control-label">Fono: </label>
+              </div>
+              <div class="col-sm-4">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.phone}}</p>
+              </div>
+            </li>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <li>
+              <div class="col-sm-2">
+                <label class="control-label">Ocupación: </label>
+              </div>
+              <div class="col-sm-5">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.ocupacion}}</p>
+              </div>
+              <div class="col-sm-1">
+                <label class="control-label">Procedencia: </label>
+              </div>
+              <div class="col-sm-4">
+                  <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.paciente.procedencia}}</p>
+              </div>
+            </li>
+          </div>
+        </div>
+      </ul>
+    </div>
+      <br />
+      <!-- ///////ANAMESIS/////-->
+      <div class="pull-left">
+          <h4>
+            <strong>II.- ANAMNESIS</strong>
+          </h4>
+        </div>
+        <br />
+        <br />
+        <div class="modal-body">
+        <ul>
+            <div class="form-group">
+              <div class="row">
+                <li>
+                  <div class="col-sm-2">
+                    <label class="control-label">Motivo de la Consulta: </label>
+                  </div>
+                  <div class="col-sm-10">
+                    <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.motivo}}</p>
+                  </div>
+                </li>
+              </div>
+            </div>
+            <br/>
+            <div class="form-group">
+              <div class="row">
+                <li>
+                  <div class="col-sm-2">
+                    <label class="control-label">Antecedentes: </label>
+                  </div>
+                  <div class="col-sm-10">
+                    <p  class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.antecedentes}}</p>
+                  </div>
+                </li>
+              </div>
+            </div>
+            <br />
+            <div class="form-group">
+              <div class="row">
+                <li>
+                  <div class="col-sm-2">
+                    <label class="control-label">Tiempo Enfermedad: </label>
+                  </div>
+                  <div class="col-sm-10">
+                    <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.tiempoEnf}}</p>
+                  </div>
+                </li>
+              </div>
+            </div>
+            <br />
+          </ul>
+      </div>
+      <!-- ///////Examen fisicoterapeutico/////-->
+        <div class="pull-left">
+          <h4>
+            <strong>III.- EXAMEN FÍSICO/CLÍNICO EEII</strong>
+          </h4>
+        </div>
+        <br />
+        <br />
+        <br />
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-1">
+              <label class="control-label">Estatura:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.estatura}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">Peso:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.peso}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">
+                <u>
+                  <i>Exploración Vascular</i>
+                </u>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">Pulso Pedio:</label>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/D:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.PulsoPePD}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/I:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.PulsoPePI}}</p>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">Pulso Pedio TP:</label>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/D:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.PtpPD}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/I:</label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.PtpPI}}</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">Color Piel: </label>
+            </div>
+            <div class="col-sm-6">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.ColorPiel}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">T°: </label>
+            </div>
+            <div class="col-sm-3">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.temperatura}}</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">AVP: </label>
+            </div>
+            <div class="col-sm-3">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.AVP}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">TA T/B:</label>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/D: </label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.TatbPD}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">P/I: </label>
+            </div>
+            <div class="col-sm-2">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.TatbPI}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="control-label">
+                <u>
+                  <i>Exploración neurovascular EII</i>
+                </u>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">Sencib. Dolorosa: </label>
+            </div>
+            <div class="col-sm-4">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.SencibDol}}</p>
+            </div>
+            <div class="col-sm-2">
+              <label class="control-label">Sencib. Táctil: </label>
+            </div>
+            <div class="col-sm-4">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.SencibTactil}}</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">Reflejo cutaneo plantar: </label>
+            </div>
+            <div class="col-sm-10">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.ReflejCutPla}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="control-label">
+                <u>
+                  <i>Exploración osteoarticular EII</i>
+                </u>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.ExplOsteo}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="control-label">
+                <u>
+                  <i>Lesiones dermatológicas/podológicas</i>
+                </u>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-2">
+              <label class="control-label">P/D: </label>
+            </div>
+            <div class="col-sm-10">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.LesionesDermaPD}}</p>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-sm-2">
+              <label class="control-label">P/I: </label>
+            </div>
+            <div class="col-sm-10">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.LedionesDermaPI}}</p>
+            </div>
+          </div>
+        </div>
+        </div>
+        <br />
+    </div>
+  </form>
 </section>

@@ -2,7 +2,7 @@
   <div class="modal-header bg-primary">
         <h3 class="modal-title">Pacientes <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.close()">&times;</button></h3>
         <div class="col-md-8" style="margin-top: 2em; padding-left: 0px ;">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar..." ng-change="vm.figureOutItemsToDisplay()" />
       </div>
   </div>
   <div class="modal-body">
@@ -16,7 +16,9 @@
         <th>Create on</th>
         <th>ok</th>
       </tr>
-    </thead>  
+    </thead>      
+      </md-button>
+
      <tbody ng-if="!vm.type">
       <tr ng-repeat="paciente in vm.pagedItems">
         <td>{{paciente.name}} {{paciente.lastName}}</td>
@@ -24,7 +26,9 @@
         <td>{{paciente.phone}}</td>
         <td>{{paciente.email}}</td>
         <td>{{paciente.created | date:'mediumDate' }}</td>
-        <td><button class="btn btn-info" ng-click="vm.selectRow(paciente)">Sel</button></td>
+        <td><md-button class="md-fab md-mini md-primary" ng-click="vm.selectRow(paciente)" aria-label="check">
+            <i class="glyphicon glyphicon-check"></i>
+        </md-button></td>
       </tr>    
     </tbody>
   </table>

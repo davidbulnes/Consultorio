@@ -13,20 +13,21 @@
       title: 'Historia Clínica',
       state: 'historiaclinicas',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'historiaclinicas', {
       title: 'Listar Historias Clínicas',
-      state: 'historiaclinicas.list'
+      state: 'historiaclinicas.list',
+      roles: ['admin']
     });
 
     // Add the dropdown create item
     menuService.addSubMenuItem('topbar', 'historiaclinicas', {
       title: 'Crear Historias Clínicas',
       state: 'historiaclinicas.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

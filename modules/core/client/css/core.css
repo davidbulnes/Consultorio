@@ -41,3 +41,15 @@ a:hover .header-profile-image {
 .has-error .help-inline.error-text {
   display: inline;
 }
+
+.md-toolbar-tools {
+  background-color: rgb(52, 52, 52)
+}
+
+.md-divider {
+  margin-top: 10px;
+  margin-bottom: 0; }
+
+body {
+  height: auto;
+}

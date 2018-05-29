@@ -1,20 +1,25 @@
-<section class="row" style="margin-top: -50px">
+<section class="row" style="margin-top: -30px">
     <div class="page-header">
-            <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="name" class="h4">CIE-10</label>
-                      <select class="form-control" ng-model="vm.ci10diagdefinitivo._id" ng-change="vm.getcie10()">
-                        <option ng-repeat="x in vm.cie10" value="{{x._id}}">{{x.descripcion}}</option>
-                      </select>
-                    </div>           
-                    <div class="form-group col-sm-6">
-                      <label for="email" class="h4">Año</label>
-                      <input name="lastName" type="text" class="form-control">
-                      </div>
-                    </div>
-                  </div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <h4><label>CIE-10</label></h4>
+              <md-select name="cie10presuntivo" ng-model="vm.ci10diagdefinitivo._id" ng-change="vm.getcie10()">
+                  <md-option ng-repeat="x in vm.cie10" value="{{x._id}}">{{x.descripcion}}</md-option>
+              </md-select>                                              
+            </md-input-container>  
+            <div flex="5" hide-xs hide-sm>
+              <!-- Spacer //-->
+            </div>   
+            <md-input-container class="md-block" flex-gt-sm>
+                <h4><label>Año</label></h4>
+              <md-select name="cie10presuntivo" ng-model="vm.yearcie10" ng-change="vm.getcie10()">
+                  <md-option ng-repeat="x in vm.cie10byyear" value="{{x.ano}}">{{x.ano}}</md-option>
+              </md-select>                                                        
+            </md-input-container>
+          </div>    
+        </div>
     </div>
-<div class="col-md-12 text-center">
+<div class="col-md-12 text-center container">
     <div ng-show="vm.loading" class="form-group text-center">
         <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading...">
       </div>
@@ -23,7 +28,7 @@
     chart-data="vm.barrasdata" 
     chart-labels="vm.etiquetas" 
     chart-series="vm.series"
-    chart-options="vm.options"
+    chart-options="vm.options1"
     chart-colors="vm.colors"></canvas>
     </div>
 </section>

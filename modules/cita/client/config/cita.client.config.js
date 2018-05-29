@@ -1,4 +1,4 @@
-(function () {
+/*(function () {
   'use strict';
 
   angular
@@ -29,4 +29,4 @@
       roles: ['user']
     });
   }
-}());
+}());*/

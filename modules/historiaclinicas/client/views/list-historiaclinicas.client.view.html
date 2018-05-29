@@ -4,7 +4,13 @@
         <div class="col-md-4">
           <h1>Historias Clínicas</h1>
         </div>
-        <div class="col-md-4" style="margin-top: 2em">
+        <div class="col-md-8" style="margin-top: 2em">
+                <a class="btn btn-primary pull-right" data-ui-sref="historiaclinicas.create" data-toggle="tooltip" title="Nueva Historia Clínica">
+                  <i class="glyphicon glyphicon-plus"></i>
+                </a>
+                </div>
+        </div></div>
+     <!--   <div class="col-md-4" style="margin-top: 2em">
           <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar..." ng-change="vm.figureOutItemsToDisplay()"
           />
         </div>
@@ -66,7 +72,6 @@
               <td>{{historiaclinica.paciente.dni}}</td>
               <td>{{paciente.email}}</td>
               <td>{{paciente.estado}}</td>
-              <!--<td>{{paciente.user.displayName}}</td>-->
             </tr>
           </tbody>
         </table>
@@ -77,4 +82,191 @@
     </div>
     <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage"
       ng-change="vm.pageChanged()"></uib-pagination>
-  </section>
+  </section>-->
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="orderIdFilter">Buscar</label>
+                    <input type="text" class="form-control" order-search-box ng-model="vm.search" placeholder="Buscar..." ng-change="vm.figureOutItemsToDisplay()"/>
+                    </div></div>
+                <!--    <input id="orderIdFilter" type="text" class="form-control order-search-box"
+                           placeholder="Numero Historia Clínica"
+                           ng-change="gridActions.filter()"
+                           ng-model="numeroHC"
+                           filter-by="numeroHC"
+                           filter-type="text">
+                </div>
+            </div>
+          -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="dateFromFilter">Fecha</label>
+                    <div class="input-group">
+                        <input type="text"
+                               id="dateFromFilter"
+                               class="form-control"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               placeholder="DD/MM/YYYY"
+                               close-text="Close"
+                               ng-model="dateFrom"
+                               is-open="dateFromOpened"
+                               ng-click="dateFromOpened = true"
+                               filter-by="fechaCreated"
+                               filter-type="dateFrom"
+                               ng-blur="gridActions.filter()"
+                               ng-focus="gridActions.filter()"
+                               close-text="Close"/>
+                        <span class="input-group-btn">
+                            <label for="dateFromFilter" class="btn btn-default">
+                                <i class="glyphicon glyphicon-calendar"></i></label>
+                          </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" ng-show="false">
+                <div class="form-group">
+                    <label for="dateToFilter">Fecha</label>
+                    <div class="input-group">
+                        <input type="text"
+                               id="dateFromFilter"
+                               class="form-control"
+                               uib-datepicker-popup="dd/MM/yyyy"
+                               placeholder="DD/MM/YYYY"
+                               close-text="Close"
+                               ng-model="dateFrom"
+                               is-open="dateToOpened"
+                               ng-click="dateToOpened = true"
+                               filter-by="fechaCreated"
+                               filter-type="dateTo"
+                               ng-blur="gridActions.filter()"
+                               ng-focus="gridActions.filter()"
+                               close-text="Close"/>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="col-md-4">
+                    <div layout="row" layout-align="start center">
+                            <md-button ng-show="dateTo || dateFrom"
+                                       class="md-raised md-primary"
+                                       ng-click="dateTo = ''; dateFrom = ''; gridActions.refresh();">Limpiar
+                            </md-button>
+                        </div>
+                </div>
+        </div>
+    </div>
+    <hr>
+  <!--  <div class="text-right">
+        <button class="btn btn-default" ng-click="exportToCsv(gridOptions.data)">Export all data to CSV <i
+                class="fa fa-download"></i></button>
+        <button class="btn btn-default" ng-click="exportToCsv(gridOptions.grid.filtered)">Export filtered data to CSV <i
+                class="fa fa-download"></i></button>
+    </div>-->
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div grid-data id='test' grid-options="vm.gridOptions" grid-actions="gridActions">
+                <div class="row">
+                    <div class="col-md-3">
+                        <span class="items">{{filtered.length}} Resultados</span>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <form class="form-inline pull-right margin-bottom-basic">
+                            <div class="form-group">
+                                <grid-pagination max-size="5"
+                                                 boundary-links="true"
+                                                 class="pagination-sm"
+                                                 total-items="paginationOptions.totalItems"
+                                                 ng-model="paginationOptions.currentPage"
+                                                 ng-change="reloadGrid()"
+                                                 items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                            </div>
+                            <div class="form-group items-per-page">
+                                <label for="itemsOnPageSelect1">Items per page:</label>
+                                <select id="itemsOnPageSelect1" class="form-control input-sm"
+                                        ng-init="paginationOptions.itemsPerPage = '10'"
+                                        ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
+                                    <option>75</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th sortable="numeroHC" class="sortable">
+                            Ficha #
+                        </th>
+                        <th sortable="fechaCreated" class="sortable">
+                            Fecha
+                        </th>
+                        <th sortable="pacienteFullName" class="sortable">
+                            Paciente
+                      </th>
+                        <th sortable='paciente.dni' class="sortable">
+                            DNI
+                        </th>
+                     <th  class="sortable">
+                            ESTADO
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr grid-item ui-sref="historiaclinicas.view({ historiaclinicaId: item._id })" ng-class="{'success' : item.estadoPaciente == 'Curado',
+                            'danger' : item.estadoPaciente == 'No Curado'}">
+                        <td width="30%" ng-bind="item.numeroHC"></td>
+                        <td width="30%" ng-bind="item.fechaCreated | date:'dd/MM/yyyy'"></td>
+                        <td ng-bind="item.pacienteFullName"></td>
+                        <td ng-bind="item.paciente.dni"></td>
+                        <td ng-bind="item.estadoPaciente"></td>
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+              <div class="alert alert-warning text-center" ng-if="vm.gridOptions.data.$resolved && !vm.gridOptions.data.length">
+                No Pacientes yet, why don't you <a ui-sref="historiaclinicas.create">create one</a>?
+              </div>
+                <form class="form-inline pull-right margin-bottom-basic">
+                    <div class="form-group">
+                        <grid-pagination max-size="5"
+                                         boundary-links="true"
+                                         class="pagination-sm"
+                                         total-items="paginationOptions.totalItems"
+                                         ng-model="paginationOptions.currentPage"
+                                         ng-change="reloadGrid()"
+                                         items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                    </div>
+                    <div class="form-group items-per-page">
+                        <label for="itemsOnPageSelect2">Items per page:</label>
+                        <select id="itemsOnPageSelect2" class="form-control input-sm"
+                                ng-init="paginationOptions.itemsPerPage = '10'"
+                                ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>75</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ </section>
+

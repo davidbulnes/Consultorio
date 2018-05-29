@@ -4,9 +4,13 @@ module.exports = function (app) {
   // Root routing
   var core = require('../controllers/core.server.controller');
 
+  app.route('/api/reports/meetday').get(core.getMeedDay);
+
   app.route('/api/reports/barras').get(core.reportBarras);
 
-  app.route('/api/reports/barras/:cie10id').get(core.listbarrasbyId)
+  app.route('/api/reports/barras/:cie10id/:yearcie10').get(core.listbarrasbyId);
+
+  app.route('/api/reports/line').get(core.listPastel);
   // Define error pages
   app.route('/server-error').get(core.renderServerError);
 

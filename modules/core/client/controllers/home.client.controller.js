@@ -5,11 +5,17 @@
     .module('core')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', '$filter', 'CoreService', 'Cie10presuntivoService'];
+  HomeController.$inject = ['$scope', '$filter', 'CoreService', 'CoreLineService', 'CoreMeetService','Cie10presuntivoService', '$timeout', '$mdSidenav', '$mdDialog', '$location'];
 
-  function HomeController($scope, $filter, CoreService, Cie10presuntivoService) {
+  function HomeController($scope, $filter, CoreService, CoreLineService, CoreMeetService, Cie10presuntivoService, $timeout, $mdSidenav, $mdDialog, $location) {
     var vm = this;
     vm.barrasdata = [[],[]];
+    vm.cie10byyear = [];
+    vm.dataLine = [];
+    vm.meetDay = {};
+    vm.enableHomePag = true;
+    vm.toggleLeft = buildToggler('left');
+    
     Cie10presuntivoService.query(function(data){
       vm.cie10 = data;
       //vm.cie10.splice(0,0,{_id : "0" , descripcion: "--Todos--"});
@@ -26,15 +32,61 @@
       });
       vm.loading = false;
     });
+    setVisibility();
+    getDates();
+    getLineData();
+    getMeetDay();
 
+    function getDates(){
+      var d = new Date();
+      var year = d.getFullYear();
+      var month = d.getMonth();
+      var day = d.getDate();
+      for (let i = -10; i < 11; i++) {
+        var c = new Date(year+i, month ,day);
+        vm.cie10byyear.push({fecha: c , ano: c.getFullYear() }); 
+      }
+      vm.yearcie10 = new Date().getFullYear();
+    }
+
+    function getLineData(){
+      vm.dataLine = [];
+      CoreLineService.query(function(data){
+        angular.forEach(data, function(value,key){
+          vm.dataLine.push(value.suma);
+        });
+        console.log(vm.dataLine)
+      });
+    }
+
+    function setVisibility(){
+      var url = $location.path().split(/[\s/]+/).pop();
+      console.log(url);
+      if(url == 'reports1' || url == 'reports2' || url == 'reports3'){
+        vm.enableHomePag = false;
+      }
+    }
+
+    function getMeetDay(){
+      CoreMeetService.query(function(data){
+        angular.forEach(data, function (value, key) {
+          data[key].startsAt = moment.utc(value.startsAt).local().toDate();
+        });
+        vm.meetDay = data;
+        console.log(data);
+      })
+    }
 
     vm.getcie10 = function(){
+      if(!vm.yearcie10){
+        vm.yearcie10 = new Date().getFullYear();
+      }
       vm.loading = true;
       vm.barrasdata = [[],[]];
       vm.barrasm = [];
       vm.barrasf = [];
       vm.cie10id = vm.ci10diagdefinitivo._id;
-      vm.databycie10 = CoreService.get({cie10id: vm.cie10id}).$promise;
+      vm.databycie10 = CoreService.get({cie10id: vm.cie10id, yearcie10: vm.yearcie10}).$promise;
       vm.databycie10.then(function(data){
         vm.barrasm = data[0];
         vm.barrasf = data[1];
@@ -48,64 +100,66 @@
       });
     }
 
-    chart1();
-    chart2();
-    chart3();
+    vm.isOpenLeft = function(){
+      return $mdSidenav('left').isOpen();
+    };
+    
+    function buildToggler(navID) {
+      return function() {
+        $mdSidenav(navID)
+          .toggle()
+      };
+    };
 
-    function chart1() {
-      vm.percent1 = 65;
-      vm.options1 = {
-        animate: {
-          duration: 1000,
-          enabled: true
-        },
-        barColor: '#0174DF',
-        trackColor: true,
-        scaleColor: true,
-        lineWidth: 25,
-        lineCap: 'circle',
-        size: 200
-      }
-    }
-    function chart2() {
-      vm.percent2 = 25;
-      vm.options2 = {
-        animate: {
-          duration: 1000,
-          enabled: true
-        },
-        barColor: '#01DF3A',
-        trackColor: true,
-        scaleColor: true,
-        lineWidth: 25,
-        lineCap: 'circle',
-        size: 200
-      }
-    }
-     function chart3() {
-      vm.percent3 = 90;
-      vm.options3 = {
-        animate: {
-          duration: 1000,
-          enabled: true
-        },
-        barColor: '#FF8000',
-        trackColor: true,
-        scaleColor: true,
-        lineWidth: 25,
-        lineCap: 'circle',
-        size: 200
-      }
-    }
+    vm.doPrimaryAction = function(item) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .title('Cita')
+          .textContent('Motivo:' + ' ' + item.description)
+          .ariaLabel('Primary click demo')
+          .ok('Cerrar')
+          .targetEvent(event)
+      );
+    };
+
+    vm.closeNav = function () {
+      $mdSidenav('left').close()
+    };
+
+    vm.closeNavMod = function () {
+      vm.enableHomePag = false;
+      $mdSidenav('left').close()
+    };
 
     vm.etiquetas = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre',
                     'Octubre', 'Noviembre', 'Diciembre'];
     vm.series = ['Hombres', 'Mujeres'];
-    vm.options = { legend: { display: true } }
+    vm.etiquetasLine = ['En Espera', 'Curado', 'No Curado'];
+    vm.options1 = { legend: { display: true } }
+    vm.options2 = { 
+      legend: { display: true },
+      scales: {
+        yAxes: [
+          {
+            id: 'y-axis-1',
+            type: 'linear',
+            display: true,
+            position: 'left'
+          },
+          {
+            id: 'y-axis-2',
+            type: 'linear',
+            display: true,
+            position: 'right'
+          }
+        ]
+      }
+     }
     vm.datos = [
       [65, 59, 80, 81, 65, 59, 80, 81],
       [28, 48, 40, 19, 28, 48, 40, 19]
     ];
     vm.colors = [ '#00ADF9', '#803690', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+    vm.colorPastel = ['#DFDFDF','#00C843','#C80C00']
   }
 }());

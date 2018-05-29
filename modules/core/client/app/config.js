@@ -6,7 +6,7 @@
   var service = {
     applicationEnvironment: window.env,
     applicationModuleName: applicationModuleName,
-    applicationModuleVendorDependencies: [ 'ngResource', 'ngAnimate', 'ngTouch', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'mwl.calendar','ui-notification', 'colorpicker.module', 'easypiechart', 'chart.js', 'ngPintura', 'slickCarousel'],
+    applicationModuleVendorDependencies: [ 'ngResource', 'ngAnimate', 'ngMessages', 'ui.router', 'ui.bootstrap', 'ngFileUpload', 'mwl.calendar','ui-notification', 'colorpicker.module', 'chart.js', 'ngPintura','ngMaterial','dataGrid', 'pagination'],
     registerModule: registerModule
   };
 
@@ -21,10 +21,6 @@
     angular.module(applicationModuleName).requires.push(moduleName);
   }
 
-    //Angular chart configuration
-    angular.module('chart.js').config(function (ChartJsProvider){
-      ChartJsProvider.setOptions({ colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
-    });
 
   // Angular-ui-notification configuration
   angular.module('ui-notification').config(function (NotificationProvider) {

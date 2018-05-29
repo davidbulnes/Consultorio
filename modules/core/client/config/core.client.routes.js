@@ -54,6 +54,24 @@
           pageTitle: 'Reporte de Pastel'
         }
       })
+      .state('home.line', {
+        url: 'reports3',
+        templateUrl: '/modules/core/client/views/home-chart-line.client.view.html',
+        controller: 'HomeController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Reporte Lineal'
+        }
+      })
+      .state('homes.last', {
+        url: 'ultimaAtencion',
+        templateUrl: '/modules/core/client/views/home-last.client.view.html',
+        controller: 'HomeController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'Ultima Atencion'
+        }
+      })
       .state('not-found', {
         url: '/not-found',
         templateUrl: '/modules/core/client/views/404.client.view.html',

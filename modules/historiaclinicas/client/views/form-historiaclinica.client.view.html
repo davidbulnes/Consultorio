@@ -1,4 +1,5 @@
 <section>
+  <form name="vm.form.historiaclinicaform">
   <div class="page-header">
     <!--<h1>{{vm.historiaclinica._id ? 'Edit Historiaclinica' : 'New Historiaclinica'}}</h1>-->
     <center>
@@ -10,8 +11,12 @@
             </strong>
           </label>
         </div>
-        <div class="col-sm-2">
-          <input type="text" class="form-control" ng-model="vm.historiaclinica.numeroHC" ng-disabled="vm.historiaclinica._id ? 'true' : false" />
+        <div class="col-sm-2" ng-class="{ 'has-error': vm.form.historiaclinicaform.numeroHC.$dirty && vm.form.historiaclinicaform.numeroHC.$invalid }">
+          <input type="text" class="form-control has-feedback" id="numeroHC" name="numeroHC" ng-model="vm.historiaclinica.numeroHC" ng-disabled="vm.historiaclinica._id ? 'true' : false" 
+          maxlength="8" ng-maxlength="8" data-toggle="tooltip" title="{{vm.form.historiaclinicaform.numeroHC.$valid ? '' : 'Número de historia clínica requerido'}}" 
+          tooltip-trigger="focus" tooltip-placement="bottom" required/>
+          <span class="glyphicon glyphicon-ok-sign text-success form-control-feedback" aria-hidden="true"
+          ng-show="vm.form.historiaclinicaform.numeroHC.$valid"></span>
         </div>
         <div class="pull-right">
           <div class="row">
@@ -45,7 +50,7 @@
       <div class="process">
         <div class="process-row nav nav-tabs">
           <div class="process-step" ng-class="{active: selectedTab == 1}">
-            <button type="button" class="btn btn-info btn-circle" data-toggle="tab" ng-click="selectedTab = 1;" ng-class="{'btn-info': selectedTab == 1, 'btn-default': selectedTab != 1}">
+            <button type="button" class="btn btn-primary btn-circle" data-toggle="tab" ng-click="selectedTab = 1;" ng-class="{'btn-primary': selectedTab == 1, 'btn-default': selectedTab != 1}">
               <i class="glyphicon glyphicon-user glyphicon-3x"></i>
             </button>
             <p>
@@ -53,7 +58,7 @@
             </p>
           </div>
           <div class="process-step" ng-class="{active: selectedTab == 2}">
-            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 2;" ng-class="{'btn-info': selectedTab == 2, 'btn-default': selectedTab != 2}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 2;" ng-class="{'btn-primary': selectedTab == 2, 'btn-default': selectedTab != 2}">
               <i class="glyphicon glyphicon-list-alt"></i>
             </button>
             <p>
@@ -61,7 +66,7 @@
             </p>
           </div>
           <div class="process-step" ng-class="{active: selectedTab == 3}">
-            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 3;" ng-class="{'btn-info': selectedTab == 3, 'btn-default': selectedTab != 3}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 3;" ng-class="{'btn-primary': selectedTab == 3, 'btn-default': selectedTab != 3}">
               <i class="glyphicon glyphicon-briefcase"></i>
             </button>
             <p>
@@ -70,7 +75,7 @@
             </p>
           </div>
           <div class="process-step" ng-class="{active: selectedTab == 6}">
-            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 6;" ng-class="{'btn-info': selectedTab == 6, 'btn-default': selectedTab != 6}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 6;" ng-class="{'btn-primary': selectedTab == 6, 'btn-default': selectedTab != 6}">
               <i class="glyphicon glyphicon-camera"></i>
             </button>
             <p>
@@ -78,7 +83,7 @@
             </p>
           </div>
           <div class="process-step" ng-class="{active: selectedTab == 4}">
-            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 4;" ng-class="{'btn-info': selectedTab == 4, 'btn-default': selectedTab != 4}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 4;" ng-class="{'btn-primary': selectedTab == 4, 'btn-default': selectedTab != 4}">
               <i class="glyphicon glyphicon-plus-sign"></i>
             </button>
             <p>
@@ -86,7 +91,7 @@
             </p>
           </div>
           <div class="process-step" ng-class="{active: selectedTab == 5}">
-            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 5;" ng-class="{'btn-info': selectedTab == 5, 'btn-default': selectedTab != 5}">
+            <button type="button" class="btn btn-default btn-circle" data-toggle="tab" ng-click="selectedTab = 5;" ng-class="{'btn-primary': selectedTab == 5, 'btn-default': selectedTab != 5}">
               <i class="glyphicon glyphicon-heart-empty"></i>
             </button>
             <p>
@@ -107,95 +112,167 @@
               </h4>
             </div>
             <div class="pull-right">
-              <a class="btn btn-primary" ng-click="vm.openModalPaciente()" data-toggle="tooltip" title="Buscar Paciente" ng-show=vm.showbuttonPaciente>
-                <i class="glyphicon glyphicon-search"></i> Paciente
-              </a>
-              <a class="btn btn-primary" ui-sref="paciente.create" data-toggle="tooltip" title="Nuevo Paciente">
-                <i class="glyphicon glyphicon-plus"></i>
-              </a>
+              <md-button class="md-fab md-mini md-primary" aria-label="Buscar Paciente" ng-click="vm.openModalPaciente()" data-toggle="tooltip" title="Buscar Paciente" ng-show=vm.showbuttonPaciente>
+                  <i class="glyphicon glyphicon-search"></i>
+              </md-button>
+              <md-button class="md-fab md-mini md-primary" aria-label="Nuevo Paciente" ui-sref="paciente.create" data-toggle="tooltip" title="Nuevo Paciente" ng-show=vm.showbuttonPaciente>
+                  <i class="glyphicon glyphicon-plus"></i>
+              </md-button>
+              <md-button class="md-fab md-mini md-primary" aria-label="Estado" ng-click="vm.toggleRight()" ng-hide="vm.isOpenRight()">
+                  <i class="glyphicon glyphicon-menu-hamburger"></i>
+              </md-button>
             </div>
             <br />
             <br />
             <br />
             <br />
-            <ul>
-              <div class="form-group">
-                <div class="row">
-                  <li>
-                    <div class="col-sm-2">
-                      <label class="control-label">Apellidos y Nombres: </label>
-                    </div>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" ng-model="vm.fullName" ng-disabled="true" />
-                    </div>
-                    <div class="col-sm-1">
-                      <label class="control-label">Edad: </label>
-                    </div>
-                    <div class="col-sm-2">
-                      <input type="number" class="form-control" ng-model="vm.historiaclinica.paciente.edad" ng-disabled="true" />
-                    </div>
-                  </li>
+            <ul>                    
+                <div layout-gt-xs="row">
+                   <md-input-container class="md-icon-float md-block" flex-gt-xs>
+                      <label>Apellidos y Nombres</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_person_24px.svg" class="name"></md-icon>
+                            <input ng-model="vm.fullName" type="text" style="color:black" disabled>
+                          </md-input-container>
+                          <div flex="5" hide-xs hide-sm>
+                              <!-- Spacer //-->
+                            </div>
+                    <md-input-container>
+                      <label>Edad</label>
+                         <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_perm_identity_24px.svg" class="name" ></md-icon>
+                            <input ng-model="vm.historiaclinica.paciente.edad" type="number" style="color:black" disabled>
+                          </md-input-container>
                 </div>
-              </div>
-              <br/>
-              <div class="form-group">
-                <div class="row">
-                  <li>
-                    <div class="col-sm-2">
-                      <label class="control-label">Dirección: </label>
-                    </div>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.direccion" ng-disabled="true" />
-                    </div>
-                    <div class="col-sm-1">
-                      <label class="control-label">Sexo: </label>
-                    </div>
-                    <div class="col-sm-2">
-                      <input type="text" class="form-control" ng-model="vm.sexo" ng-disabled="true" />
-                    </div>
-                  </li>
-                </div>
-              </div>
-              <br />
-              <div class="form-group">
-                <div class="row">
-                  <li>
-                    <div class="col-sm-2">
-                      <label class="control-label">DNI: </label>
-                    </div>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.dni" ng-disabled="true" />
-                    </div>
-                    <div class="col-sm-1">
-                      <label class="control-label">Fono: </label>
-                    </div>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.phone" ng-disabled="true" />
-                    </div>
-                  </li>
-                </div>
-              </div>
-              <br />
-              <div class="form-group">
-                <div class="row">
-                  <li>
-                    <div class="col-sm-2">
-                      <label class="control-label">Ocupación: </label>
-                    </div>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.ocupacion" ng-disabled="true" />
-                    </div>
-                    <div class="col-sm-1">
-                      <label class="control-label">Procedencia: </label>
-                    </div>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.procedencia" ng-disabled="true" />
-                    </div>
-                  </li>
-                </div>
-              </div>
+                                                     
+                <div layout-gt-xs="row">
+                        <md-input-container class="md-icon-float md-block" flex-gt-xs>
+                          <label>Dirección</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_place_24px.svg" class="place" ></md-icon>
+                          <input ng-model="vm.historiaclinica.paciente.direccion" type="text" style="color:black" disabled>
+                        </md-input-container>
+                        <div flex="5" hide-xs hide-sm>
+                            <!-- Spacer //-->
+                          </div>
+                        <md-input-container>
+                          <label>Sexo</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_wc_24px.svg" class="name" ></md-icon>
+                          <input ng-model="vm.sexo" type="text" style="color:black" disabled>
+                        </md-input-container>
+                </div>                                               
+                <div layout-gt-sm="row">
+
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>DNI</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_account_box_24px.svg" class="place" ></md-icon>
+                          <input name="dni" style="color:black" ng-model="vm.historiaclinica.paciente.dni" disabled/>                                              
+                        </md-input-container>
+                
+                        <div flex="5" hide-xs hide-sm>
+                          <!-- Spacer //-->
+                        </div>
+                
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>Ocupación</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_work_24px.svg" class="place" ></md-icon>
+                          <input name="ocupacion" style="color:black" ng-model="vm.historiaclinica.paciente.ocupacion" disabled/>                                                      
+                        </md-input-container>
+                </div>                                       
+                <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>Teléfono</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_local_phone_24px.svg" class="place" ></md-icon>
+                          <input name="phono" style="color:black" ng-model="vm.historiaclinica.paciente.phone" disabled/>                                              
+                        </md-input-container>
+                
+                        <div flex="5" hide-xs hide-sm>
+                          <!-- Spacer //-->
+                        </div>
+                
+                        <md-input-container class="md-block" flex-gt-sm>
+                          <label>Procedencia</label>
+                          <md-icon md-svg-src="/modules/historiaclinicas/client/img/images/ic_person_pin_circle_24px.svg" class="place" ></md-icon>
+                          <input name="ocupacion" style="color:black" ng-model="vm.historiaclinica.paciente.procedencia" disabled/>                                                      
+                        </md-input-container>
+                </div>                           
             </ul>
-            <br />
+            <br /> <br /> <br />
+        
+      <!--      <ul>
+                <div class="form-group">
+                  <div class="row">
+                    <li>                    
+                      <div class="col-sm-2">
+                        <label class="control-label">Apellidos y Nombres: </label>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" class="form-control" ng-model="vm.fullName" ng-disabled="true" />
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Edad: </label>
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="number" class="form-control" ng-model="vm.historiaclinica.paciente.edad" ng-disabled="true" />
+                      </div>
+                    </li>
+                  </div>
+                </div>
+                <br/>
+                <div class="form-group">
+                  <div class="row">
+                    <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">Dirección: </label>
+                      </div>
+                      <div class="col-sm-7">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.direccion" ng-disabled="true" />
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Sexo: </label>
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" ng-model="vm.sexo" ng-disabled="true" />
+                      </div>
+                    </li>
+                  </div>
+                </div>
+                <br />
+                <div class="form-group">
+                  <div class="row">
+                    <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">DNI: </label>
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.dni" ng-disabled="true" />
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Fono: </label>
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.phone" ng-disabled="true" />
+                      </div>
+                    </li>
+                  </div>
+                </div>
+                <br />
+                <div class="form-group">
+                  <div class="row">
+                    <li>
+                      <div class="col-sm-2">
+                        <label class="control-label">Ocupación: </label>
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.ocupacion" ng-disabled="true" />
+                      </div>
+                      <div class="col-sm-1">
+                        <label class="control-label">Procedencia: </label>
+                      </div>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="vm.historiaclinica.paciente.procedencia" ng-disabled="true" />
+                      </div>
+                    </li>
+                  </div>
+                </div>
+              </ul> -->
             <ul class="list-unstyled list-inline pull-right">
               <li>
                 <button type="button" class="btn btn-info next-step" ng-click="selectedTab = 2;">Next
@@ -216,7 +293,7 @@
             <br />
             <br />
             <ul>
-              <div class="form-group">
+              <div class="form-group">             
                 <div class="row">
                   <li>
                     <div class="col-sm-2">
@@ -497,9 +574,11 @@
                         <a class="btn btn-primary" ng-click="vm.showDeleteImg()" data-toggle="tooltip" title="Editar">
                           <i class="glyphicon glyphicon-edit"></i> Editar
                         </a>
-                        <a class="btn btn-primary" ui-sref="paciente.create" data-toggle="tooltip" title="Nuevo Paciente">
-                          <i class="glyphicon glyphicon-plus"></i>
-                        </a>
+                        <button class="btn btn-primary btn-file" data-toggle="tooltip" ngf-select="vm.loading = false" 
+                                ng-model="vm.picFileAdd" title="Nuevo Paciente" accept="image/*"  ngf-resize="{width: 1024}" ngf-resize-if="$width > 1024 || $height > 1024"
+                                ngf-before-model-change="vm.beforeChange($files)" multiple>
+                          <i class="glyphicon glyphicon-plus"></i> Agregar
+                        </button>
                       </div>
                 </h2>
                 <br /><br />
@@ -507,7 +586,7 @@
                     <div ng-repeat="file in vm.picFile">
                         <div class="col-md-3">
                             <div class="thumbnail" ng-click="vm.getFile(file)">
-                        <img ngf-src="vm.fileSelected ? file : file.fileImageURL"  alt="Lights" style="width:100%"
+                        <img ngf-src="vm.fileSelected && !vm.historiaclinica._id ? file : file.fileImageURL"  alt="Lights" style="width:100%"
                           ngf-drop>
                           </div>
                           <div ng-show="vm.showDeleteImage" class="text-center form-group">
@@ -525,19 +604,17 @@
                         </div>
                         <div ng-show="!vm.fileSelected" class="text-center form-group">
                           <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
-                            accept="image/*" ngf-before-model-change="vm.loading = true" ngf-resize="{width: 1024}" ngf-resize-if="$width > 1024 || $height > 1024"
-                            multiple>Select Picture</button>
+                            accept="image/*"  ngf-resize="{width: 1024}" ngf-resize-if="$width > 1024 || $height > 1024"
+                            multiple>Seleccionar Fotos</button>
                         </div>
                         <div ng-show="vm.fileSelected" class="text-center form-group">
-                          <button class="btn btn-primary" ng-click="vm.upload(vm.picFile)">Use This Picture</button>
                           <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
                         </div>
                         <div ng-show="vm.fileSelected" class="progress text-center">
-                          <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%"
-                            ng-bind="vm.progress + '%'">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'">
                             <span class="sr-only">{{vm.progress}}% Complete</span>
                           </div>
-                        </div> 
+                        </div>
                         </fieldset></form></div>      
               <!--    <div class="col-md-2">
                     <div class="thumbnail">
@@ -639,76 +716,48 @@
           <div id="menu4" class="tab-content" ng-show="selectedTab == 4">
             <br />
             <br />
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-3">
-                  <label class="control-label">
-                    <h4>
-                      <strong>DIAGNOSTIVO PRESUNTIVO: </strong>
-                    </h4>
-                  </label>
-                </div>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" ng-model="vm.historiaclinica.diagPresuantivo" />
-                </div>
-                <div class="col-sm-1">
-                  <label class="control-label">
-                    <h4>CIE-10: </h4>
-                  </label>
-                </div>
-                <div class="col-sm-3">
-                  <select class="form-control" ng-model="vm.ci10diagpresuantivo._id">
-                    <option ng-repeat="x in vm.cie10presuntivo" value="{{x._id}}">{{x.descripcion}}</option>
-                  </select>
-                  <!--<input type="text" class="form-control" ng-model="vm.historiaclinica.ci10diagpresuantivo"/>-->
-                </div>
+            <div class="container">
+            <div layout="row">
+                <md-input-container flex="80">
+                  <h4><label>DIAGNOSTIVO PRESUNTIVO</label></h4>
+                  <textarea required name="diagPresuntivo" ng-model="vm.historiaclinica.diagPresuantivo" md-maxlength="150" rows="2" md-select-on-focus maxlength="150"> </textarea>
+                  <div ng-messages="vm.form.historiaclinicaform.diagPresuntivo.$error">
+                      <div ng-message="required">Diagnóstico es requerido.</div>
+                    </div>               
+                </md-input-container>
+                <div flex="5" hide-xs hide-sm>
+                    <!-- Spacer //-->
+                  </div>
+                <md-input-container flex="30">
+                    <h4><label>CIE-10</label></h4>
+                  <md-select name="cie10presuntivo" ng-model="vm.ci10diagpresuantivo._id" required>
+                    <md-option ng-repeat="x in vm.cie10presuntivo" value="{{x._id}}">{{x.descripcion}}</md-option>
+                  </md-select>
+                </md-input-container>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-11">
-                  <textarea class="form-control" rows="2" ng-model="vm.historiaclinica.diagPresuantivoad"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-11">
-                  <label class="control-label">
-                    <h4>
-                      <strong>EX AUXILIARES: </strong>
-                    </h4>
-                  </label>
-                </div>
-                <div class="col-sm-11">
-                  <textarea type="text" class="form-control" rows="3" ng-model="vm.historiaclinica.ExamAux"></textarea>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-3">
-                  <label class="control-label">
-                    <h4>
-                      <strong>DIAGNOSTIVO DEFINITIVO: </strong>
-                    </h4>
-                  </label>
-                </div>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" ng-model="vm.historiaclinica.diagDefinitivo" />
-                </div>
-                <div class="col-sm-1">
-                  <label class="control-label">
-                    <h4>CIE-10: </h4>
-                  </label>
-                </div>
-                <div class="col-sm-3">
-                    <select class="form-control" ng-model="vm.ci10diagdefinitivo._id">
-                        <option ng-repeat="x in vm.cie10presuntivo" value="{{x._id}}">{{x.descripcion}}</option>
-                      </select>
-                  <!--<input type="text" class="form-control" ng-model="vm.historiaclinica.ci10diagdefinitivo"/>-->
-                </div>
+          
+              <md-input-container class="md-block">
+                  <h4><label>EX AUXILIARES</label></h4>
+                  <textarea ng-model="vm.historiaclinica.ExamAux" rows="2"></textarea>
+                </md-input-container>
+
+              <div layout="row">
+                    <md-input-container flex="80">
+                        <h4><label>DIAGNOSTIVO DEFINITIVO</label></h4>
+                      <textarea required name="diagDefinitivo" ng-model="vm.historiaclinica.diagDefinitivo" md-maxlength="150" rows="2" md-select-on-focus maxlength="150"> </textarea>
+                      <div ng-messages="vm.form.historiaclinicaform.diagDefinitivo.$error">
+                          <div ng-message="required">Diagnóstico es requerido.</div>
+                        </div>               
+                    </md-input-container>
+                    <div flex="5" hide-xs hide-sm>
+                        <!-- Spacer //-->
+                      </div>
+                    <md-input-container flex="30">
+                        <h4><label>CIE-10</label></h4>
+                      <md-select name="cie10definitivo" ng-model="vm.ci10diagdefinitivo._id" required>
+                        <md-option ng-repeat="x in vm.cie10presuntivo" value="{{x._id}}">{{x.descripcion}}</md-option>
+                      </md-select>
+                    </md-input-container>
               </div>
             </div>
             <br />
@@ -745,16 +794,18 @@
                       </em>
                     </small>
                   </div>
-                <div class="col-sm-11">
+                <div class="col-sm-10">
                   <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.TerapeuticaPodo" ng-disabled="vm.disabledivTerapeutica"></textarea>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" data-toggle="tooltip" title="Editar" ng-click="vm.activeDivTerapeutica()" ng-show="vm.disableButtonTera">
+                    <md-button class="md-fab md-mini md-primary" aria-label="Editar" ng-click="vm.activeDivTerapeutica()" ng-show="vm.disableButtonTera">
+                        <md-tooltip md-direction="bottom">Editar</md-tooltip>
                         <i class="glyphicon glyphicon-edit"></i>
-                      </a>
-                    <a class="btn btn-primary" ng-click="vm.addDiv()" data-toggle="tooltip" title="Nueva Terapia Podológica" ng-show="vm.disableButtonTera2">
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="Nueva Terapia Podológica" ng-click="vm.addDiv()" ng-show="vm.disableButtonTera2">
+                        <md-tooltip md-direction="bottom">Nueva Terapia Podológica</md-tooltip>
                         <i class="glyphicon glyphicon-plus"></i>
-                      </a>
+                    </md-button>
                 </div>
               </div>
             </div>
@@ -767,7 +818,7 @@
                         <span ng-bind="terapeutica.fecha | date:'fullDate'"></span>
                       </em>
                     </small>
-                <div class="col-sm-11">
+                <div class="col-sm-10">
                   <textarea type="text" class="form-control" rows="4" ng-model="terapeutica.descripcion" ng-disabled="vm.disabledivTerapeutica"></textarea>
                 </div>
               </div>
@@ -796,16 +847,18 @@
                           </em>
                         </small>
                       </div>
-                <div class="col-sm-11">
+                <div class="col-sm-10">
                   <textarea type="text" class="form-control" rows="4" ng-model="vm.historiaclinica.IndicacionesDeriv" ng-disabled="vm.disabledivIndicaciones"></textarea>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" data-toggle="tooltip" title="Editar" ng-click="vm.activeDivIndicaciones()" ng-show="vm.disableButtonIndi">
-                        <i class="glyphicon glyphicon-edit"></i>
-                      </a>
-                    <a class="btn btn-primary" ng-click="vm.addDivIndicaciones()" data-toggle="tooltip" title="Nueva Terapia Podológica" ng-show="vm.disableButtonIndi2">
-                        <i class="glyphicon glyphicon-plus"></i>
-                      </a>
+                    <md-button class="md-fab md-mini md-primary" aria-label="Editar" ng-click="vm.activeDivIndicaciones()" ng-show="vm.disableButtonIndi">
+                        <md-tooltip md-direction="bottom">Editar</md-tooltip> 
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="Nueva Indicación" ng-click="vm.addDivIndicaciones()" ng-show="vm.disableButtonIndi2">
+                        <md-tooltip md-direction="bottom">Nueva Indicación</md-tooltip>  
+                      <i class="glyphicon glyphicon-plus"></i>
+                    </md-button>
                 </div>
               </div>
             </div>
@@ -818,7 +871,7 @@
                             <span ng-bind="indicaciones.fecha | date:'fullDate'"></span>
                           </em>
                         </small>
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                       <textarea type="text" class="form-control" rows="4" ng-model="indicaciones.descripcion" ng-disabled="vm.activeDivIndicaciones"></textarea>
                     </div>
                   </div>
@@ -835,7 +888,7 @@
                   <i class="fa fa-chevron-left"></i> Back</button>
               </li>
               <li>
-                <button type="submit" class="btn btn-success" ng-click="vm.save()">
+                <button type="submit" class="btn btn-success" ng-click="vm.save(vm.form.historiaclinicaform.$valid)">
                   <i class="fa fa-check"></i> Done!</button>
               </li>
               <br /><br />
@@ -853,7 +906,34 @@
   </div>
   <br /><br /><br /><br />
 
+  <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
 
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools" md-autofocus>Estado del Paciente</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+          <p style="font-size:.8em;color: green;width: 100%">
+              Elige el estado del paciente, el color del registro cambiará dependiendo del estado:<br />
+              *En Espera: "Sin Color", <br />
+              *Curado:    "Verde", <br />
+             *No Curado: "Rojo"
+          </p>
+        <form>
+            <md-radio-group ng-model="vm.historiaclinica.estadoPaciente">
+
+                <md-radio-button ng-repeat="x in vm.estadosPaciente" value={{x.value}} class="md-primary">{{x.desc}}</md-radio-button>
+
+              </md-radio-group>
+        </form>
+        <md-button ng-click="vm.save(vm.form.historiaclinicaform.$valid)" class="md-primary">
+          Actualizar
+          </md-button>
+        <md-button ng-click="vm.closeNav()" class="md-primary">
+          Cerrar
+        </md-button>
+      </md-content>
+
+    </md-sidenav>
 
   <!--<div class="form-group">
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-4">
@@ -904,4 +984,5 @@
 </div>-->
 
 <br /><br />
+</form>
 </section>

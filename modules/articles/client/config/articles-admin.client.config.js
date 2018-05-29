@@ -10,7 +10,7 @@
 
   function menuConfig(Menus) {
     Menus.addSubMenuItem('topbar', 'admin', {
-      title: 'Manage Articles',
+      title: 'Manage CIE-10',
       state: 'admin.articles.list'
     });
   }
