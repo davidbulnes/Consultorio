@@ -21,7 +21,6 @@
     "chart.js": "^2.7.2",
     "angular-chart.js": "^1.1.1",
     "angular-pintura": "^0.2.0",
-    "material-design-icons": "^3.0.1",
     "angular-data-grid": "*"
   },
   "overrides": {
