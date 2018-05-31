@@ -569,8 +569,8 @@
 
             <div class="container">
 
-                <h2>Image Gallery
-                    <div class="pull-right">
+                <h2>Imágenes
+                    <div class="pull-right" ng-show="vm.showVisor">
                         <a class="btn btn-primary" ng-click="vm.showDeleteImg()" data-toggle="tooltip" title="Editar">
                           <i class="glyphicon glyphicon-edit"></i> Editar
                         </a>
@@ -602,7 +602,7 @@
                       <div ng-show="vm.loading" class="form-group text-center">
                           <img ng-src="/modules/core/client/img/loaders/loader.gif" height="50" width="50" alt="Loading image...">
                         </div>
-                        <div ng-show="!vm.fileSelected" class="text-center form-group">
+                        <div ng-show="!vm.fileSelected && !vm.showVisor" class="text-center form-group">
                           <button class="btn btn-default btn-file" ngf-select="(vm.fileSelected = true) && (vm.loading = false)" ng-model="vm.picFile"
                             accept="image/*"  ngf-resize="{width: 1024}" ngf-resize-if="$width > 1024 || $height > 1024"
                             multiple>Seleccionar Fotos</button>
@@ -610,11 +610,11 @@
                         <div ng-show="vm.fileSelected" class="text-center form-group">
                           <button class="btn btn-default" ng-click="vm.fileSelected = false">Cancel</button>
                         </div>
-                        <div ng-show="vm.fileSelected" class="progress text-center">
+                    <!--     <div ng-show="vm.fileSelected" class="progress text-center">
                           <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progress}}%" ng-bind="vm.progress + '%'">
                             <span class="sr-only">{{vm.progress}}% Complete</span>
                           </div>
-                        </div>
+                        </div>-->
                         </fieldset></form></div>      
               <!--    <div class="col-md-2">
                     <div class="thumbnail">
