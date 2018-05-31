@@ -818,6 +818,7 @@
                         <span ng-bind="terapeutica.fecha | date:'fullDate'"></span>
                       </em>
                     </small>
+                    <br />
                 <div class="col-sm-10">
                   <textarea type="text" class="form-control" rows="4" ng-model="terapeutica.descripcion" ng-disabled="vm.disabledivTerapeutica"></textarea>
                 </div>
@@ -871,8 +872,9 @@
                             <span ng-bind="indicaciones.fecha | date:'fullDate'"></span>
                           </em>
                         </small>
+                        <br />
                     <div class="col-sm-10">
-                      <textarea type="text" class="form-control" rows="4" ng-model="indicaciones.descripcion" ng-disabled="vm.activeDivIndicaciones"></textarea>
+                      <textarea type="text" class="form-control" rows="4" ng-model="indicaciones.descripcion" ng-disabled="vm.disabledivIndicaciones"></textarea>
                     </div>
                   </div>
                 </div>

@@ -115,14 +115,14 @@ exports.update = function(req, res) {
   }).then(loopTeraPodo).then(saveTeraPodo).then(loopIndicaciones).then(saveIndicaciones);
 
   function loopTeraPodo(){
-    if(req.body.terapeuticapodologica.length != 1){
+    if(req.body.terapeuticapodologica.length != 0){
     for (var i = 0; i < countTerapia; i++) {
       updateTeraPodo(i);
         }
       }
     }; 
   function loopIndicaciones(){
-    if(req.body.indicaciones.length != 1){
+    if(req.body.indicaciones.length != 0){
       for (var i = 0; i < countIndicaciones; i++) {
         updateIndicaciones(i);
           }

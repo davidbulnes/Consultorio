@@ -57,7 +57,8 @@
   <div class="page-header">  
           <div class="form-group" >
             <br />
-            <label class="control-label col-sm-7"><h4>FICHA CLÍNICA PODOLÓGICA N°:</h4></label>
+            <div class="col-sm-3"><img src="/modules/core/client/img/logo_min.png" style="padding-left: 20px"></img></div>
+            <label class="control-label col-sm-4"><h4>FICHA CLÍNICA PODOLÓGICA N°:</h4></label>
             <div class="col-sm-4">
                 <h4><p class="form-control-static">{{vm.historiaclinica.numeroHC}}</p></h4>
             </div>
@@ -222,7 +223,6 @@
             <strong>III.- EXAMEN FÍSICO/CLÍNICO EEII</strong>
           </h4>
         </div>
-        <br />
         <br />
         <br />
       <div class="modal-body">
@@ -422,6 +422,152 @@
         </div>
         </div>
         <br />
+        <div class="modal-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-3">
+              <label class="control-label">
+                <h4>
+                  <strong>DIAGNOSTIVO PRESUNTIVO: </strong>
+                </h4>
+              </label>
+            </div>
+            <div class="col-sm-5">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.diagPresuantivo}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">
+                <h4>CIE-10: </h4>
+              </label>
+            </div>
+            <div class="col-sm-3">
+                <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.ci10diagpresuantivo.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.diagPresuantivoad}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="control-label">
+                <h4>
+                  <strong>EX AUXILIARES: </strong>
+                </h4>
+              </label>
+            </div>
+            <div class="col-sm-12">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.ExamAux}}</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-3">
+              <label class="control-label">
+                <h4>
+                  <strong>DIAGNOSTIVO DEFINITIVO: </strong>
+                </h4>
+              </label>
+            </div>
+            <div class="col-sm-5">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.diagDefinitivo}}</p>
+            </div>
+            <div class="col-sm-1">
+              <label class="control-label">
+                <h4>CIE-10: </h4>
+              </label>
+            </div>
+            <div class="col-sm-3">
+                <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.ci10diagdefinitivo.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label class="control-label">
+                <h4>
+                  <strong>VI.- TERAPEUTICA PODOLÓGICA </strong>
+                </h4>
+              </label>
+            </div>
+            <br />
+            <div>
+            <small style="padding-left: 15px">
+              <em class="text-muted">
+                Fecha: 
+                <span ng-bind="vm.historiaclinica.created | date:'fullDate'"></span>
+              </em>
+            </small>
+            <div class="col-sm-12">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.TerapeuticaPodo}}</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div ng-repeat="terapeutica in vm.terapeuticaPodologica">
+        <div class="form-group">
+          <div class="row">
+              <small style="padding-left: 15px">
+                  <em class="text-muted">
+                    Fecha: 
+                    <span ng-bind="terapeutica.fecha | date:'fullDate'"></span>
+                  </em>
+                </small>
+            <div class="col-sm-12">
+              <p class="form-control-static" style="border-bottom: 1px solid black">{{terapeutica.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+
     </div>
+    <br />
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="control-label">
+            <h4>
+              <strong>VII.- INDICACIONES, DERIVACIONES Y PRÓXIMA CITA </strong>
+            </h4>
+          </label>
+        </div>
+        <br />
+        <div>
+        <small style="padding-left: 15px">
+          <em class="text-muted">
+            Fecha: 
+            <span ng-bind="vm.historiaclinica.created | date:'fullDate'"></span>
+          </em>
+        </small>
+        <div class="col-sm-12">
+          <p class="form-control-static" style="border-bottom: 1px solid black">{{vm.historiaclinica.IndicacionesDeriv}}</p>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div ng-repeat="indicaciones in vm.indicacionesDerv">
+    <div class="form-group">
+      <div class="row">
+          <small style="padding-left: 15px">
+              <em class="text-muted">
+                Fecha: 
+                <span ng-bind="indicaciones.fecha | date:'fullDate'"></span>
+              </em>
+            </small>
+        <div class="col-sm-12">
+          <p class="form-control-static" style="border-bottom: 1px solid black">{{indicaciones.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+
+</div>
   </form>
 </section>
