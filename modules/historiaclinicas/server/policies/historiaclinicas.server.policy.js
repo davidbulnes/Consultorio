@@ -40,10 +40,25 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/historiaclinicas',
-      permissions: ['get', 'post']
+      permissions: '*'
     }, {
       resources: '/api/historiaclinicas/:historiaclinicaId',
-      permissions: ['get']
+      permissions: '*'
+    },{
+      resources: '/api/picture',
+      permissions: '*'
+    },{
+      resources: '/api/terapia',
+      permissions: '*'
+    },{
+      resources: '/api/cie10presuntivo',
+      permissions: '*'
+    },{
+      resources: '/api/fotohistoria/:fotohistoriaId',
+      permissions: '*'
+    },{
+      resources: '/api/fotobynumerohc/:numeroHC',
+      permissions: '*'
     }]
   }, {
     roles: ['guest'],

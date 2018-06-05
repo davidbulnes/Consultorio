@@ -55,13 +55,11 @@
         angular.forEach(data, function(value,key){
           vm.dataLine.push(value.suma);
         });
-        console.log(vm.dataLine)
       });
     }
 
     function setVisibility(){
       var url = $location.path().split(/[\s/]+/).pop();
-      console.log(url);
       if(url == 'reports1' || url == 'reports2' || url == 'reports3'){
         vm.enableHomePag = false;
       }
@@ -73,7 +71,6 @@
           data[key].startsAt = moment.utc(value.startsAt).local().toDate();
         });
         vm.meetDay = data;
-        console.log(data);
       })
     }
 

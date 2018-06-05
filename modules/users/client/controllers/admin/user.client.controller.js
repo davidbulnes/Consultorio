@@ -14,7 +14,9 @@
     vm.user = user;
     vm.remove = remove;
     vm.update = update;
+    vm.create = create;
     vm.isContextUserSelf = isContextUserSelf;
+    vm.usernameRegex = /^(?=[\w.-]+$)(?!.*[._-]{2})(?!\.)(?!.*\.$).{3,34}$/;
 
     function remove(user) {
       if ($window.confirm('Are you sure you want to delete this user?')) {
@@ -49,6 +51,21 @@
       }, function (errorResponse) {
         Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> User update error!' });
       });
+    }
+
+    function create(isValid){
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.userForm');
+
+        return false;
+      }
+      var user = vm.user;
+      user.$save(function (){ 
+        $state.go('admin.users');
+      Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Usuario creado con éxito' });
+    }, function (errorResponse) {
+      Notification.error({ message: errorResponse.data.message, title: '<i class="glyphicon glyphicon-remove"></i> error!' });
+    })
     }
 
     function isContextUserSelf() {

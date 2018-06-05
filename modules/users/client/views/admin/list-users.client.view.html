@@ -2,11 +2,17 @@
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
-        <h1>Users</h1>
+        <h1>Usuarios</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()" />
+        <input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Buscar" ng-change="vm.figureOutItemsToDisplay()" />
       </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <a class="btn btn-primary pull-right" data-ui-sref="admin.user-create">
+            <md-tooltip md-direction="bottom">Crear Usuario</md-tooltip>
+          <i class="glyphicon glyphicon-plus"></i>
+        </a>
+        </div>
     </div>
   </div>
   <div class="list-group">

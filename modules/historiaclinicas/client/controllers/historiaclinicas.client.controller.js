@@ -10,7 +10,6 @@
 
   function HistoriaclinicasController ($timeout, $scope, $state, $uibModal, $window, Authentication, historiaclinica, Cie10presuntivoService, FotoshistoriaclinicaService, FotobynumerohcService, moment, Upload, Notification, $compile, h2c, $mdSidenav) {
     var vm = this;
-    console.log(historiaclinica);
     $window.scrollTo(0,0);
     vm.authentication = Authentication;
     vm.historiaclinica = historiaclinica;
@@ -64,7 +63,6 @@
       vm.picFile = vm.historiaclinica.fotos;
       vm.ci10diagpresuantivo = vm.historiaclinica.cie10presuntivo;
       vm.ci10diagdefinitivo = vm.historiaclinica.cie10definitivo;
-      console.log(vm.historiaclinica)
     }
 
     vm.isOpenRight = function(){
@@ -147,7 +145,6 @@
       }
 
       function errorCallback(res) {
-        console.log(res);
         vm.error = res.data.message;
       }
     }
@@ -207,33 +204,6 @@
       Notification.error({ message: response.message, title: '<i class="glyphicon glyphicon-remove"></i> Failed upload picture' });
     }*/
   }
-
-    /*vm.picFile = [
-
-              {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-  
-              {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-      
-              {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-      
-              {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-      
-              {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-      
-              {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'},
-              {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-  
-              {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-      
-              {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-      
-              {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-      
-              {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-      
-              {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-      
-          ];*/
       
     vm.addDiv = function(){
       $("#parent1")
@@ -262,7 +232,6 @@
 
     vm.getFile = function(file){
       vm.picFileSelect = file;
-      console.log(vm.picFileSelect);
     }
 
     vm.showDeleteImg = function(){
@@ -306,7 +275,6 @@
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Imágenes guardadas con éxito' });
       vm.picFile = [];
       vm.picFile = response.data;
-      console.log(response)
       //getPhotos();
       // Reset form
       //vm.fileSelected = false;
@@ -314,7 +282,6 @@
     }
 
     function getPhotos(){
-      console.log('paso')
       FotobynumerohcService.get({numeroHC : vm.historiaclinica.numeroHC}, function(response){
         vm.picFile = response;
       })
@@ -330,7 +297,6 @@
     }
 
     vm.showWarnigPaciente = function(){
-      console.log('pasa')
       if(!vm.selecPaciente){
         Notification.warning({ message: '', title: '<i class="glyphicon glyphicon-remove"></i> Debe seleccionar un paciente' });
       }
@@ -347,7 +313,6 @@
         popupWinindow.document.open();
         popupWinindow.document.write('<html><body onload="window.print()">' + popupWinindow.document.appendChild(document.getElementsByTagName('canvas')[0]) + '</html>')
         popupWinindow.document.close();
-        console.log(document.getElementsByTagName('canvas')[0])
       });
     }
   }

@@ -46,7 +46,7 @@ exports.renderIndex = function (req, res) {
   rule.minute = 34;
 
   schedule.scheduleJob(rule, function () {
-    console.log('Faquito tiene un chupito');
+    console.log('Recordatorio');
   });
 };
 
@@ -85,7 +85,6 @@ exports.renderNotFound = function (req, res) {
 exports.reportBarras = function(req, res) {
   var currentTime = new Date();
   var yearnow = currentTime.getFullYear().toString();
-  console.log(yearnow);
   var totalcie = [];
   var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},
     {_id: 5 , suma: 0},{_id: 6 , suma: 0},{_id: 7 , suma: 0},{_id: 8 , suma: 0},
@@ -238,7 +237,7 @@ exports.listPastel = function(req, res){
   var currentTime = new Date();
   var yearnow = currentTime.getFullYear().toString();
   var total = [];
-  //var objEstados = [{_id: 0 , suma: 0}, {_id: 1, suma: 0}, {_id: 2, suma: 0}]
+  var objpacientes = [{_id:0, desc:'En espera', suma: 0},{_id:1, desc:'Curado', suma: 0},{_id:2, desc:'No Curado', suma: 0}]
   Historiaclinica.aggregate({
     "$match" : { "yearCreated" : yearnow}},{
     "$group" : {"_id" : "$estadoPaciente" , "suma" : {"$sum" : 1}}
@@ -248,7 +247,16 @@ exports.listPastel = function(req, res){
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(datareport);
+      for (let i = 0; i < datareport.length; i++) {
+        if(datareport[i]._id === "En espera"){
+          objpacientes[0].suma = datareport[i].suma;
+        }else if(datareport[i]._id === "Curado"){
+          objpacientes[1].suma = datareport[i].suma;
+        }else if(datareport[i]._id === "No Curado"){
+          objpacientes[2].suma = datareport[i].suma;
+        }
+      }
+      res.jsonp(objpacientes);
     }
   });
 }
@@ -263,8 +271,6 @@ exports.getMeedDay = function(req, res){
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log(startDate);
-      console.log(endDate);
       res.jsonp(meets);
     }
   });

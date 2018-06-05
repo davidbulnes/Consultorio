@@ -39,6 +39,17 @@
         data: {
           pageTitle: '{{ userResolve.displayName }}'
         }
+      }).state('admin.user-create', {
+        url: '/create',
+        templateUrl: '/modules/users/client/views/authentication/signup.client.view.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+        resolve: {
+          userResolve: newUser
+        },
+        data: {
+          pageTitle: 'Nuevo Usuario'
+        }
       });
 
     getUser.$inject = ['$stateParams', 'AdminService'];
@@ -47,6 +58,12 @@
       return AdminService.get({
         userId: $stateParams.userId
       }).$promise;
+    }
+
+    newUser.$inject = ['AdminService'];
+
+    function newUser(AdminService) {
+    return new AdminService();
     }
   }
 }());

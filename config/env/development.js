@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   app: {
-    title: defaultEnvConfig.app.title + ' - Podología'
+    title: defaultEnvConfig.app.title + ' Consultorio'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'APP_ID',

@@ -33,7 +33,7 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          roles: ['admin', 'eli', 'gio']
+          roles: ['admin', 'eli', 'gio', 'user']
         }
       })
       .state('home.barras', {
@@ -42,7 +42,8 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Reporte de Barras'
+          pageTitle: 'Reporte de Barras',
+          roles: ['admin', 'eli', 'gio', 'user']
         }
       })
       .state('home.pastel', {
@@ -51,7 +52,8 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Reporte de Pastel'
+          pageTitle: 'Reporte de Pastel',
+          roles: ['admin', 'eli', 'gio', 'user']
         }
       })
       .state('home.line', {
@@ -60,7 +62,8 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Reporte Lineal'
+          pageTitle: 'Reporte Lineal',
+          roles: ['admin', 'eli', 'gio', 'user']
         }
       })
       .state('homes.last', {
@@ -69,7 +72,8 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'Ultima Atencion'
+          pageTitle: 'Ultima Atencion',
+          roles: ['admin', 'eli', 'gio', 'user']
         }
       })
       .state('not-found', {

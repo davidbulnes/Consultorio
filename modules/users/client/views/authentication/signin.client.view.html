@@ -7,24 +7,24 @@
           <uib-alert type="danger" ng-show="vm.error" class="text-center text-danger">
             <span ng-bind="vm.error"></span>
           </uib-alert>
-          <label for="usernameOrEmail">Username or Email</label>
+          <label for="usernameOrEmail">Usuario o Email</label>
           <input type="text" id="usernameOrEmail" name="usernameOrEmail" class="form-control" ng-model="vm.credentials.usernameOrEmail" placeholder="Username or Email" required autofocus>
           <div ng-messages="vm.userForm.usernameOrEmail.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Username or Email is required.</p>
+            <p class="help-block error-text" ng-message="required">Usuario o Email es requerido.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
-          <label for="password">Password</label>
+          <label for="password">Contraseña</label>
           <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" required>
           <div ng-messages="vm.userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Password is required.</p>
+            <p class="help-block error-text" ng-message="required">Contraeña es requerida.</p>
           </div>
         </div>
         <div class="text-center form-group">
-          <button type="submit" class="btn btn-primary">Sign in</button>
+          <button type="submit" class="btn btn-primary">Iniciar sesión</button>
         </div>
         <div class="text-center forgot-password">
-          <a ui-sref="password.forgot">Forgot your password?</a>
+          <a ui-sref="password.forgot">Olvidaste tu contraseña?</a>
         </div>
         <br />
       </fieldset>

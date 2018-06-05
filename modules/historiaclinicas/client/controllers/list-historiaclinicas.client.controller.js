@@ -27,7 +27,6 @@
       angular.forEach(data, function(value,key){
         data[key].fechaCreated = moment(value.fechaCreated).startOf('day').toDate();
         data[key].pacienteFullName = data[key].paciente.name + ' ' + data[key].paciente.lastName;
-        console.log(data[key].pacienteFullName);
       })
       vm.gridOptions.data = data;
       vm.historiaclinicas = data;

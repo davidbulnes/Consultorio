@@ -13,18 +13,18 @@
       title: 'Pacientes',
       state: 'paciente',
       type: 'dropdown',
-      roles: ['admin', 'eli', 'gio']
+      roles: ['admin', 'eli', 'gio', 'user']
     });
 
      menuService.addSubMenuItem('topbar', 'paciente', {
       title: 'Listar Pacientes',
       state: 'paciente.list',
-      roles: ['admin', 'eli', 'gio']
+      roles: ['admin', 'eli', 'gio', 'user']
     });
     menuService.addSubMenuItem('topbar', 'paciente', {
       title: 'Registrar Paciente',
       state: 'paciente.create',
-      roles: ['admin', 'eli', 'gio']
+      roles: ['admin', 'eli', 'gio', 'user']
     });
   }
 }());

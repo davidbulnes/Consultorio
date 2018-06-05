@@ -109,7 +109,6 @@ exports.update = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      console.log('Actualizazo Historia')
       res.jsonp(historiaclinica);
     }
   }).then(loopTeraPodo).then(saveTeraPodo).then(loopIndicaciones).then(saveIndicaciones);
@@ -137,7 +136,7 @@ exports.update = function(req, res) {
               message: errorHandler.getErrorMessage(err)
           });
             } else {
-              console.log('Actualizo Terapia')
+              console.log(' ')
             }
      });
   };
@@ -150,7 +149,7 @@ exports.update = function(req, res) {
               message: errorHandler.getErrorMessage(err)
           });
             } else {
-              console.log('Actualizo Indicaciones')
+              console.log(' ')
             }
      });
   };
@@ -163,7 +162,7 @@ exports.update = function(req, res) {
             message: errorHandler.getErrorMessage(err)
         });
           } else {
-            console.log('Guardó Terapia')
+            console.log(' ')
             //res.jsonp(historiaclinica);
           }
     });
@@ -177,7 +176,7 @@ exports.update = function(req, res) {
             message: errorHandler.getErrorMessage(err)
         });
           } else {
-            console.log('Guardó Indicaciones')
+            console.log(' ')
             //res.jsonp(historiaclinica);
           }
     });
@@ -263,7 +262,6 @@ exports.historiaclinicaByID = function(req, res, next, id) {
 
 exports.deletePicture = function(req, res){
   var id = req.params.fotohistoriaId;
-  console.log('pasó')
   FotosHistoriaClinica.findById(id).exec(function(err, fotos){
     if (err) {
       return res.status(400).send({
@@ -278,7 +276,6 @@ exports.deletePicture = function(req, res){
         } else {
           FotosHistoriaClinica.find({nrohistoriaClinica : nroHistoria}).exec(function(err, jsonfotos){
             res.jsonp(jsonfotos);
-            console.log(jsonfotos);
           });
         }
       });
@@ -349,19 +346,6 @@ exports.savePicture = function (req, res) {
       });
     });
   }
- /* function updatePhoto() {
-    return new Promise(function (resolve, reject) {
-      fotosHistoriaClinica.fileImageURL = config.uploads.storage === 's3' && config.aws.s3 ?
-      req.file.location : '/' + req.file.path;
-      fotosHistoriaClinica.save(function (err) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }*/
 };
 
 exports.getPictures = function(req, res){
@@ -373,11 +357,7 @@ exports.getPictures = function(req, res){
         });
       } else {
         res.jsonp(fotosHistoria);
-        //console.log(fotosHistoria);
       } 
   });
 }
 
-var loopSavePicture = function(){
-  console.log('funciona')
-}

@@ -8,6 +8,24 @@ var path = require('path'),
   User = mongoose.model('User'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
+
+  exports.create = function (req, res) {
+    var user = new User(req.body);
+    user.provider = 'local';
+    user.displayName = user.firstName + ' ' + user.lastName;
+    user.save(function (err) {
+      if (err) {
+        return res.status(422).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        // Remove sensitive data
+        user.password = undefined;
+        user.salt = undefined;
+        res.json(user);  
+      }
+    });
+  }
 /**
  * Show the current user
  */

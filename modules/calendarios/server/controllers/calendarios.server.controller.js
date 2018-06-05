@@ -22,7 +22,6 @@ exports.create = function (req, res) {
   var calendario = new Calendario(req.body);
   calendario.user = req.user;
   var paciente = new Paciente(req.body.paciente);
-  console.log(req.body);
   calendario.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -137,7 +136,6 @@ var sendMail = function (calendario, paciente, res) {
       }, function (err, emailHTML) {
         done(err, emailHTML);
       });
-      console.log('paso')
     },
     // If valid email, send reset email using service
     function (emailHTML, done) {

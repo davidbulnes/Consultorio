@@ -10,7 +10,6 @@
 
   function PacientesController ($scope, $state, $window, Authentication, pacientes) {
     var vm = this;
-    console.log(pacientes);
     $window.scrollTo(0,0);
     vm.authentication = Authentication;
     vm.pacientes = pacientes;
@@ -38,7 +37,6 @@
       if (vm.pacientes._id) {
         vm.pacientes.$update(successCallback, errorCallback);
       } else {
-        console.log(vm.pacientes);
         vm.pacientes.$save(successCallback, errorCallback);
       }
 
