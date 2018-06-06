@@ -22,7 +22,8 @@ module.exports = {
         'public/lib/moment/min/moment-with-locales.min.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',  
         'public/lib/angular-animate/angular-animate.min.js',
-        'public/lib/angular-aria/angular-aria.min.js',
+        //'public/lib/angular-aria/angular-aria.min.js',
+        'modules/core/client/js/angular-aria/angular-aria.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
         'public/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js',
@@ -38,7 +39,8 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.min.js',
         'public/lib/konva/konva.min.js',
         'public/lib/angular-pintura/angular-pintura.min.js',
-        'public/lib/angular-material/angular-material.min.js',
+        //'public/lib/angular-material/angular-material.min.js',
+        'modules/core/client/js/angular-material/angular-material.min.js',
         'public/lib/angular-data-grid/dist/pagination.min.js',
         'public/lib/angular-data-grid/dist/dataGrid.min.js'
         // endbower

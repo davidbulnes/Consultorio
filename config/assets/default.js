@@ -23,7 +23,8 @@ module.exports = {
         'public/lib/moment/min/moment-with-locales.js',
         'public/lib/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.js',  
         'public/lib/angular-animate/angular-animate.js',
-        'public/lib/angular-aria/angular-aria.js',
+        //'public/lib/angular-aria/angular-aria.js',
+        'modules/core/client/js/angular-aria/angular-aria.js',
         'public/lib/angular-touch/angular-touch.min.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
@@ -40,7 +41,8 @@ module.exports = {
         'public/lib/angular-chart.js/dist/angular-chart.js',
         'public/lib/konva/konva.js',
         'public/lib/angular-pintura/angular-pintura.js',
-        'public/lib/angular-material/angular-material.js',
+       // 'public/lib/angular-material/angular-material.js',
+        'modules/core/client/js/angular-material/angular-material.js',
         'public/lib/angular-data-grid/dist/pagination.js',
         'public/lib/angular-data-grid/dist/dataGrid.js'
 
