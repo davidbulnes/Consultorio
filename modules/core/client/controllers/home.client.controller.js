@@ -42,7 +42,7 @@
       var year = d.getFullYear();
       var month = d.getMonth();
       var day = d.getDate();
-      for (let i = -10; i < 11; i++) {
+      for (var i = -10; i < 11; i++) {
         var c = new Date(year+i, month ,day);
         vm.cie10byyear.push({fecha: c , ano: c.getFullYear() }); 
       }
