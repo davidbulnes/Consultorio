@@ -141,7 +141,7 @@ exports.reportBarras = function(req, res) {
   }
       totalcie[0] = objciemasculino;
       totalcie[1] = objciefemenino;
-      //console.log(totalcie);
+      console.log(totalcie);
       res.jsonp(totalcie);
     }
   })});
@@ -168,7 +168,7 @@ exports.reportBarras = function(req, res) {
 
 exports.listbarrasbyId = function(req, res){
   var id = mongoose.Types.ObjectId(req.params.cie10id);
-  var year = req.params.yearcie10;
+  var year = req.params.yearcie10.toString();
   //var cie10 = req.params.cie10id;
   var totalcie = [];
   var objciemasculino = [{_id: 1 , suma: 0},{_id: 2 , suma: 0},{_id: 3 , suma: 0},{_id: 4 , suma: 0},

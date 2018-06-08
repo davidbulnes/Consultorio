@@ -274,6 +274,7 @@ exports.deletePicture = function(req, res){
             message: errorHandler.getErrorMessage(err)
           });
         } else {
+          deleteImagePath(fotos);
           FotosHistoriaClinica.find({nrohistoriaClinica : nroHistoria}).exec(function(err, jsonfotos){
             res.jsonp(jsonfotos);
           });
@@ -281,6 +282,52 @@ exports.deletePicture = function(req, res){
       });
     }
   });
+
+  function deleteImagePath(foto) {
+    return new Promise(function (resolve, reject) {
+        if (useS3Storage) {
+          try {
+            var { region, bucket, key } = amazonS3URI(foto.fileImageURL);
+            var params = {
+              Bucket: config.aws.s3.bucket,
+              Key: key
+            };
+
+            s3.deleteObject(params, function (err) {
+              if (err) {
+                console.log('Error occurred while deleting picture.');
+                console.log('Check if you have sufficient permissions : ' + err);
+              }
+
+              resolve();
+            });
+          } catch (err) {
+            console.warn(`${foto.fileImageURL} is not a valid S3 uri`);
+
+            return resolve();
+          }
+        } else {
+          fs.unlink(path.resolve('.' + foto.fileImageURL), function (unlinkError) {
+            if (unlinkError) {
+
+              // If file didn't exist, no need to reject promise
+              if (unlinkError.code === 'ENOENT') {
+                console.log('Removing image failed because file did not exist.');
+                return resolve();
+              }
+
+              console.error(unlinkError);
+
+              reject({
+                message: 'Error occurred while deleting picture'
+              });
+            } else {
+              resolve();
+            }
+          });
+        }
+    });
+  }
 
 }
 
@@ -293,7 +340,6 @@ exports.deletePicture = function(req, res){
 exports.savePicture = function (req, res) {
   var existingImageUrl;
   var multerConfig;
-  loopSavePicture();
   if(useS3Storage){
     multerConfig = {
       storage: multerS3({
