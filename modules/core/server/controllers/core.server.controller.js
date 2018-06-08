@@ -141,7 +141,6 @@ exports.reportBarras = function(req, res) {
   }
       totalcie[0] = objciemasculino;
       totalcie[1] = objciefemenino;
-      console.log(totalcie);
       res.jsonp(totalcie);
     }
   })});
