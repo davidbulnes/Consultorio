@@ -28,7 +28,7 @@
           <th>Fecha Inicio</th>
           <th>Fecha Fin</th>
           <th>Motivo</th>
-          <th ng-if="!vm.cita._id && vm.type">Paciente</th>
+          <th ng-if="!vm.cita._id">Paciente</th>
         </tr>
       </thead>
 
@@ -82,7 +82,7 @@
           <td>
             <textarea class="form-control" rows="6" ng-model="vm.cita.description"> </textarea>
           </td>
-          <td ng-if="!vm.cita._id && vm.type">
+          <td ng-if="!vm.cita._id">
             <p><button class="btn btn-info" ng-click="vm.openTable()">Buscar Paciente</button></p>
             <p><input class="form-control col-md-4" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()"
               /></p>
@@ -124,7 +124,7 @@
         </div>
       </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="vm.selectPaciente">OK</button>
+          <button class="btn btn-primary" ng-click="vm.save()" ng-disabled="!vm.cita._id && vm.selectPaciente">OK</button>
           <button class="btn btn-primary" ng-click="vm.close()">Cancel</button>
         </div>
         </div>

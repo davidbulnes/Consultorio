@@ -37,35 +37,7 @@
       });
     }
 
-    /*vm.events = [
-      {
-        title: 'An event',
-        color: calendarConfig.colorTypes.warning,
-        //color: {primary: "#e3bc08", secondary: "#fdf1ba"},
-        startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-        endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }, {
-        title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-        color: calendarConfig.colorTypes.info,
-        startsAt: moment().subtract(1, 'day').toDate(),
-        endsAt: moment().add(5, 'days').toDate(),
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }, {
-        title: 'This is a really long event title that occurs on every year',
-        color: calendarConfig.colorTypes.important,
-        startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-        endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-        recursOn: 'year',
-        draggable: true,
-        resizable: true,
-        actions: actions
-      }
-    ]*/
+   
 
     function formatDate() {
       angular.forEach(vm.calendarios, function (value, key) {
@@ -85,7 +57,7 @@
       });
       console.log(vm.events)
     };*/
-    vm.addEvent = function (type) {
+    vm.addEvent = function () {
       var openModalCita = $uibModal.open({
         templateUrl: 'modules/calendarios/client/views/form-calendario.client.view.html',
         controller: 'CalendariosController',
@@ -93,8 +65,7 @@
         size: 'lg',
         windowClass: 'my-modal',
         resolve: {
-          citaResolve: newCalendario,
-          typeResolve: type
+          citaResolve: newCalendario
         }
       });
       openModalCita.result.then(function () {

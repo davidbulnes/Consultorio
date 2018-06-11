@@ -145,7 +145,6 @@ var sendMail = function (calendario, paciente, res) {
         subject: 'Cita Programada',
         html: emailHTML
       };
-      console.log(mailOptions);
       smtpTransport.sendMail(mailOptions, function (err) {
         if (!err) {
           res.send({

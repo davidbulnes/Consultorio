@@ -6,12 +6,11 @@
     .module('calendarios')
     .controller('CalendariosController', CalendariosController);
 
-  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance', 'Notification', 'typeResolve'];
+  CalendariosController.$inject = ['$scope', '$filter', 'moment', 'calendarConfig', 'PacientesService', 'citaResolve', '$uibModalInstance', 'Notification'];
 
-  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification, type) {
+  function CalendariosController($scope, $filter, moment, calendarConfig, PacientesService, cita, $uibModalInstance, Notification) {
     var vm = this;
     vm.cita = cita;
-    vm.type = type;
     vm.buildPager = buildPager;
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
     vm.pageChanged = pageChanged;
@@ -75,7 +74,6 @@
     vm.selectRow = function (cell) {
       vm.selectRows = cell;
       vm.cita.paciente = vm.selectRows;
-      console.log(vm.cita);
       vm.fullName = vm.selectRows.name + ' ' + vm.selectRows.lastName;
       vm.showTable = false;
       vm.selectPaciente = false;
@@ -99,7 +97,6 @@
         vm.cita.$update(successCallback, errorCallback);
       } else {
         vm.cita.$save(successCallback, errorCallback);
-        console.log('guardo');
       }
 
       function successCallback(res) {
