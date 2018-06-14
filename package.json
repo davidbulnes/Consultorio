@@ -10,7 +10,10 @@
     "type": "git",
     "url": "https://github.com/davidbulnes/Consultorio.git"
   },
- 
+  "engines": {
+    "node": "9.10.1",
+    "npm": "5.6.0"
+  },
   "scripts": {
     "update": "npm update && npm prune && npm run bower",
     "clean": "rm -rf node_modules/ public/lib/",
