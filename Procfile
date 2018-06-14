@@ -1,1 +1,1 @@
-web: gulp prod && npm start
+web: gulp prod
